@@ -822,12 +822,12 @@
             width: 100%;
             max-height: 80vh;
             overflow-y: auto;
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(30px) saturate(200%);
             -webkit-backdrop-filter: blur(30px) saturate(200%);
             border-radius: var(--radius-lg);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8);
             transform: scale(0.9) translateY(20px);
             transition: all 0.3s ease;
         }
@@ -1017,6 +1017,9 @@
         .section-title.purple {
             background: linear-gradient(135deg, #1d1d1f 0%, #AF52DE 50%, #BF5AF2 100%);
             background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-title.orange {
@@ -1681,6 +1684,509 @@
                 gap: 12px;
             }
         }
+
+        /* ==========================================
+           VIDEO SHOWCASE SECTION
+           ========================================== */
+        .video-showcase {
+            padding: 80px 40px 100px;
+            position: relative;
+        }
+
+        .video-showcase .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .video-showcase .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(175, 82, 222, 0.15), rgba(191, 90, 242, 0.1));
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--system-purple);
+            margin-bottom: 16px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-item {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+            animation: fadeSlideUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .video-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .video-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .video-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .video-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .video-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .video-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        .video-number {
+            display: none;
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 aspect ratio */
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.08), rgba(90, 200, 250, 0.05));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .video-info {
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-title-badge {
+            padding: 4px 10px;
+            background: linear-gradient(135deg, var(--system-green), #30DB5B);
+            border-radius: var(--radius-pill);
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .prompt-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 16px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        .view-prompt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            border: none;
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+        }
+
+        .view-prompt-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.5);
+        }
+
+        .view-prompt-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Video Modal */
+        .video-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-modal {
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 32px 100px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transform: scale(0.9) translateY(30px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .video-modal-overlay.active .video-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .video-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 28px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 10;
+        }
+
+        .video-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .video-modal-title .video-number {
+            position: static;
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+        }
+
+        .video-modal-close {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .video-modal-close:hover {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--system-red);
+        }
+
+        .video-modal-close i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .video-modal-body {
+            padding: 28px;
+        }
+
+        .prompt-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--system-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 16px;
+        }
+
+        .prompt-section-title i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .prompt-full {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #1d1d1f;
+            background: #f5f5f7;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .prompt-full strong {
+            color: var(--system-purple);
+            font-weight: 600;
+        }
+
+        /* Video Showcase Responsive */
+        @media (max-width: 900px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .video-showcase {
+                padding: 60px 20px 80px;
+            }
+
+            .video-info {
+                padding: 20px;
+            }
+
+            .video-title {
+                font-size: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .video-modal {
+                max-height: 90vh;
+            }
+
+            .video-modal-body {
+                padding: 20px;
+            }
+
+            .prompt-full {
+                font-size: 12px;
+                padding: 16px;
+            }
+        }
+
+        /* Video Player Popup */
+        .video-play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .video-play-overlay:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .video-play-overlay:hover .play-btn {
+            transform: scale(1.1);
+        }
+
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .play-btn i {
+            width: 28px;
+            height: 28px;
+            color: var(--system-blue);
+            margin-left: 4px;
+        }
+
+        .video-player-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-player-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            background: #000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .video-player-overlay.active .video-player-container {
+            transform: scale(1);
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            padding-top: 56.25%;
+            /* 16:9 */
+        }
+
+        .video-player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-player-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #1d1d1f;
+            z-index: 20;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-player-close:hover {
+            background: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-player-close i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .video-player-title {
+            position: absolute;
+            top: -45px;
+            left: 0;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .video-player-overlay {
+                padding: 60px 20px 20px;
+            }
+
+            .video-player-close {
+                top: -45px;
+                width: 38px;
+                height: 38px;
+            }
+
+            .video-player-title {
+                font-size: 14px;
+                top: -40px;
+            }
+
+            .play-btn {
+                width: 56px;
+                height: 56px;
+            }
+
+            .play-btn i {
+                width: 22px;
+                height: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -1801,6 +2307,619 @@
                 </div>
             </div>
         </section>
+
+        <!-- ==========================================
+             VIDEO SHOWCASE SECTION
+             ========================================== -->
+        <section class="video-showcase" id="portfolio">
+            <div class="section-header">
+                <span class="section-badge"><i data-lucide="video"></i> Portfolio</span>
+                <h2 class="section-title purple">ผลงาน AI Video</h2>
+                <p class="section-subtitle">ตัวอย่างผลงานวิดีโอที่สร้างด้วย AI พร้อม Prompt ที่ใช้ในการสร้าง</p>
+            </div>
+
+            <div class="video-grid">
+                <!-- Video 1 - Lay's Commercial -->
+                <div class="video-item">
+                    <span class="video-number">1</span>
+                    <div class="video-embed">
+                        <iframe src="https://drive.google.com/file/d/1TERqCNhkoJOHaGFHPYMPOFJjoz8T0nvF/preview"
+                            allow="autoplay"></iframe>
+                        <div class="video-play-overlay"
+                            onclick="openVideoPlayer('https://drive.google.com/file/d/1TERqCNhkoJOHaGFHPYMPOFJjoz8T0nvF/preview', 'Lays Lime and Chili TVC')">
+                            <div class="play-btn">
+                                <i data-lucide="play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">
+                            Lay's Lime & Chili TVC
+                            <span class="video-title-badge">FMCG</span>
+                        </h3>
+                        <div class="prompt-preview">Create a premium FMCG TVC-style commercial for Lay's Lime & Chili
+                            potato chips. No voice-over. Music-only pacing plus natural sound design. Must look like a
+                            real agency-produced commercial, not AI-generated...</div>
+                        <button class="view-prompt-btn" onclick="openVideoModal(1)">
+                            <i data-lucide="file-text"></i> COMPLETE PROMPT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 2 - Snacking Commercial -->
+                <div class="video-item">
+                    <span class="video-number">2</span>
+                    <div class="video-embed">
+                        <iframe src="https://drive.google.com/file/d/1L4M578zh_T30397wBI8Tdxrlu833VrkS/preview"
+                            allow="autoplay"></iframe>
+                        <div class="video-play-overlay"
+                            onclick="openVideoPlayer('https://drive.google.com/file/d/1L4M578zh_T30397wBI8Tdxrlu833VrkS/preview', 'Lays Ingredient Storytelling')">
+                            <div class="play-btn">
+                                <i data-lucide="play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">
+                            Lay's Ingredient Storytelling
+                            <span class="video-title-badge">FMCG</span>
+                        </h3>
+                        <div class="prompt-preview">Create an ingredient storytelling commercial for Lay's Lime & Chili
+                            potato chips. The commercial should visually communicate the flavor through ingredients and
+                            motion, ending with a natural, physical product resolve...</div>
+                        <button class="view-prompt-btn" onclick="openVideoModal(2)">
+                            <i data-lucide="file-text"></i> COMPLETE PROMPT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 3 - Premium TVC Commercial -->
+                <div class="video-item">
+                    <span class="video-number">3</span>
+                    <div class="video-embed">
+                        <iframe src="https://drive.google.com/file/d/1pX4RSeT-TwuVgdrjrwk-om2_T8aNRoKr/preview"
+                            allow="autoplay"></iframe>
+                        <div class="video-play-overlay"
+                            onclick="openVideoPlayer('https://drive.google.com/file/d/1pX4RSeT-TwuVgdrjrwk-om2_T8aNRoKr/preview', 'Lays Premium TVC Commercial')">
+                            <div class="play-btn">
+                                <i data-lucide="play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">
+                            Lay's Premium TVC
+                            <span class="video-title-badge">FMCG</span>
+                        </h3>
+                        <div class="prompt-preview">Create a premium FMCG TVC-style commercial for Lay's Lime & Chili
+                            potato chips. No voice-over. Music-only pacing plus natural sound design. Must look like a
+                            real agency-produced commercial...</div>
+                        <button class="view-prompt-btn" onclick="openVideoModal(3)">
+                            <i data-lucide="file-text"></i> COMPLETE PROMPT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 4 - Snacking Commercial -->
+                <div class="video-item">
+                    <span class="video-number">4</span>
+                    <div class="video-embed">
+                        <iframe src="https://drive.google.com/file/d/1Iv4MLYgCQzhWFFPz4CmxfMmdmvL15Fo4/preview"
+                            allow="autoplay"></iframe>
+                        <div class="video-play-overlay"
+                            onclick="openVideoPlayer('https://drive.google.com/file/d/1Iv4MLYgCQzhWFFPz4CmxfMmdmvL15Fo4/preview', 'Lays Snacking Commercial')">
+                            <div class="play-btn">
+                                <i data-lucide="play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">
+                            Lay's Snacking Experience
+                            <span class="video-title-badge">FMCG</span>
+                        </h3>
+                        <div class="prompt-preview">Create a follow-the-hand snacking commercial for Lay's Lime & Chili
+                            potato chips. The commercial should show a satisfying snacking experience by following the
+                            hand from the product to the mouth...</div>
+                        <button class="view-prompt-btn" onclick="openVideoModal(4)">
+                            <i data-lucide="file-text"></i> COMPLETE PROMPT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Prompt Modals -->
+        <div class="video-modal-overlay" id="video-modal-1">
+            <div class="video-modal">
+                <div class="video-modal-header">
+                    <h3 class="video-modal-title">
+                        <span class="video-number">1</span>
+                        Lay's Lime & Chili TVC - Full Prompt
+                    </h3>
+                    <button class="video-modal-close" onclick="closeVideoModal(1)">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="video-modal-body">
+                    <div class="prompt-section-title">
+                        <i data-lucide="code"></i> Complete Prompt
+                    </div>
+                    <pre class="prompt-full">Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips.
+No voice-over. Music-only pacing plus natural sound design.
+Must look like a real agency-produced commercial, not AI-generated.
+
+COLOR GRADING & LIGHTING (match reference tone):
+Professional high-end commercial lighting.
+Warm champagne / peach / soft pink gradient background (clean studio backdrop).
+High-key exposure with soft bloom (subtle), creamy highlights, no harsh contrast.
+Soft key light from front-left + gentle rim light to separate the chip from background.
+Very clean specular highlights on chip surface, crisp texture, no over-saturation.
+Shallow depth of field with soft bokeh and smooth background falloff.
+Tiny floating crumbs/dust particles with gentle motion blur (premium, not messy).
+Overall look: elegant, bright, airy, premium advertising grade.
+
+PRODUCT:
+Lay's potato chips, Lime & Chili flavor.
+Green packaging.
+In the final shot, the bag must be clean, sharp, and clearly readable.
+
+AUDIO (NO VOICE):
+Use only:
+- a pleasing, crisp chip-break sound (shot 1)
+- subtle crumb scatter sound (shot 1)
+- subtle droplet/powder impact sound (shot 2)
+- soft chip drop sound (shot 3)
+- background music
+
+TIMELINE / SHOT LIST
+
+[SHOT 1 — HERO CHIP BREAK (Chip A)]
+Scene:
+Warm peach/champagne studio gradient background, minimal and premium.
+One potato chip (Chip A) floating in mid-air.
+
+Camera:
+Close-up, centered.
+Chip rotates slowly, controlled and elegant.
+The chip turns to face the camera straight-on (perfect front view).
+Slight slow push-in. Very shallow depth of field.
+
+Action:
+Chip A breaks cleanly in half in slow motion.
+A small amount of tiny crumbs/particles scatter subtly (not messy).
+Sound: a crisp, pleasing chip snap.
+
+Lighting:
+Soft key light + gentle rim light, clean highlights emphasizing texture.
+No harsh shadows, no dramatic contrast.
+
+Cut rule:
+Cut immediately after the break moment lands (no lingering too long).
+
+[SHOT 2 — FLAVOR IMPACT MACRO (Chip B, different chip)]
+Important:
+This is a NEW chip (Chip B), not the broken chip from Shot 1.
+
+Scene:
+Extreme macro shot of Chip B surface.
+Chip texture fills the frame, showing fine bubbles and crisp detail.
+
+Camera:
+Ultra macro, very shallow depth of field.
+Stable, controlled framing.
+
+Action:
+Fresh lime juice droplets and micro-spray blast toward the chip surface,
+followed by chili powder particles.
+Droplets hit and create tiny realistic splashes and surface tension.
+Chili powder impacts and clings into the chip texture.
+Motion is fast but physically realistic.
+No fade-in, no pop-in.
+
+Lighting:
+Same premium warm studio tone, with subtle cool highlight on droplets (freshness)
+and subtle warm accent on powder (heat), kept realistic and restrained.
+
+Sound:
+Subtle droplet impact + powder hit (clean, not exaggerated).
+
+Hold:
+A brief moment where liquid spreads naturally and seasoning settles into texture.
+
+[SHOT 3 — CHIP FALLS INTO OPEN PACK + ZOOM OUT (Chip B continues)]
+Scene:
+Cut to a wider clean commercial frame.
+The Lay's bag is already present at the bottom of frame, upright, stable, and OPEN.
+The bag opening must be clearly visible.
+
+Camera:
+Start medium close-up so the opening is readable.
+Then slowly zoom out (or slow pull-back) to reveal the full bag clearly.
+
+Action:
+Chip B (the seasoned chip from Shot 2) falls naturally from above
+straight into the open bag.
+It drops cleanly inside with realistic rotation and speed.
+No chips bounce out.
+Sound: soft chip drop into bag (subtle).
+
+End-frame composition:
+As the camera zooms out and settles:
+- The Lay's bag is fully visible, centered and dominant, branding readable.
+- At the BASE of the bag (on the surface in front of it), arrange supporting elements neatly:
+  a few crispy chips, lime slices, and red chili peppers
+  as styling props.
+These elements must be arranged beautifully as a base display,
+framing the product without touching or overlapping the packaging.
+No elements overlap the logo or top edge of the bag.
+
+Final hold:
+Clean, confident final frame for brand recognition.
+No additional motion.
+
+NEGATIVE PROMPTS / HARD RULES
+- No voice-over, no dialogue.
+- No people.
+- No neon colors, no heavy cinematic shadows, no gritty film grain, no strong vignette.
+- No fade-in or pop-in objects.
+- No cartoon physics, no exaggerated splashes.
+- No ingredients attached to or placed on top of the packaging.
+- No elements overlapping the logo or top edge of the bag.
+- Must not look like AI art.</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video 2 Prompt Modal -->
+        <div class="video-modal-overlay" id="video-modal-2">
+            <div class="video-modal">
+                <div class="video-modal-header">
+                    <h3 class="video-modal-title">
+                        <span class="video-number">2</span>
+                        Lay's Ingredient Storytelling - Full Prompt
+                    </h3>
+                    <button class="video-modal-close" onclick="closeVideoModal(2)">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="video-modal-body">
+                    <div class="prompt-section-title">
+                        <i data-lucide="file-text"></i> Complete Prompt
+                    </div>
+                    <pre class="prompt-full">Create an ingredient storytelling commercial for Lay's Lime & Chili potato chips.
+
+The commercial should visually communicate the flavor through ingredients and motion, ending with a natural, physical product resolve.
+No voice-over. Music-only pacing.
+
+Product:
+Lay's potato chips, Lime & Chili flavor.
+
+Flavor story goal:
+Communicate a refreshing lime brightness combined with a bold spicy chili kick, leading to an exciting and craveable flavor impression.
+
+Ingredients:
+Fresh green lime slices, red chili peppers, golden crispy potato chips.
+
+Scene:
+Clean, premium advertising environment.
+Soft green gradient background inspired by lime, subtle warm red accents inspired by chili.
+Minimal, polished, broadcast-ready setup.
+
+Camera:
+Close-up and macro-focused shots.
+Straight-on and slightly angled perspectives.
+Smooth, slow camera movement.
+Stable and controlled framing.
+
+Lighting:
+Professional commercial lighting.
+Bright, clean, high-clarity look.
+Soft highlights enhancing lime texture, chili surface, and chip crispiness.
+No harsh shadows.
+
+Ingredient presentation:
+Lime slices with visible juice texture.
+Chili peppers with rich surface detail.
+Potato chips showing crisp edges and crunch texture.
+Elegant and balanced spacing.
+
+Motion design:
+Ingredients move in slow, fluid motion.
+Each element enters the frame sequentially: first lime slices drifting in gentle arcs, then chili peppers following with slightly stronger motion, then potato chips gliding in with controlled energy.
+All movement follows natural gravity and inertia.
+No fading, no popping, no sudden appearance.
+
+Motion resolve and end frame:
+As motion slows, the Lay's Lime & Chili chip bag is already present, standing upright and stationary at the center of the frame.
+The moving ingredients gradually lose momentum and settle naturally into position around the bag: lime slices resting near the top and sides, chili peppers aligning diagonally, potato chips landing closest to the pack base.
+All elements come to rest smoothly, as if placed by motion, not animation.
+
+Final frame:
+The product bag remains clearly visible and dominant.
+Ingredients are neatly arranged around it.
+No additional motion.
+Strong, clean brand recognition moment.
+
+Editing rhythm:
+Slow to medium pacing.
+Clear visual beats as each ingredient joins the composition.
+Calm, confident ending hold.
+
+Style & tone:
+Premium FMCG ingredient-focused advertising style.
+Fresh, bold, appetizing.
+Looks like a real TV or digital ingredient commercial, not AI-generated.
+
+Audio direction:
+No dialogue or voice-over.
+Designed for background music only.
+
+Negative prompts:
+No fade-in elements.
+No pop-in animation.
+No exaggerated motion.
+No fantasy physics.
+No AI-art style.</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video 3 Prompt Modal -->
+        <div class="video-modal-overlay" id="video-modal-3">
+            <div class="video-modal">
+                <div class="video-modal-header">
+                    <h3 class="video-modal-title">
+                        <span class="video-number">3</span>
+                        Lay's Premium TVC - Full Prompt
+                    </h3>
+                    <button class="video-modal-close" onclick="closeVideoModal(3)">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="video-modal-body">
+                    <div class="prompt-section-title">
+                        <i data-lucide="file-text"></i> Complete Prompt
+                    </div>
+                    <pre class="prompt-full">Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips.
+No voice-over. Music-only pacing plus natural sound design.
+Must look like a real agency-produced commercial, not AI-generated.
+
+COLOR GRADING & LIGHTING (match reference tone):
+Professional high-end commercial lighting.
+Warm champagne / peach / soft pink gradient background (clean studio backdrop).
+High-key exposure with soft bloom (subtle), creamy highlights, no harsh contrast.
+Soft key light from front-left + gentle rim light to separate the chip from background.
+Very clean specular highlights on chip surface, crisp texture, no over-saturation.
+Shallow depth of field with soft bokeh and smooth background falloff.
+Tiny floating crumbs/dust particles with gentle motion blur (premium, not messy).
+Overall look: elegant, bright, airy, premium advertising grade.
+
+PRODUCT:
+Lay's potato chips, Lime & Chili flavor.
+Green packaging.
+In the final shot, the bag must be clean, sharp, and clearly readable.
+
+AUDIO (NO VOICE):
+Use only:
+- a pleasing, crisp chip-break sound (shot 1)
+- subtle crumb scatter sound (shot 1)
+- subtle droplet/powder impact sound (shot 2)
+- soft chip drop sound (shot 3)
+- background music
+
+TIMELINE / SHOT LIST
+
+[SHOT 1 — HERO CHIP BREAK (Chip A)]
+Scene:
+Warm peach/champagne studio gradient background, minimal and premium.
+One potato chip (Chip A) floating in mid-air.
+
+Camera:
+Close-up, centered.
+Chip rotates slowly, controlled and elegant.
+The chip turns to face the camera straight-on (perfect front view).
+Slight slow push-in. Very shallow depth of field.
+
+Action:
+Chip A breaks cleanly in half in slow motion.
+A small amount of tiny crumbs/particles scatter subtly (not messy).
+Sound: a crisp, pleasing chip snap.
+
+Lighting:
+Soft key light + gentle rim light, clean highlights emphasizing texture.
+No harsh shadows, no dramatic contrast.
+
+Cut rule:
+Cut immediately after the break moment lands (no lingering too long).
+
+[SHOT 2 — FLAVOR IMPACT MACRO (Chip B, different chip)]
+Important:
+This is a NEW chip (Chip B), not the broken chip from Shot 1.
+
+Scene:
+Extreme macro shot of Chip B surface.
+Chip texture fills the frame, showing fine bubbles and crisp detail.
+
+Camera:
+Ultra macro, very shallow depth of field.
+Stable, controlled framing.
+
+Action:
+Fresh lime juice droplets and micro-spray blast toward the chip surface,
+followed by chili powder particles.
+Droplets hit and create tiny realistic splashes and surface tension.
+Chili powder impacts and clings into the chip texture.
+Motion is fast but physically realistic.
+No fade-in, no pop-in.
+
+Lighting:
+Same premium warm studio tone, with subtle cool highlight on droplets (freshness)
+and subtle warm accent on powder (heat), kept realistic and restrained.
+
+Sound:
+Subtle droplet impact + powder hit (clean, not exaggerated).
+
+Hold:
+A brief moment where liquid spreads naturally and seasoning settles into texture.
+
+[SHOT 3 — CHIP FALLS INTO OPEN PACK + ZOOM OUT (Chip B continues)]
+Scene:
+Cut to a wider clean commercial frame.
+The Lay's bag is already present at the bottom of frame, upright, stable, and OPEN.
+The bag opening must be clearly visible.
+
+Camera:
+Start medium close-up so the opening is readable.
+Then slowly zoom out (or slow pull-back) to reveal the full bag clearly.
+
+Action:
+Chip B (the seasoned chip from Shot 2) falls naturally from above
+straight into the open bag.
+It drops cleanly inside with realistic rotation and speed.
+No chips bounce out.
+Sound: soft chip drop into bag (subtle).
+
+End-frame composition:
+As the camera zooms out and settles:
+- The Lay's bag is fully visible, centered and dominant, branding readable.
+- At the BASE of the bag (on the surface in front of it), arrange supporting elements neatly:
+  a few crispy chips, lime slices, and red chili peppers
+  as styling props.
+These elements must be arranged beautifully as a base display,
+framing the product without touching or overlapping the packaging.
+No elements overlap the logo or top edge of the bag.
+
+Final hold:
+Clean, confident final frame for brand recognition.
+No additional motion.
+
+NEGATIVE PROMPTS / HARD RULES
+- No voice-over, no dialogue.
+- No people.
+- No neon colors, no heavy cinematic shadows, no gritty film grain, no strong vignette.
+- No fade-in or pop-in objects.
+- No cartoon physics, no exaggerated splashes.
+- No ingredients attached to or placed on top of the packaging.
+- No elements overlapping the logo or top edge of the bag.
+- Must not look like AI art.</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video 4 Prompt Modal -->
+        <div class="video-modal-overlay" id="video-modal-4">
+            <div class="video-modal">
+                <div class="video-modal-header">
+                    <h3 class="video-modal-title">
+                        <span class="video-number">4</span>
+                        Lay's Snacking Experience - Full Prompt
+                    </h3>
+                    <button class="video-modal-close" onclick="closeVideoModal(4)">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="video-modal-body">
+                    <div class="prompt-section-title">
+                        <i data-lucide="file-text"></i> Complete Prompt
+                    </div>
+                    <pre class="prompt-full">Create a follow-the-hand snacking commercial for Lay's Lime & Chili potato chips.
+
+The commercial should show a satisfying snacking experience
+by following the hand from the product to the mouth.
+No dialogue. No voice-over. Music-only pacing.
+
+Product:
+Lay's potato chips, Lime & Chili flavor.
+
+Snacking experience goal:
+Communicate a satisfying crunch and craveable texture,
+highlighting the refreshing lime taste and spicy chili kick.
+
+Human visibility rule:
+Only partial human visibility.
+Lower half of the face only, showing mouth and chin.
+No full face.
+No eyes or direct facial expression toward camera.
+
+Scene:
+Clean, everyday lifestyle environment.
+Simple table setting.
+Natural and relatable, not staged.
+Broadcast-ready look.
+
+Camera:
+Start with the Lay's bag clearly visible on the table.
+Eye-level perspective.
+As the hand reaches into the bag,
+the camera smoothly follows the hand upward
+in one continuous, controlled motion.
+Stable tracking movement with no shaking.
+
+Lighting:
+Soft natural lighting.
+Comfortable, realistic exposure.
+Clear visibility of the product, hand, chip, and mouth.
+No dramatic contrast.
+
+Product interaction sequence:
+The Lay's bag rests naturally on the table.
+A hand opens the bag and reaches inside.
+A single chip is picked up.
+The chip is brought upward.
+The camera follows the hand smoothly.
+The chip reaches the mouth.
+A bite occurs, breaking the chip clearly.
+
+Crunch emphasis:
+Clear visual of the chip breaking.
+Natural jaw movement.
+Visible crisp texture.
+No exaggerated chewing.
+
+Motion & timing:
+Smooth continuous motion from start to bite.
+No fast cuts.
+Clear beginning, middle, and end of the action.
+
+End frame:
+Lower half of the face in frame.
+The bite finishes.
+Subtle jaw movement indicating crunch.
+Satisfying, appetizing final hold.
+
+Style & tone:
+Real FMCG snack advertising style.
+Natural, appetizing, satisfying.
+Looks like a real TV or digital snack commercial,
+not AI-generated.
+
+Audio direction:
+No dialogue or voice-over.
+Designed for background music only.
+
+Negative prompts:
+No full face reveal.
+No over-acting.
+No cinematic drama.
+No exaggerated motion.
+No AI-art style.</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Player Modal -->
+        <div class="video-player-overlay" id="video-player-modal">
+            <div class="video-player-container">
+                <span class="video-player-title" id="video-player-title"></span>
+                <button class="video-player-close" onclick="closeVideoPlayer()">
+                    <i data-lucide="x"></i>
+                </button>
+                <div class="video-player-wrapper">
+                    <iframe id="video-player-iframe" src="" allow="autoplay; fullscreen"></iframe>
+                </div>
+            </div>
+        </div>
 
         <!-- Experience Modals -->
         <div class="bento-modal-overlay" id="video-editor-modal">
@@ -2207,6 +3326,84 @@
                     modal.classList.remove('active');
                     document.body.style.overflow = '';
                 });
+            }
+        });
+
+        // Video Modal Functions
+        function openVideoModal(id) {
+            const modal = document.getElementById('video-modal-' + id);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            }
+        }
+
+        function closeVideoModal(id) {
+            const modal = document.getElementById('video-modal-' + id);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close video modal on overlay click
+        document.querySelectorAll('.video-modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close video modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.video-modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
+        // Video Player Popup Functions
+        function openVideoPlayer(videoUrl, title) {
+            const modal = document.getElementById('video-player-modal');
+            const iframe = document.getElementById('video-player-iframe');
+            const titleEl = document.getElementById('video-player-title');
+
+            iframe.src = videoUrl;
+            titleEl.textContent = title;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeVideoPlayer() {
+            const modal = document.getElementById('video-player-modal');
+            const iframe = document.getElementById('video-player-iframe');
+
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            // Clear iframe src to stop video
+            setTimeout(() => { iframe.src = ''; }, 300);
+        }
+
+        // Close video player on overlay click
+        document.getElementById('video-player-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'video-player-modal') {
+                closeVideoPlayer();
+            }
+        });
+
+        // Close video player on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('video-player-modal');
+                if (modal.classList.contains('active')) {
+                    closeVideoPlayer();
+                }
             }
         });
     </script>
