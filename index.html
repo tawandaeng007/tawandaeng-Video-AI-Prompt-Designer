@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tawandaeng | Video AI Prompt Designer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         :root {
@@ -19,26 +22,33 @@
             --system-red: #FF3B30;
             --system-teal: #5AC8FA;
             --system-indigo: #5856D6;
-            
-            --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.5) 100%);
+
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);
             --glass-bg-solid: rgba(255, 255, 255, 0.5);
             --glass-bg-hover: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.05);
-            
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+
             --text-primary: #1d1d1f;
             --text-secondary: #6b7280;
             --text-tertiary: #9ca3af;
-            
+
             --radius-sm: 12px;
             --radius-md: 18px;
             --radius-lg: 28px;
             --radius-pill: 100px;
         }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
@@ -58,6 +68,7 @@
             overflow: hidden;
             pointer-events: none;
         }
+
         .blob {
             position: absolute;
             border-radius: 50%;
@@ -65,6 +76,7 @@
             mix-blend-mode: multiply;
             animation: blobFloat 12s ease-in-out infinite;
         }
+
         .blob-1 {
             width: 600px;
             height: 600px;
@@ -72,6 +84,7 @@
             top: -150px;
             right: -100px;
         }
+
         .blob-2 {
             width: 500px;
             height: 500px;
@@ -80,6 +93,7 @@
             left: -100px;
             animation-delay: -4s;
         }
+
         .blob-3 {
             width: 400px;
             height: 400px;
@@ -88,10 +102,21 @@
             left: 40%;
             animation-delay: -8s;
         }
+
         @keyframes blobFloat {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(30px, -30px) scale(1.05) rotate(5deg); }
-            66% { transform: translate(-20px, 20px) scale(0.95) rotate(-5deg); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.05) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.95) rotate(-5deg);
+            }
         }
 
         /* Navigation */
@@ -112,6 +137,7 @@
             border-radius: var(--radius-pill);
             box-shadow: var(--glass-shadow);
         }
+
         .nav-item {
             padding: 10px 20px;
             color: var(--text-secondary);
@@ -121,15 +147,18 @@
             border-radius: var(--radius-pill);
             transition: all 0.2s ease;
         }
+
         .nav-item:hover {
             color: var(--text-primary);
-            background: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.5);
         }
+
         .nav-item.active {
             color: white;
             background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
             box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
         }
+
         .nav-cta {
             padding: 10px 24px;
             background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
@@ -141,6 +170,7 @@
             transition: all 0.2s ease;
             box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4);
         }
+
         .nav-cta:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(0, 122, 255, 0.5);
@@ -156,10 +186,11 @@
             box-shadow: var(--glass-shadow);
             transition: all 0.3s ease;
         }
+
         .glass-card:hover {
             background: var(--glass-bg-hover);
             transform: translateY(-4px);
-            box-shadow: 0 16px 48px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
         /* Main Content */
@@ -177,6 +208,7 @@
             padding: 120px 40px 80px;
             text-align: center;
         }
+
         .hero-inner {
             max-width: 1200px;
             width: 100%;
@@ -186,10 +218,22 @@
             align-items: center;
             text-align: left;
         }
-        .hero-text { animation: fadeSlideUp 0.8s ease forwards; opacity: 0; }
+
+        .hero-text {
+            animation: fadeSlideUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
         @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Badge */
@@ -210,6 +254,7 @@
             animation: fadeSlideUp 0.8s ease forwards;
             opacity: 0;
         }
+
         .badge-icon {
             width: 32px;
             height: 32px;
@@ -221,7 +266,11 @@
             color: white;
             box-shadow: 0 4px 12px rgba(52, 199, 89, 0.4);
         }
-        .badge-icon i { width: 16px; height: 16px; }
+
+        .badge-icon i {
+            width: 16px;
+            height: 16px;
+        }
 
         /* Gradient Title - Apple Style */
         .hero-title {
@@ -237,11 +286,19 @@
             animation: fadeSlideUp 0.8s ease 0.2s forwards, gradientShift 6s ease infinite;
             opacity: 0;
         }
+
         @keyframes gradientShift {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
         }
-        
+
         .hero-subtitle {
             font-size: 18px;
             color: var(--text-secondary);
@@ -251,12 +308,14 @@
             animation: fadeSlideUp 0.8s ease 0.3s forwards;
             opacity: 0;
         }
+
         .hero-stats {
             display: flex;
             gap: 40px;
             animation: fadeSlideUp 0.8s ease 0.4s forwards;
             opacity: 0;
         }
+
         .stat-value {
             font-size: 40px;
             font-weight: 800;
@@ -265,6 +324,7 @@
             -webkit-text-fill-color: transparent;
             line-height: 1;
         }
+
         .stat-label {
             font-size: 13px;
             font-weight: 500;
@@ -277,16 +337,21 @@
             animation: fadeSlideUp 0.8s ease 0.3s forwards;
             opacity: 0;
         }
-        .video-card { padding: 16px; }
+
+        .video-card {
+            padding: 16px;
+        }
+
         .video-preview {
             aspect-ratio: 16/10;
-            background: linear-gradient(135deg, rgba(0,122,255,0.15), rgba(90,200,250,0.15));
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.15), rgba(90, 200, 250, 0.15));
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
+
         .play-button {
             width: 72px;
             height: 72px;
@@ -299,11 +364,17 @@
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
         }
+
         .play-button:hover {
             transform: scale(1.1);
             box-shadow: 0 12px 32px rgba(0, 122, 255, 0.5);
         }
-        .play-button i { color: white; margin-left: 4px; }
+
+        .play-button i {
+            color: white;
+            margin-left: 4px;
+        }
+
         .floating-badges {
             position: absolute;
             right: -50px;
@@ -313,6 +384,7 @@
             flex-direction: column;
             gap: 12px;
         }
+
         .floating-badge {
             padding: 10px 16px;
             background: var(--glass-bg-solid);
@@ -323,25 +395,584 @@
             font-weight: 600;
             color: var(--text-primary);
             white-space: nowrap;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             animation: floatBadge 4s ease-in-out infinite;
         }
-        .floating-badge:nth-child(1) { animation-delay: 0s; }
-        .floating-badge:nth-child(2) { animation-delay: 1s; }
-        .floating-badge:nth-child(3) { animation-delay: 2s; }
-        .floating-badge:nth-child(4) { animation-delay: 3s; }
+
+        .floating-badge:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .floating-badge:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .floating-badge:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        .floating-badge:nth-child(4) {
+            animation-delay: 3s;
+        }
+
         @keyframes floatBadge {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(8px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(8px);
+            }
+        }
+
+        /* ==========================================
+           HERO HEADER TITLE
+           ========================================== */
+        .hero-header {
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-header-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0;
+            background: linear-gradient(135deg, #1d1d1f 0%, #007AFF 50%, #5AC8FA 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeSlideUp 0.8s ease forwards, gradientShift 6s ease infinite;
+            opacity: 0;
+            white-space: nowrap;
+            width: 100%;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-header-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            animation: fadeSlideUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Hero Bento Wrapper */
+        .hero-bento-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* ==========================================
+           HERO BENTO GRID
+           ========================================== */
+        .hero-bento {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 40px 80px;
+        }
+
+        .hero-bento-inner {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        .hero-profile-image {
+            width: 100%;
+            max-width: 550px;
+            height: 100%;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            object-position: top center;
+            filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.15));
+        }
+
+        /* Make profile side stretch full height */
+        .hero-profile-side {
+            position: relative;
+            animation: fadeSlideUp 0.8s ease forwards;
+            opacity: 0;
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+        }
+
+        /* Bento Grid Right */
+        .bento-grid-right {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Title Header spans full width */
+        .bento-title-header {
+            grid-column: 1 / -1;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .bento-title-header .hero-header-title {
+            text-align: center;
+            animation: fadeSlideUp 0.8s ease forwards, gradientShift 6s ease infinite;
+        }
+
+        /* Bento Cards */
+        .bento-card {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+            animation: fadeSlideUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .bento-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .bento-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .bento-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .bento-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+            pointer-events: none;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        /* Card Sizes */
+        .bento-card.large {
+            grid-column: span 2;
+        }
+
+        .bento-card.medium {
+            grid-column: span 1;
+        }
+
+        /* Card Header */
+        .bento-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .bento-icon.blue {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .bento-icon.green {
+            background: linear-gradient(135deg, #34C759, #30DB5B);
+        }
+
+        .bento-icon.orange {
+            background: linear-gradient(135deg, #FF9500, #FFB340);
+        }
+
+        .bento-icon.purple {
+            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
+        }
+
+        .bento-icon.pink {
+            background: linear-gradient(135deg, #FF2D55, #FF6B9D);
+        }
+
+        .bento-icon.teal {
+            background: linear-gradient(135deg, #5AC8FA, #64D2FF);
+        }
+
+        .bento-icon i {
+            width: 22px;
+            height: 22px;
+        }
+
+        .bento-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Bento Title */
+        .bento-title {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #007AFF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Info List */
+        .bento-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .bento-info-item i {
+            width: 16px;
+            height: 16px;
+            color: var(--system-blue);
+            flex-shrink: 0;
+        }
+
+        .bento-info-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Experience Card */
+        .bento-experience {
+            position: relative;
+            z-index: 1;
+        }
+
+        .experience-role {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .experience-company {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--system-blue);
+            margin-bottom: 4px;
+        }
+
+        .experience-duration {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .experience-summary {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* View More Button */
+        .bento-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--system-blue);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-btn:hover {
+            background: rgba(0, 122, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .bento-btn i {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Skills Tags */
+        .bento-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-tag {
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .bento-tag:hover {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--system-blue);
+        }
+
+        .bento-tag.highlight {
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+        }
+
+        /* ==========================================
+           POPUP MODAL
+           ========================================== */
+        .bento-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .bento-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bento-modal {
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .bento-modal-overlay.active .bento-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .bento-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 28px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .bento-modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .bento-modal-close {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .bento-modal-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-primary);
+        }
+
+        .bento-modal-close i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .bento-modal-body {
+            padding: 24px 28px;
+        }
+
+        .bento-modal-section {
+            margin-bottom: 24px;
+        }
+
+        .bento-modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .bento-modal-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--system-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 12px;
+        }
+
+        .bento-modal-list {
+            list-style: none;
+        }
+
+        .bento-modal-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .bento-modal-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            background: var(--system-blue);
+            border-radius: 50%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-bento-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-profile-side {
+                display: flex;
+                justify-content: center;
+            }
+
+            .hero-profile-image {
+                max-width: 320px;
+            }
+
+            .bento-grid-right {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-bento {
+                padding: 100px 20px 60px;
+            }
+
+            .bento-grid-right {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-card.large {
+                grid-column: span 1;
+            }
+
+            .bento-title {
+                font-size: 24px;
+            }
+
+            .hero-profile-image {
+                max-width: 280px;
+            }
         }
 
         /* Section Styles */
-        section { padding: 100px 40px; }
+        section {
+            padding: 100px 40px;
+        }
+
         .section-header {
             text-align: center;
             max-width: 600px;
             margin: 0 auto 60px;
         }
+
         .section-badge {
             display: inline-flex;
             align-items: center;
@@ -354,8 +985,12 @@
             color: var(--system-blue);
             margin-bottom: 16px;
         }
-        .section-badge i { width: 14px; height: 14px; }
-        
+
+        .section-badge i {
+            width: 14px;
+            height: 14px;
+        }
+
         /* Section Title with Color Variants */
         .section-title {
             font-size: clamp(36px, 5vw, 52px);
@@ -368,31 +1003,37 @@
             -webkit-text-fill-color: transparent;
             animation: gradientShift 6s ease infinite;
         }
+
         .section-title.blue {
             background: linear-gradient(135deg, #1d1d1f 0%, #007AFF 50%, #5AC8FA 100%);
             background-size: 200% auto;
         }
+
         .section-title.green {
             background: linear-gradient(135deg, #1d1d1f 0%, #34C759 50%, #30DB5B 100%);
             background-size: 200% auto;
         }
+
         .section-title.purple {
             background: linear-gradient(135deg, #1d1d1f 0%, #AF52DE 50%, #BF5AF2 100%);
             background-size: 200% auto;
         }
+
         .section-title.orange {
             background: linear-gradient(135deg, #1d1d1f 0%, #FF9500 50%, #FFB340 100%);
             background-size: 200% auto;
         }
+
         .section-title.pink {
             background: linear-gradient(135deg, #1d1d1f 0%, #FF2D55 50%, #FF6B9D 100%);
             background-size: 200% auto;
         }
+
         .section-title.teal {
             background: linear-gradient(135deg, #1d1d1f 0%, #5AC8FA 50%, #64D2FF 100%);
             background-size: 200% auto;
         }
-        
+
         .section-subtitle {
             font-size: 17px;
             color: var(--text-secondary);
@@ -406,7 +1047,11 @@
             max-width: 1100px;
             margin: 0 auto;
         }
-        .feature-card { padding: 28px; }
+
+        .feature-card {
+            padding: 28px;
+        }
+
         .feature-icon {
             width: 52px;
             height: 52px;
@@ -415,21 +1060,46 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        .feature-icon.blue { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
-        .feature-icon.green { background: linear-gradient(135deg, #34C759, #30DB5B); }
-        .feature-icon.orange { background: linear-gradient(135deg, #FF9500, #FFB340); }
-        .feature-icon.purple { background: linear-gradient(135deg, #AF52DE, #BF5AF2); }
-        .feature-icon.pink { background: linear-gradient(135deg, #FF2D55, #FF6B9D); }
-        .feature-icon.teal { background: linear-gradient(135deg, #5AC8FA, #64D2FF); }
-        .feature-icon i { color: white; width: 24px; height: 24px; }
+
+        .feature-icon.blue {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .feature-icon.green {
+            background: linear-gradient(135deg, #34C759, #30DB5B);
+        }
+
+        .feature-icon.orange {
+            background: linear-gradient(135deg, #FF9500, #FFB340);
+        }
+
+        .feature-icon.purple {
+            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
+        }
+
+        .feature-icon.pink {
+            background: linear-gradient(135deg, #FF2D55, #FF6B9D);
+        }
+
+        .feature-icon.teal {
+            background: linear-gradient(135deg, #5AC8FA, #64D2FF);
+        }
+
+        .feature-icon i {
+            color: white;
+            width: 24px;
+            height: 24px;
+        }
+
         .feature-card h3 {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
+
         .feature-card p {
             font-size: 14px;
             color: var(--text-secondary);
@@ -437,8 +1107,15 @@
         }
 
         /* Tools Section */
-        .tools-container { max-width: 900px; margin: 0 auto; }
-        .tools-category { margin-bottom: 40px; }
+        .tools-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tools-category {
+            margin-bottom: 40px;
+        }
+
         .tools-label {
             font-size: 13px;
             font-weight: 600;
@@ -447,7 +1124,13 @@
             letter-spacing: 0.05em;
             margin-bottom: 16px;
         }
-        .tools-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
         .tool-chip {
             display: flex;
             align-items: center;
@@ -459,11 +1142,13 @@
             border-radius: var(--radius-md);
             transition: all 0.2s ease;
         }
+
         .tool-chip:hover {
             background: var(--glass-bg-hover);
             border-color: var(--system-blue);
             transform: translateY(-2px);
         }
+
         .tool-icon {
             width: 36px;
             height: 36px;
@@ -477,15 +1162,29 @@
             color: white;
             box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
         }
-        .tool-name { font-size: 15px; font-weight: 600; color: var(--text-primary); }
-        .tool-level { display: flex; gap: 4px; margin-left: 8px; }
+
+        .tool-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tool-level {
+            display: flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
         .tool-level span {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0, 0, 0, 0.1);
         }
-        .tool-level span.active { background: var(--system-blue); }
+
+        .tool-level span.active {
+            background: var(--system-blue);
+        }
 
         /* Portfolio Grid */
         .portfolio-grid {
@@ -495,18 +1194,24 @@
             max-width: 1100px;
             margin: 0 auto;
         }
-        .portfolio-card { overflow: hidden; }
+
+        .portfolio-card {
+            overflow: hidden;
+        }
+
         .portfolio-thumbnail {
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, rgba(0,122,255,0.15), rgba(175,82,222,0.15));
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.15), rgba(175, 82, 222, 0.15));
             position: relative;
         }
+
         .portfolio-thumbnail::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.2) 100%);
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.2) 100%);
         }
+
         .portfolio-play {
             position: absolute;
             top: 50%;
@@ -524,14 +1229,25 @@
             transition: all 0.3s ease;
             z-index: 2;
         }
+
         .portfolio-card:hover .portfolio-play {
             background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
             border-color: transparent;
             transform: translate(-50%, -50%) scale(1.1);
             box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
         }
-        .portfolio-play i { color: var(--text-primary); margin-left: 2px; width: 18px; height: 18px; }
-        .portfolio-card:hover .portfolio-play i { color: white; }
+
+        .portfolio-play i {
+            color: var(--text-primary);
+            margin-left: 2px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .portfolio-card:hover .portfolio-play i {
+            color: white;
+        }
+
         .portfolio-badge {
             position: absolute;
             top: 16px;
@@ -547,24 +1263,31 @@
             text-transform: uppercase;
             letter-spacing: 0.02em;
         }
-        .portfolio-content { padding: 24px; }
+
+        .portfolio-content {
+            padding: 24px;
+        }
+
         .portfolio-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
+
         .portfolio-desc {
             font-size: 14px;
             color: var(--text-secondary);
             margin-bottom: 16px;
             line-height: 1.5;
         }
+
         .portfolio-prompt {
-            background: rgba(0,0,0,0.03);
+            background: rgba(0, 0, 0, 0.03);
             border-radius: var(--radius-md);
             padding: 16px;
         }
+
         .portfolio-prompt-label {
             display: flex;
             align-items: center;
@@ -576,7 +1299,12 @@
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
-        .portfolio-prompt-label i { width: 14px; height: 14px; }
+
+        .portfolio-prompt-label i {
+            width: 14px;
+            height: 14px;
+        }
+
         .portfolio-prompt code {
             font-family: 'SF Mono', Monaco, monospace;
             font-size: 11px;
@@ -584,11 +1312,13 @@
             line-height: 1.6;
             display: block;
         }
+
         .portfolio-meta {
             display: flex;
             gap: 16px;
             margin-top: 16px;
         }
+
         .portfolio-meta-item {
             display: flex;
             align-items: center;
@@ -596,17 +1326,31 @@
             font-size: 12px;
             color: var(--text-tertiary);
         }
-        .portfolio-meta-item i { width: 14px; height: 14px; }
+
+        .portfolio-meta-item i {
+            width: 14px;
+            height: 14px;
+        }
 
         /* Process Section */
-        .process-container { max-width: 800px; margin: 0 auto; }
-        .process-steps { display: flex; flex-direction: column; gap: 12px; }
+        .process-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
         .process-step {
             display: flex;
             align-items: flex-start;
             gap: 20px;
             padding: 24px;
         }
+
         .process-number {
             width: 44px;
             height: 44px;
@@ -621,12 +1365,14 @@
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(175, 82, 222, 0.4);
         }
+
         .process-content h3 {
             font-size: 17px;
             font-weight: 700;
             margin-bottom: 4px;
             color: var(--text-primary);
         }
+
         .process-content p {
             font-size: 14px;
             color: var(--text-secondary);
@@ -634,25 +1380,46 @@
         }
 
         /* Library Section */
-        .library-window { max-width: 900px; margin: 0 auto; overflow: hidden; }
+        .library-window {
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
         .library-titlebar {
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 16px 20px;
-            background: rgba(0,0,0,0.03);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        .titlebar-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .titlebar-dot.red { background: #ff5f57; }
-        .titlebar-dot.yellow { background: #febc2e; }
-        .titlebar-dot.green { background: #28c840; }
+
+        .titlebar-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .titlebar-dot.red {
+            background: #ff5f57;
+        }
+
+        .titlebar-dot.yellow {
+            background: #febc2e;
+        }
+
+        .titlebar-dot.green {
+            background: #28c840;
+        }
+
         .library-tabs {
             display: flex;
             padding: 0 8px;
-            background: rgba(0,0,0,0.02);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.02);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
+
         .library-tab {
             padding: 12px 20px;
             font-size: 13px;
@@ -662,8 +1429,15 @@
             transition: all 0.2s ease;
             position: relative;
         }
-        .library-tab:hover { color: var(--text-secondary); }
-        .library-tab.active { color: var(--system-orange); }
+
+        .library-tab:hover {
+            color: var(--text-secondary);
+        }
+
+        .library-tab.active {
+            color: var(--system-orange);
+        }
+
         .library-tab.active::after {
             content: '';
             position: absolute;
@@ -674,22 +1448,31 @@
             background: var(--system-orange);
             border-radius: 2px 2px 0 0;
         }
-        .library-content { padding: 20px; }
+
+        .library-content {
+            padding: 20px;
+        }
+
         .library-item {
             display: flex;
             align-items: center;
             gap: 16px;
             padding: 16px;
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
             border-radius: var(--radius-md);
             margin-bottom: 10px;
             transition: all 0.2s ease;
         }
-        .library-item:last-child { margin-bottom: 0; }
+
+        .library-item:last-child {
+            margin-bottom: 0;
+        }
+
         .library-item:hover {
-            background: rgba(0,0,0,0.04);
+            background: rgba(0, 0, 0, 0.04);
             transform: translateX(4px);
         }
+
         .library-item-icon {
             width: 48px;
             height: 48px;
@@ -700,17 +1483,23 @@
             justify-content: center;
             font-size: 22px;
         }
-        .library-item-content { flex: 1; }
+
+        .library-item-content {
+            flex: 1;
+        }
+
         .library-item-title {
             font-size: 15px;
             font-weight: 600;
             margin-bottom: 2px;
             color: var(--text-primary);
         }
+
         .library-item-desc {
             font-size: 13px;
             color: var(--text-tertiary);
         }
+
         .library-item-count {
             font-size: 13px;
             font-weight: 600;
@@ -718,8 +1507,16 @@
         }
 
         /* Contact Section */
-        .contact-wrapper { max-width: 500px; margin: 0 auto; text-align: center; }
-        .contact-card { padding: 48px; }
+        .contact-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-card {
+            padding: 48px;
+        }
+
         .contact-card h3 {
             font-size: 32px;
             font-weight: 800;
@@ -731,18 +1528,21 @@
             -webkit-text-fill-color: transparent;
             animation: gradientShift 6s ease infinite;
         }
-        .contact-card > p {
+
+        .contact-card>p {
             font-size: 16px;
             color: var(--text-secondary);
             margin-bottom: 32px;
             line-height: 1.6;
         }
+
         .contact-info {
             display: flex;
             flex-direction: column;
             gap: 12px;
             margin-bottom: 32px;
         }
+
         .contact-item {
             display: flex;
             align-items: center;
@@ -751,7 +1551,13 @@
             font-size: 15px;
             color: var(--text-secondary);
         }
-        .contact-item i { color: var(--system-pink); width: 18px; height: 18px; }
+
+        .contact-item i {
+            color: var(--system-pink);
+            width: 18px;
+            height: 18px;
+        }
+
         .contact-cta {
             display: inline-flex;
             align-items: center;
@@ -766,11 +1572,16 @@
             transition: all 0.2s ease;
             box-shadow: 0 8px 24px rgba(255, 45, 85, 0.4);
         }
+
         .contact-cta:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 32px rgba(255, 45, 85, 0.5);
         }
-        .contact-cta i { width: 18px; height: 18px; }
+
+        .contact-cta i {
+            width: 18px;
+            height: 18px;
+        }
 
         /* Footer */
         footer {
@@ -779,6 +1590,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         footer p {
             font-size: 13px;
             color: var(--text-tertiary);
@@ -786,27 +1598,92 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            nav { top: 12px; padding: 4px; }
-            .nav-item { padding: 8px 16px; font-size: 13px; }
-            .hero { padding: 100px 24px 60px; }
-            .hero-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-            .hero-text { text-align: center; }
-            .hero-subtitle { margin: 0 auto 32px; }
-            .hero-stats { justify-content: center; }
-            .floating-badges { position: relative; flex-direction: row; flex-wrap: wrap; justify-content: center; right: 0; top: 0; transform: none; margin-top: 20px; }
-            section { padding: 80px 24px; }
-            .features-grid, .portfolio-grid { grid-template-columns: 1fr; }
-            footer { flex-direction: column; gap: 8px; text-align: center; }
+            nav {
+                top: 12px;
+                padding: 4px;
+            }
+
+            .nav-item {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 100px 24px 60px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 32px;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .floating-badges {
+                position: relative;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                right: 0;
+                top: 0;
+                transform: none;
+                margin-top: 20px;
+            }
+
+            section {
+                padding: 80px 24px;
+            }
+
+            .features-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
         }
+
         @media (max-width: 640px) {
-            nav { width: calc(100% - 24px); justify-content: space-between; }
-            .nav-item:not(.nav-cta) { display: none; }
-            .hero-title { font-size: 40px; }
-            .hero-stats { flex-wrap: wrap; gap: 24px; }
-            .process-step { flex-direction: column; gap: 12px; }
+            nav {
+                width: calc(100% - 24px);
+                justify-content: space-between;
+            }
+
+            .nav-item:not(.nav-cta) {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .process-step {
+                flex-direction: column;
+                gap: 12px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Animated Background -->
     <div class="bg-animation">
@@ -825,36 +1702,166 @@
             <a href="#contact" class="nav-cta">ติดต่อ</a>
         </nav>
 
-        <section class="hero" id="about">
-            <div class="hero-inner">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <div class="badge-icon"><i data-lucide="circle-check"></i></div>
-                        Available for hire
+        <section class="hero-bento" id="about">
+            <!-- Bento Content -->
+            <div class="hero-bento-wrapper">
+                <div class="hero-bento-inner">
+                    <!-- Profile Image Side -->
+                    <div class="hero-profile-side">
+                        <img src="tawan.png" alt="ตะวันแดง ชาญยุทธ" class="hero-profile-image">
                     </div>
-                    <h1 class="hero-title">I turn ideas into<br>AI-generated videos</h1>
-                    <p class="hero-subtitle">Video AI Prompt Designer ผู้เชี่ยวชาญในการสร้าง prompt เพื่อสร้างวิดีโอ AI คุณภาพสูงสำหรับงานโฆษณาและ corporate</p>
-                    <div class="hero-stats">
-                        <div class="stat"><div class="stat-value">4+</div><div class="stat-label">AI Video Tools</div></div>
-                        <div class="stat"><div class="stat-value">100+</div><div class="stat-label">Prompt Templates</div></div>
-                        <div class="stat"><div class="stat-value">∞</div><div class="stat-label">Creative Ideas</div></div>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="glass-card video-card">
-                        <div class="video-preview">
-                            <div class="play-button"><i data-lucide="play" style="width:28px;height:28px;"></i></div>
+
+                    <!-- Bento Grid Right -->
+                    <div class="bento-grid-right">
+                        <!-- Title Header -->
+                        <div class="bento-title-header">
+                            <h1 class="hero-header-title">Video AI Prompt Designer</h1>
                         </div>
-                    </div>
-                    <div class="floating-badges">
-                        <div class="floating-badge">🎬 Sora</div>
-                        <div class="floating-badge">🎨 Kling</div>
-                        <div class="floating-badge">✨ Runway</div>
-                        <div class="floating-badge">🚀 Veo3</div>
+
+                        <!-- Profile Card - Large -->
+                        <div class="bento-card large">
+                            <div class="bento-header">
+                                <div class="bento-icon blue"><i data-lucide="user"></i></div>
+                                <span class="bento-label">Profile</span>
+                            </div>
+                            <h1 class="bento-title">ตะวันแดง ชาญยุทธ</h1>
+                            <p class="bento-subtitle">Video AI Prompt Designer & Creative Specialist</p>
+                            <div class="bento-info-list">
+                                <div class="bento-info-item">
+                                    <i data-lucide="calendar"></i>
+                                    <span>อายุ:</span>
+                                    <span class="bento-info-value">27 ปี</span>
+                                </div>
+                                <div class="bento-info-item">
+                                    <i data-lucide="graduation-cap"></i>
+                                    <span>การศึกษา:</span>
+                                    <span class="bento-info-value">ม.กรุงเทพ นิเทศศาสตร์ โฆษณา</span>
+                                </div>
+                                <div class="bento-info-item">
+                                    <i data-lucide="award"></i>
+                                    <span class="bento-info-value">เกียรตินิยมอันดับ 2</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Editor Experience -->
+                        <div class="bento-card medium">
+                            <div class="bento-header">
+                                <div class="bento-icon green"><i data-lucide="video"></i></div>
+                                <span class="bento-label">Experience</span>
+                            </div>
+                            <div class="bento-experience">
+                                <div class="experience-role">Video Editor</div>
+                                <div class="experience-company">MEDIAKIDS</div>
+                                <div class="experience-duration">2 ปี</div>
+                                <p class="experience-summary">ตัดต่อวิดีโอสำหรับสื่อการเรียนรู้และคอนเทนต์ดิจิทัล
+                                    ทำงานร่วมกับทีมโปรดักชัน</p>
+                            </div>
+                            <button class="bento-btn" onclick="openModal('video-editor')">
+                                ดูรายละเอียด <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- AI Specialist Experience -->
+                        <div class="bento-card medium">
+                            <div class="bento-header">
+                                <div class="bento-icon purple"><i data-lucide="sparkles"></i></div>
+                                <span class="bento-label">Current Role</span>
+                            </div>
+                            <div class="bento-experience">
+                                <div class="experience-role">AI Creative Specialist</div>
+                                <div class="experience-company">MEDIAKIDS</div>
+                                <div class="experience-duration">3 ปี</div>
+                                <p class="experience-summary">ใช้ AI สร้างสรรค์งานดิจิทัล ออกแบบ prompt และ workflow
+                                    สำหรับ
+                                    AI-generated content</p>
+                            </div>
+                            <button class="bento-btn" onclick="openModal('ai-specialist')">
+                                ดูรายละเอียด <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Skills Card - Large -->
+                        <div class="bento-card large">
+                            <div class="bento-header">
+                                <div class="bento-icon orange"><i data-lucide="wrench"></i></div>
+                                <span class="bento-label">Skills & Tools</span>
+                            </div>
+                            <div class="bento-tags">
+                                <span class="bento-tag highlight">Sora</span>
+                                <span class="bento-tag highlight">Flow</span>
+                                <span class="bento-tag highlight">Veo</span>
+                                <span class="bento-tag highlight">Kling</span>
+                                <span class="bento-tag highlight">Runway</span>
+                                <span class="bento-tag">Premiere Pro</span>
+                                <span class="bento-tag">Photoshop</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Experience Modals -->
+        <div class="bento-modal-overlay" id="video-editor-modal">
+            <div class="bento-modal">
+                <div class="bento-modal-header">
+                    <h3 class="bento-modal-title">Video Editor @ MEDIAKIDS</h3>
+                    <button class="bento-modal-close" onclick="closeModal('video-editor')">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="bento-modal-body">
+                    <div class="bento-modal-section">
+                        <div class="bento-modal-section-title">ระยะเวลา</div>
+                        <p style="color: var(--text-secondary); font-size: 14px;">2 ปี</p>
+                    </div>
+                    <div class="bento-modal-section">
+                        <div class="bento-modal-section-title">ความรับผิดชอบหลัก</div>
+                        <ul class="bento-modal-list">
+                            <li>ตัดต่อวิดีโอสำหรับสื่อการเรียนรู้และคอนเทนต์ดิจิทัลในรูปแบบต่าง ๆ</li>
+                            <li>เรียบเรียงภาพ เสียง และจังหวะวิดีโอให้เข้าใจง่าย เหมาะกับกลุ่มเป้าหมาย</li>
+                            <li>ทำงานร่วมกับทีมคอนเทนต์และทีมโปรดักชัน เพื่อพัฒนาวิดีโอให้ตรงตามโจทย์</li>
+                            <li>ปรับแก้และพัฒนางานตามฟีดแบ็ก เพื่อให้ได้คุณภาพตามมาตรฐานองค์กร</li>
+                            <li>ดูแลไฟล์วิดีโอและโครงสร้างงานให้พร้อมใช้งานในหลายแพลตฟอร์ม</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-modal-overlay" id="ai-specialist-modal">
+            <div class="bento-modal">
+                <div class="bento-modal-header">
+                    <h3 class="bento-modal-title">AI Creative Specialist @ MEDIAKIDS</h3>
+                    <button class="bento-modal-close" onclick="closeModal('ai-specialist')">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="bento-modal-body">
+                    <div class="bento-modal-section">
+                        <div class="bento-modal-section-title">ระยะเวลา</div>
+                        <p style="color: var(--text-secondary); font-size: 14px;">3 ปี</p>
+                    </div>
+                    <div class="bento-modal-section">
+                        <div class="bento-modal-section-title">ความรับผิดชอบหลัก</div>
+                        <ul class="bento-modal-list">
+                            <li>ใช้ AI เป็นเครื่องมือหลักในการสร้างสรรค์งานดิจิทัล ทั้งภาพ วิดีโอ และคอนเทนต์ออนไลน์
+                            </li>
+                            <li>ออกแบบและพัฒนา prompt เพื่อควบคุมผลลัพธ์ของ AI ให้ตรงกับเป้าหมายงาน</li>
+                            <li>สร้างและปรับ workflow การใช้ AI เพื่อเพิ่มประสิทธิภาพและความสม่ำเสมอของผลงาน</li>
+                            <li>นำ AI มาใช้สนับสนุนงานด้านครีเอทีฟ การตลาด และสื่อดิจิทัลในหลายรูปแบบ</li>
+                            <li>คัดเลือก ตรวจสอบ และปรับแก้งานที่สร้างจาก AI เพื่อให้สามารถใช้งานได้จริงในเชิงธุรกิจ
+                            </li>
+                            <li>ทำงานร่วมกับทีมภายใน เพื่อแปลงโจทย์งานให้เป็น AI-generated content ที่เหมาะสม</li>
+                            <li>ใช้ AI เป็นเครื่องมือหลักในการสร้างเว็บไซต์องค์กรแบบ end-to-end</li>
+                            <li>ออกแบบ prompt และ workflow เพื่อให้ AI สร้างเว็บไซต์ที่ใช้งานได้จริง</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <section id="why">
             <div class="section-header">
@@ -863,12 +1870,36 @@
                 <p class="section-subtitle">ทักษะและประสบการณ์ที่ตรงกับสิ่งที่คุณกำลังมองหา</p>
             </div>
             <div class="features-grid">
-                <div class="glass-card feature-card"><div class="feature-icon blue"><i data-lucide="layers"></i></div><h3>Expert Prompt Engineering</h3><p>เข้าใจลึกซึ้งว่าต้องสื่อสารกับ AI อย่างไรให้ได้ผลลัพธ์ที่ต้องการ</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon green"><i data-lucide="monitor"></i></div><h3>Multi-Tool Proficiency</h3><p>ใช้งาน AI video tools หลากหลาย ทั้ง Sora, Kling, Runway, Veo3</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon orange"><i data-lucide="star"></i></div><h3>Quality-Focused Iteration</h3><p>ปรับแก้และพัฒนา prompt จนได้คุณภาพที่ดีที่สุด</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon purple"><i data-lucide="folder"></i></div><h3>Organized Template Library</h3><p>มีระบบจัดเก็บ prompt templates เป็นหมวดหมู่</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon pink"><i data-lucide="globe"></i></div><h3>Trend Awareness</h3><p>ติดตามเทรนด์ AI video และเครื่องมือใหม่ๆ อยู่เสมอ</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon teal"><i data-lucide="users"></i></div><h3>Team Collaboration</h3><p>พร้อมทำงานร่วมกับทีม design, content และ marketing</p></div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon blue"><i data-lucide="layers"></i></div>
+                    <h3>Expert Prompt Engineering</h3>
+                    <p>เข้าใจลึกซึ้งว่าต้องสื่อสารกับ AI อย่างไรให้ได้ผลลัพธ์ที่ต้องการ</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon green"><i data-lucide="monitor"></i></div>
+                    <h3>Multi-Tool Proficiency</h3>
+                    <p>ใช้งาน AI video tools หลากหลาย ทั้ง Sora, Kling, Runway, Veo3</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon orange"><i data-lucide="star"></i></div>
+                    <h3>Quality-Focused Iteration</h3>
+                    <p>ปรับแก้และพัฒนา prompt จนได้คุณภาพที่ดีที่สุด</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon purple"><i data-lucide="folder"></i></div>
+                    <h3>Organized Template Library</h3>
+                    <p>มีระบบจัดเก็บ prompt templates เป็นหมวดหมู่</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon pink"><i data-lucide="globe"></i></div>
+                    <h3>Trend Awareness</h3>
+                    <p>ติดตามเทรนด์ AI video และเครื่องมือใหม่ๆ อยู่เสมอ</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon teal"><i data-lucide="users"></i></div>
+                    <h3>Team Collaboration</h3>
+                    <p>พร้อมทำงานร่วมกับทีม design, content และ marketing</p>
+                </div>
             </div>
         </section>
 
@@ -882,17 +1913,41 @@
                 <div class="tools-category">
                     <div class="tools-label">AI Video Generation</div>
                     <div class="tools-grid">
-                        <div class="tool-chip"><div class="tool-icon">S</div><span class="tool-name">Sora</span><div class="tool-level"><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span></div></div>
-                        <div class="tool-chip"><div class="tool-icon">K</div><span class="tool-name">Kling</span><div class="tool-level"><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span></div></div>
-                        <div class="tool-chip"><div class="tool-icon">R</div><span class="tool-name">Runway</span><div class="tool-level"><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span></div></div>
-                        <div class="tool-chip"><div class="tool-icon">V</div><span class="tool-name">Veo3</span><div class="tool-level"><span class="active"></span><span class="active"></span><span class="active"></span><span></span></div></div>
+                        <div class="tool-chip">
+                            <div class="tool-icon">S</div><span class="tool-name">Sora</span>
+                            <div class="tool-level"><span class="active"></span><span class="active"></span><span
+                                    class="active"></span><span class="active"></span></div>
+                        </div>
+                        <div class="tool-chip">
+                            <div class="tool-icon">K</div><span class="tool-name">Kling</span>
+                            <div class="tool-level"><span class="active"></span><span class="active"></span><span
+                                    class="active"></span><span class="active"></span></div>
+                        </div>
+                        <div class="tool-chip">
+                            <div class="tool-icon">R</div><span class="tool-name">Runway</span>
+                            <div class="tool-level"><span class="active"></span><span class="active"></span><span
+                                    class="active"></span><span class="active"></span></div>
+                        </div>
+                        <div class="tool-chip">
+                            <div class="tool-icon">V</div><span class="tool-name">Veo3</span>
+                            <div class="tool-level"><span class="active"></span><span class="active"></span><span
+                                    class="active"></span><span></span></div>
+                        </div>
                     </div>
                 </div>
                 <div class="tools-category">
                     <div class="tools-label">Video Editing</div>
                     <div class="tools-grid">
-                        <div class="tool-chip"><div class="tool-icon">Pr</div><span class="tool-name">Premiere Pro</span><div class="tool-level"><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span></div></div>
-                        <div class="tool-chip"><div class="tool-icon">Ae</div><span class="tool-name">After Effects</span><div class="tool-level"><span class="active"></span><span class="active"></span><span class="active"></span><span></span></div></div>
+                        <div class="tool-chip">
+                            <div class="tool-icon">Pr</div><span class="tool-name">Premiere Pro</span>
+                            <div class="tool-level"><span class="active"></span><span class="active"></span><span
+                                    class="active"></span><span class="active"></span></div>
+                        </div>
+                        <div class="tool-chip">
+                            <div class="tool-icon">Ae</div><span class="tool-name">After Effects</span>
+                            <div class="tool-level"><span class="active"></span><span class="active"></span><span
+                                    class="active"></span><span></span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -906,39 +1961,75 @@
             </div>
             <div class="portfolio-grid">
                 <div class="glass-card portfolio-card">
-                    <div class="portfolio-thumbnail"><div class="portfolio-play"><i data-lucide="play"></i></div><span class="portfolio-badge">Product / Food</span></div>
+                    <div class="portfolio-thumbnail">
+                        <div class="portfolio-play"><i data-lucide="play"></i></div><span
+                            class="portfolio-badge">Product / Food</span>
+                    </div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">Fresh Produce Splash</h3>
                         <p class="portfolio-desc">วิดีโอโฆษณาผักผลไม้สดสไตล์ commercial แบบ slow motion</p>
-                        <div class="portfolio-prompt"><div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div><code>Cinematic slow motion shot of fresh red tomatoes falling into crystal clear water, creating dynamic splashes, water droplets suspended in air, studio lighting with dark background, commercial food advertisement style, 4K</code></div>
-                        <div class="portfolio-meta"><div class="portfolio-meta-item"><i data-lucide="monitor"></i> Kling</div><div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 5 iterations</div></div>
+                        <div class="portfolio-prompt">
+                            <div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div>
+                            <code>Cinematic slow motion shot of fresh red tomatoes falling into crystal clear water, creating dynamic splashes, water droplets suspended in air, studio lighting with dark background, commercial food advertisement style, 4K</code>
+                        </div>
+                        <div class="portfolio-meta">
+                            <div class="portfolio-meta-item"><i data-lucide="monitor"></i> Kling</div>
+                            <div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 5 iterations</div>
+                        </div>
                     </div>
                 </div>
                 <div class="glass-card portfolio-card">
-                    <div class="portfolio-thumbnail"><div class="portfolio-play"><i data-lucide="play"></i></div><span class="portfolio-badge">Retail / Promo</span></div>
+                    <div class="portfolio-thumbnail">
+                        <div class="portfolio-play"><i data-lucide="play"></i></div><span class="portfolio-badge">Retail
+                            / Promo</span>
+                    </div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">Gift Box Reveal</h3>
                         <p class="portfolio-desc">วิดีโอเปิดตัวโปรโมชั่นแบบ magical reveal</p>
-                        <div class="portfolio-prompt"><div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div><code>Golden gift box slowly opening with warm glowing light rays emerging from inside, magical particles floating upward, shallow depth of field, luxury product reveal style, smooth camera push-in, 4K cinematic</code></div>
-                        <div class="portfolio-meta"><div class="portfolio-meta-item"><i data-lucide="monitor"></i> Runway</div><div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 3 iterations</div></div>
+                        <div class="portfolio-prompt">
+                            <div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div>
+                            <code>Golden gift box slowly opening with warm glowing light rays emerging from inside, magical particles floating upward, shallow depth of field, luxury product reveal style, smooth camera push-in, 4K cinematic</code>
+                        </div>
+                        <div class="portfolio-meta">
+                            <div class="portfolio-meta-item"><i data-lucide="monitor"></i> Runway</div>
+                            <div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 3 iterations</div>
+                        </div>
                     </div>
                 </div>
                 <div class="glass-card portfolio-card">
-                    <div class="portfolio-thumbnail"><div class="portfolio-play"><i data-lucide="play"></i></div><span class="portfolio-badge">Lifestyle</span></div>
+                    <div class="portfolio-thumbnail">
+                        <div class="portfolio-play"><i data-lucide="play"></i></div><span
+                            class="portfolio-badge">Lifestyle</span>
+                    </div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">Family Dinner Moment</h3>
                         <p class="portfolio-desc">วิดีโอครอบครัวไทยกินข้าวด้วยกัน บรรยากาศอบอุ่น</p>
-                        <div class="portfolio-prompt"><div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div><code>Thai family of four sharing dinner at home, warm golden hour sunlight through window, mother serving rice, children laughing, father smiling, cozy dining room, natural documentary style, 4K</code></div>
-                        <div class="portfolio-meta"><div class="portfolio-meta-item"><i data-lucide="monitor"></i> Veo3</div><div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 4 iterations</div></div>
+                        <div class="portfolio-prompt">
+                            <div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div>
+                            <code>Thai family of four sharing dinner at home, warm golden hour sunlight through window, mother serving rice, children laughing, father smiling, cozy dining room, natural documentary style, 4K</code>
+                        </div>
+                        <div class="portfolio-meta">
+                            <div class="portfolio-meta-item"><i data-lucide="monitor"></i> Veo3</div>
+                            <div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 4 iterations</div>
+                        </div>
                     </div>
                 </div>
                 <div class="glass-card portfolio-card">
-                    <div class="portfolio-thumbnail"><div class="portfolio-play"><i data-lucide="play"></i></div><span class="portfolio-badge">Corporate</span></div>
+                    <div class="portfolio-thumbnail">
+                        <div class="portfolio-play"><i data-lucide="play"></i></div><span
+                            class="portfolio-badge">Corporate</span>
+                    </div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">Warehouse Epic Scale</h3>
                         <p class="portfolio-desc">วิดีโอ drone shot เหนือ warehouse ขนาดใหญ่</p>
-                        <div class="portfolio-prompt"><div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div><code>Cinematic aerial drone shot flying through massive modern warehouse, rows of organized shelves with products, warm industrial lighting, workers in uniform, camera smoothly gliding forward, corporate promotional style, 4K epic scale</code></div>
-                        <div class="portfolio-meta"><div class="portfolio-meta-item"><i data-lucide="monitor"></i> Sora</div><div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 6 iterations</div></div>
+                        <div class="portfolio-prompt">
+                            <div class="portfolio-prompt-label"><i data-lucide="file-text"></i> Prompt</div>
+                            <code>Cinematic aerial drone shot flying through massive modern warehouse, rows of organized shelves with products, warm industrial lighting, workers in uniform, camera smoothly gliding forward, corporate promotional style, 4K epic scale</code>
+                        </div>
+                        <div class="portfolio-meta">
+                            <div class="portfolio-meta-item"><i data-lucide="monitor"></i> Sora</div>
+                            <div class="portfolio-meta-item"><i data-lucide="refresh-cw"></i> 6 iterations</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -952,12 +2043,48 @@
             </div>
             <div class="process-container">
                 <div class="process-steps">
-                    <div class="glass-card process-step"><div class="process-number">1</div><div class="process-content"><h3>รับ Brief & วิเคราะห์</h3><p>ทำความเข้าใจ requirement, กลุ่มเป้าหมาย, tone & mood</p></div></div>
-                    <div class="glass-card process-step"><div class="process-number">2</div><div class="process-content"><h3>เขียน Prompt เวอร์ชันแรก</h3><p>ร่าง prompt โดยใช้คำสำคัญที่กำหนดมุมกล้อง แสง สี อารมณ์</p></div></div>
-                    <div class="glass-card process-step"><div class="process-number">3</div><div class="process-content"><h3>Generate & ทดสอบ</h3><p>สร้างวิดีโอจาก AI tool ที่เหมาะสม ทดสอบหลาย tools</p></div></div>
-                    <div class="glass-card process-step"><div class="process-number">4</div><div class="process-content"><h3>Iterate & ปรับปรุง</h3><p>วิเคราะห์ผลลัพธ์ ปรับแก้ prompt หลายรอบจนได้คุณภาพ</p></div></div>
-                    <div class="glass-card process-step"><div class="process-number">5</div><div class="process-content"><h3>Post-Production</h3><p>ตัดต่อ เพิ่ม effect, เสียง, text ด้วย Premiere Pro</p></div></div>
-                    <div class="glass-card process-step"><div class="process-number">6</div><div class="process-content"><h3>Feedback & บันทึก Template</h3><p>รับ feedback บันทึก prompt ที่สำเร็จลง library</p></div></div>
+                    <div class="glass-card process-step">
+                        <div class="process-number">1</div>
+                        <div class="process-content">
+                            <h3>รับ Brief & วิเคราะห์</h3>
+                            <p>ทำความเข้าใจ requirement, กลุ่มเป้าหมาย, tone & mood</p>
+                        </div>
+                    </div>
+                    <div class="glass-card process-step">
+                        <div class="process-number">2</div>
+                        <div class="process-content">
+                            <h3>เขียน Prompt เวอร์ชันแรก</h3>
+                            <p>ร่าง prompt โดยใช้คำสำคัญที่กำหนดมุมกล้อง แสง สี อารมณ์</p>
+                        </div>
+                    </div>
+                    <div class="glass-card process-step">
+                        <div class="process-number">3</div>
+                        <div class="process-content">
+                            <h3>Generate & ทดสอบ</h3>
+                            <p>สร้างวิดีโอจาก AI tool ที่เหมาะสม ทดสอบหลาย tools</p>
+                        </div>
+                    </div>
+                    <div class="glass-card process-step">
+                        <div class="process-number">4</div>
+                        <div class="process-content">
+                            <h3>Iterate & ปรับปรุง</h3>
+                            <p>วิเคราะห์ผลลัพธ์ ปรับแก้ prompt หลายรอบจนได้คุณภาพ</p>
+                        </div>
+                    </div>
+                    <div class="glass-card process-step">
+                        <div class="process-number">5</div>
+                        <div class="process-content">
+                            <h3>Post-Production</h3>
+                            <p>ตัดต่อ เพิ่ม effect, เสียง, text ด้วย Premiere Pro</p>
+                        </div>
+                    </div>
+                    <div class="glass-card process-step">
+                        <div class="process-number">6</div>
+                        <div class="process-content">
+                            <h3>Feedback & บันทึก Template</h3>
+                            <p>รับ feedback บันทึก prompt ที่สำเร็จลง library</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -969,13 +2096,48 @@
                 <p class="section-subtitle">ระบบจัดเก็บ prompt ที่ใช้งานได้ทันที</p>
             </div>
             <div class="glass-card library-window">
-                <div class="library-titlebar"><span class="titlebar-dot red"></span><span class="titlebar-dot yellow"></span><span class="titlebar-dot green"></span></div>
-                <div class="library-tabs"><div class="library-tab active">All</div><div class="library-tab">Product</div><div class="library-tab">Lifestyle</div><div class="library-tab">Corporate</div><div class="library-tab">Cinematic</div></div>
+                <div class="library-titlebar"><span class="titlebar-dot red"></span><span
+                        class="titlebar-dot yellow"></span><span class="titlebar-dot green"></span></div>
+                <div class="library-tabs">
+                    <div class="library-tab active">All</div>
+                    <div class="library-tab">Product</div>
+                    <div class="library-tab">Lifestyle</div>
+                    <div class="library-tab">Corporate</div>
+                    <div class="library-tab">Cinematic</div>
+                </div>
                 <div class="library-content">
-                    <div class="library-item"><div class="library-item-icon">🍎</div><div class="library-item-content"><div class="library-item-title">Food & Beverage</div><div class="library-item-desc">Product shots, splash effects, cooking scenes</div></div><div class="library-item-count">24 templates</div></div>
-                    <div class="library-item"><div class="library-item-icon">🏠</div><div class="library-item-content"><div class="library-item-title">Lifestyle & Family</div><div class="library-item-desc">Home scenes, celebrations, daily moments</div></div><div class="library-item-count">18 templates</div></div>
-                    <div class="library-item"><div class="library-item-icon">🏢</div><div class="library-item-content"><div class="library-item-title">Corporate & Business</div><div class="library-item-desc">Office, warehouse, team collaboration</div></div><div class="library-item-count">15 templates</div></div>
-                    <div class="library-item"><div class="library-item-icon">🎬</div><div class="library-item-content"><div class="library-item-title">Cinematic Effects</div><div class="library-item-desc">Transitions, reveals, epic shots</div></div><div class="library-item-count">21 templates</div></div>
+                    <div class="library-item">
+                        <div class="library-item-icon">🍎</div>
+                        <div class="library-item-content">
+                            <div class="library-item-title">Food & Beverage</div>
+                            <div class="library-item-desc">Product shots, splash effects, cooking scenes</div>
+                        </div>
+                        <div class="library-item-count">24 templates</div>
+                    </div>
+                    <div class="library-item">
+                        <div class="library-item-icon">🏠</div>
+                        <div class="library-item-content">
+                            <div class="library-item-title">Lifestyle & Family</div>
+                            <div class="library-item-desc">Home scenes, celebrations, daily moments</div>
+                        </div>
+                        <div class="library-item-count">18 templates</div>
+                    </div>
+                    <div class="library-item">
+                        <div class="library-item-icon">🏢</div>
+                        <div class="library-item-content">
+                            <div class="library-item-title">Corporate & Business</div>
+                            <div class="library-item-desc">Office, warehouse, team collaboration</div>
+                        </div>
+                        <div class="library-item-count">15 templates</div>
+                    </div>
+                    <div class="library-item">
+                        <div class="library-item-icon">🎬</div>
+                        <div class="library-item-content">
+                            <div class="library-item-title">Cinematic Effects</div>
+                            <div class="library-item-desc">Transitions, reveals, epic shots</div>
+                        </div>
+                        <div class="library-item-count">21 templates</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -995,17 +2157,59 @@
             </div>
         </section>
 
-        <footer><p>© 2025 Tawandaeng. Crafted with ♥</p><p>Video AI Prompt Designer</p></footer>
+        <footer>
+            <p>© 2025 Tawandaeng. Crafted with ♥</p>
+            <p>Video AI Prompt Designer</p>
+        </footer>
     </div>
 
     <script>
         lucide.createIcons();
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
-        const secs=document.querySelectorAll('section'),navs=document.querySelectorAll('.nav-item:not(.nav-cta)');
-        window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-200)c=s.id});navs.forEach(n=>{n.classList.remove('active');if(n.getAttribute('href')==='#'+c)n.classList.add('active')})});
-        document.querySelectorAll('.library-tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.library-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active')})});
-        const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)'}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
-        document.querySelectorAll('.glass-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='all 0.5s cubic-bezier(0.25,0.1,0.25,1)';obs.observe(el)});
+        document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function (e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }) }) });
+        const secs = document.querySelectorAll('section'), navs = document.querySelectorAll('.nav-item:not(.nav-cta)');
+        window.addEventListener('scroll', () => { let c = ''; secs.forEach(s => { if (scrollY >= s.offsetTop - 200) c = s.id }); navs.forEach(n => { n.classList.remove('active'); if (n.getAttribute('href') === '#' + c) n.classList.add('active') }) });
+        document.querySelectorAll('.library-tab').forEach(t => { t.addEventListener('click', () => { document.querySelectorAll('.library-tab').forEach(x => x.classList.remove('active')); t.classList.add('active') }) });
+        const obs = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting) { x.target.style.opacity = '1'; x.target.style.transform = 'translateY(0)' } }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.glass-card').forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'all 0.5s cubic-bezier(0.25,0.1,0.25,1)'; obs.observe(el) });
+
+        // Modal Functions
+        function openModal(id) {
+            const modal = document.getElementById(id + '-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id + '-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.bento-modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.bento-modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
     </script>
 </body>
+
 </html>
