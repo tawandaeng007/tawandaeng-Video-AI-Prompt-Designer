@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -174,6 +174,32 @@
         .nav-cta:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(0, 122, 255, 0.5);
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 4px;
+        }
+
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text-primary);
+        }
+
+        .lang-icon {
+            font-size: 14px;
         }
 
         /* Glass Card */
@@ -2751,7 +2777,11 @@
             <a href="#about" class="nav-item active">About</a>
             <a href="#portfolio" class="nav-item">Portfolio</a>
             <a href="#library" class="nav-item">Library</a>
-            <a href="#contact" class="nav-cta">ติดต่อ</a>
+            <a href="#contact" class="nav-cta" data-en="Contact" data-th="ติดต่อ">Contact</a>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                <span class="lang-icon">🌐</span>
+                <span id="lang-label">TH</span>
+            </button>
         </nav>
 
         <section class="hero-bento" id="about">
@@ -2776,22 +2806,28 @@
                                 <div class="bento-icon blue"><i data-lucide="user"></i></div>
                                 <span class="bento-label">Profile</span>
                             </div>
-                            <h1 class="bento-title">ตะวันแดง ชาญยุทธ</h1>
+                            <h1 class="bento-title" data-en="Tawandaeng Charnyouth" data-th="ตะวันแดง ชาญยุทธ">
+                                Tawandaeng Charnyouth</h1>
                             <p class="bento-subtitle">Video AI Prompt Designer & Creative Specialist</p>
                             <div class="bento-info-list">
                                 <div class="bento-info-item">
                                     <i data-lucide="calendar"></i>
-                                    <span>อายุ:</span>
-                                    <span class="bento-info-value">27 ปี</span>
+                                    <span data-en="Age:" data-th="อายุ:">Age:</span>
+                                    <span class="bento-info-value" data-en="27 years old" data-th="27 ปี">27 years
+                                        old</span>
                                 </div>
                                 <div class="bento-info-item">
                                     <i data-lucide="graduation-cap"></i>
-                                    <span>การศึกษา:</span>
-                                    <span class="bento-info-value">ม.กรุงเทพ นิเทศศาสตร์ โฆษณา</span>
+                                    <span data-en="Education:" data-th="การศึกษา:">Education:</span>
+                                    <span class="bento-info-value"
+                                        data-en="Bangkok University, Communication Arts (Digital Advertising)"
+                                        data-th="ม.กรุงเทพ นิเทศศาสตร์ โฆษณา">Bangkok University, Communication Arts
+                                        (Digital Advertising)</span>
                                 </div>
                                 <div class="bento-info-item">
                                     <i data-lucide="award"></i>
-                                    <span class="bento-info-value">เกียรตินิยมอันดับ 2</span>
+                                    <span class="bento-info-value" data-en="Second Class Honors"
+                                        data-th="เกียรตินิยมอันดับ 2">Second Class Honors</span>
                                 </div>
                             </div>
                         </div>
@@ -2805,12 +2841,16 @@
                             <div class="bento-experience">
                                 <div class="experience-role">Video Editor</div>
                                 <div class="experience-company">MEDIAKIDS</div>
-                                <div class="experience-duration">2 ปี</div>
-                                <p class="experience-summary">ตัดต่อวิดีโอสำหรับสื่อการเรียนรู้และคอนเทนต์ดิจิทัล
-                                    ทำงานร่วมกับทีมโปรดักชัน</p>
+                                <div class="experience-duration" data-en="2 years" data-th="2 ปี">2 years</div>
+                                <p class="experience-summary"
+                                    data-en="Video editing for educational media and digital content. Collaborated with production teams."
+                                    data-th="ตัดต่อวิดีโอสำหรับสื่อการเรียนรู้และคอนเทนต์ดิจิทัล ทำงานร่วมกับทีมโปรดักชัน">
+                                    Video editing for educational media and digital content. Collaborated with
+                                    production teams.</p>
                             </div>
-                            <button class="bento-btn" onclick="openModal('video-editor')">
-                                ดูรายละเอียด <i data-lucide="arrow-right"></i>
+                            <button class="bento-btn" onclick="openModal('video-editor')" data-en="View Details"
+                                data-th="ดูรายละเอียด">
+                                View Details <i data-lucide="arrow-right"></i>
                             </button>
                         </div>
 
@@ -2823,13 +2863,16 @@
                             <div class="bento-experience">
                                 <div class="experience-role">AI Creative Specialist</div>
                                 <div class="experience-company">MEDIAKIDS</div>
-                                <div class="experience-duration">3 ปี</div>
-                                <p class="experience-summary">ใช้ AI สร้างสรรค์งานดิจิทัล ออกแบบ prompt และ workflow
-                                    สำหรับ
-                                    AI-generated content</p>
+                                <div class="experience-duration" data-en="3 years" data-th="3 ปี">3 years</div>
+                                <p class="experience-summary"
+                                    data-en="Creating digital content with AI, designing prompts and workflows for AI-generated content."
+                                    data-th="ใช้ AI สร้างสรรค์งานดิจิทัล ออกแบบ prompt และ workflow สำหรับ AI-generated content">
+                                    Creating digital content with AI, designing prompts and workflows for AI-generated
+                                    content.</p>
                             </div>
-                            <button class="bento-btn" onclick="openModal('ai-specialist')">
-                                ดูรายละเอียด <i data-lucide="arrow-right"></i>
+                            <button class="bento-btn" onclick="openModal('ai-specialist')" data-en="View Details"
+                                data-th="ดูรายละเอียด">
+                                View Details <i data-lucide="arrow-right"></i>
                             </button>
                         </div>
 
@@ -2860,8 +2903,11 @@
         <section class="video-showcase" id="portfolio">
             <div class="section-header">
                 <span class="section-badge"><i data-lucide="video"></i> Portfolio</span>
-                <h2 class="section-title purple">ผลงาน AI Video</h2>
-                <p class="section-subtitle">ตัวอย่างผลงานวิดีโอที่สร้างด้วย AI พร้อม Prompt ที่ใช้ในการสร้าง</p>
+                <h2 class="section-title purple" data-en="AI Video Portfolio" data-th="ผลงาน AI Video">AI Video
+                    Portfolio</h2>
+                <p class="section-subtitle" data-en="Sample AI-generated videos with the prompts used to create them"
+                    data-th="ตัวอย่างผลงานวิดีโอที่สร้างด้วย AI พร้อม Prompt ที่ใช้ในการสร้าง">Sample AI-generated
+                    videos with the prompts used to create them</p>
             </div>
 
             <div class="video-grid">
@@ -3478,11 +3524,13 @@ No AI-art style.</pre>
                 </div>
                 <div class="bento-modal-body">
                     <div class="bento-modal-section">
-                        <div class="bento-modal-section-title">ระยะเวลา</div>
-                        <p style="color: var(--text-secondary); font-size: 14px;">2 ปี</p>
+                        <div class="bento-modal-section-title" data-en="Duration" data-th="ระยะเวลา">Duration</div>
+                        <p style="color: var(--text-secondary); font-size: 14px;" data-en="2 years" data-th="2 ปี">2
+                            years</p>
                     </div>
                     <div class="bento-modal-section">
-                        <div class="bento-modal-section-title">ความรับผิดชอบหลัก</div>
+                        <div class="bento-modal-section-title" data-en="Key Responsibilities"
+                            data-th="ความรับผิดชอบหลัก">Key Responsibilities</div>
                         <ul class="bento-modal-list">
                             <li>ตัดต่อวิดีโอสำหรับสื่อการเรียนรู้และคอนเทนต์ดิจิทัลในรูปแบบต่าง ๆ</li>
                             <li>เรียบเรียงภาพ เสียง และจังหวะวิดีโอให้เข้าใจง่าย เหมาะกับกลุ่มเป้าหมาย</li>
@@ -3505,11 +3553,13 @@ No AI-art style.</pre>
                 </div>
                 <div class="bento-modal-body">
                     <div class="bento-modal-section">
-                        <div class="bento-modal-section-title">ระยะเวลา</div>
-                        <p style="color: var(--text-secondary); font-size: 14px;">3 ปี</p>
+                        <div class="bento-modal-section-title" data-en="Duration" data-th="ระยะเวลา">Duration</div>
+                        <p style="color: var(--text-secondary); font-size: 14px;" data-en="3 years" data-th="3 ปี">3
+                            years</p>
                     </div>
                     <div class="bento-modal-section">
-                        <div class="bento-modal-section-title">ความรับผิดชอบหลัก</div>
+                        <div class="bento-modal-section-title" data-en="Key Responsibilities"
+                            data-th="ความรับผิดชอบหลัก">Key Responsibilities</div>
                         <ul class="bento-modal-list">
                             <li>ใช้ AI เป็นเครื่องมือหลักในการสร้างสรรค์งานดิจิทัล ทั้งภาพ วิดีโอ และคอนเทนต์ออนไลน์
                             </li>
@@ -3536,17 +3586,20 @@ No AI-art style.</pre>
         <section id="library" class="prompt-library-section">
             <div class="section-header">
                 <div class="section-badge"><i data-lucide="database"></i> Prompt Library</div>
-                <h2 class="hero-header-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); opacity: 1;">คลัง Prompt
-                    Templates</h2>
-                <p class="section-subtitle">ระบบจัดเก็บ prompt ที่ค้นหาและกรองได้ พร้อมใช้งานทันที</p>
+                <h2 class="hero-header-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); opacity: 1;"
+                    data-en="Prompt Templates" data-th="คลัง Prompt Templates">Prompt Templates</h2>
+                <p class="section-subtitle" data-en="Ready-to-use prompt collection for professional AI video creation"
+                    data-th="ระบบจัดเก็บ prompt ที่ค้นหาและกรองได้ พร้อมใช้งานทันที">Ready-to-use prompt collection for
+                    professional AI video creation</p>
             </div>
 
             <!-- Search Bar -->
             <div class="library-search-container">
                 <div class="library-search glass-card">
                     <i data-lucide="search"></i>
-                    <input type="text" id="library-search" placeholder="ค้นหา prompt... (ชื่อ, category, tool)"
-                        autocomplete="off">
+                    <input type="text" id="library-search" placeholder="Search prompts..."
+                        data-placeholder-en="Search prompts..."
+                        data-placeholder-th="ค้นหา prompt... (ชื่อ, category, tool)" autocomplete="off">
                     <button class="search-clear" id="search-clear" style="display: none;">
                         <i data-lucide="x"></i>
                     </button>
@@ -3838,22 +3891,23 @@ No AI-art style.</pre>
             <!-- No Results Message -->
             <div class="no-results" id="no-results" style="display: none;">
                 <i data-lucide="search-x"></i>
-                <h4>ไม่พบ prompt ที่ค้นหา</h4>
-                <p>ลองใช้คำค้นหาอื่น หรือเลือก category ใหม่</p>
+                <h4 data-en="No prompts found" data-th="ไม่พบ prompt ที่ค้นหา">No prompts found</h4>
+                <p data-en="Try a different keyword or category" data-th="ลองใช้คำค้นหาอื่น หรือเลือก category ใหม่">Try
+                    a different keyword or category</p>
             </div>
         </section>
 
         <section id="contact">
             <div class="contact-wrapper">
                 <div class="glass-card contact-card">
-                    <h3>ติดต่อร่วมงาน</h3>
+                    <h3 data-en="Get in Touch" data-th="ติดต่อร่วมงาน">Get in Touch</h3>
                     <div class="contact-info">
                         <div class="contact-item"><i data-lucide="mail"></i> Tawandaeng.bu@gmail.com</div>
                         <div class="contact-item"><i data-lucide="phone"></i> 062-393-9911</div>
                         <div class="contact-item"><i data-lucide="map-pin"></i> Bangkok, Thailand</div>
                     </div>
-                    <a href="https://line.me/ti/p/N0azoj415X" target="_blank" class="contact-cta"><i
-                            data-lucide="send"></i> ส่งข้อความ</a>
+                    <a href="https://line.me/ti/p/N0azoj415X" target="_blank" class="contact-cta" data-en="Send Message"
+                        data-th="ส่งข้อความ"><i data-lucide="send"></i> Send Message</a>
                 </div>
             </div>
         </section>
@@ -3872,6 +3926,57 @@ No AI-art style.</pre>
         document.querySelectorAll('.library-tab').forEach(t => { t.addEventListener('click', () => { document.querySelectorAll('.library-tab').forEach(x => x.classList.remove('active')); t.classList.add('active') }) });
         const obs = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting) { x.target.style.opacity = '1'; x.target.style.transform = 'translateY(0)' } }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.glass-card').forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'all 0.5s cubic-bezier(0.25,0.1,0.25,1)'; obs.observe(el) });
+
+        // Language Toggle Functions
+        let currentLang = 'en'; // English as default
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'th' : 'en';
+            updateLanguage();
+            localStorage.setItem('preferredLang', currentLang);
+        }
+
+        function updateLanguage() {
+            // Update all elements with data-en and data-th attributes
+            document.querySelectorAll('[data-en][data-th]').forEach(el => {
+                const text = el.getAttribute('data-' + currentLang);
+                if (el.tagName === 'INPUT') {
+                    el.placeholder = text;
+                } else if (el.querySelector('i[data-lucide]')) {
+                    // Preserve icon for buttons/links with icons
+                    const icon = el.querySelector('i[data-lucide]').outerHTML;
+                    el.innerHTML = icon + ' ' + text;
+                } else {
+                    el.textContent = text;
+                }
+            });
+
+            // Update search input placeholder separately
+            const searchInput = document.getElementById('library-search');
+            if (searchInput) {
+                const placeholder = searchInput.getAttribute('data-placeholder-' + currentLang);
+                if (placeholder) searchInput.placeholder = placeholder;
+            }
+
+            // Update language label button
+            const langLabel = document.getElementById('lang-label');
+            if (langLabel) langLabel.textContent = currentLang === 'en' ? 'TH' : 'EN';
+
+            // Update html lang attribute
+            document.documentElement.lang = currentLang;
+
+            // Refresh Lucide icons
+            lucide.createIcons();
+        }
+
+        // Initialize language on page load
+        (function initLanguage() {
+            const saved = localStorage.getItem('preferredLang');
+            if (saved && (saved === 'en' || saved === 'th')) {
+                currentLang = saved;
+            }
+            updateLanguage();
+        })();
 
         // Modal Functions
         function openModal(id) {
