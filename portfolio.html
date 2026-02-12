@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Tawandaeng Charnyouth</title>
+    <meta name="description"
+        content="รวมผลงานทั้งหมดของ Tawandaeng Charnyouth — AI Video, AI Images, Web Development, Video Editing, AI Prompt Training">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        :root {
+            --system-blue: #007AFF;
+            --system-blue-light: #5AC8FA;
+            --system-green: #34C759;
+            --system-purple: #AF52DE;
+            --system-orange: #FF9500;
+            --text-primary: #1d1d1f;
+            --text-secondary: #424245;
+            --text-tertiary: #6e6e73;
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #E8F0FE 0%, #F0F4FF 30%, #F8FAFF 60%, #EFF6FF 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #007AFF, #5AC8FA);
+            top: -10%;
+            right: -5%;
+            animation: floatBlob1 20s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #AF52DE, #BF5AF2);
+            bottom: -10%;
+            left: -5%;
+            animation: floatBlob2 25s ease-in-out infinite;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #34C759, #5AC8FA);
+            top: 40%;
+            left: 30%;
+            animation: floatBlob3 18s ease-in-out infinite;
+        }
+
+        @keyframes floatBlob1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(-80px, 60px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(40px, -40px) scale(0.9);
+            }
+        }
+
+        @keyframes floatBlob2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(60px, -80px) scale(1.15);
+            }
+
+            66% {
+                transform: translate(-40px, 40px) scale(0.85);
+            }
+        }
+
+        @keyframes floatBlob3 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(-60px, -60px) scale(1.2);
+            }
+
+            66% {
+                transform: translate(80px, 30px) scale(0.8);
+            }
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+            padding: 6px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-pill);
+            z-index: 1000;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-pill);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: white;
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== PAGE WRAPPER ===== */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
+            padding-bottom: 60px;
+            animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SECTION HEADER ===== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-badge i {
+            width: 13px;
+            height: 13px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        /* ===== PORTFOLIO GRID ===== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .portfolio-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .portfolio-card-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-card:hover .portfolio-card-bg {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .portfolio-card-image {
+            position: relative;
+            z-index: 2;
+            margin: 14px 14px 0 14px;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+        }
+
+        .portfolio-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .portfolio-card-image img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 22px 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .portfolio-card-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        .portfolio-card-category i {
+            width: 12px;
+            height: 12px;
+        }
+
+        .portfolio-card-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .portfolio-card-subtitle {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .portfolio-card-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 50%;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card-arrow i {
+            width: 16px;
+            height: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .portfolio-card:hover .portfolio-card-arrow {
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+        }
+
+        .portfolio-card:hover .portfolio-card-arrow i {
+            color: white;
+        }
+
+        /* ===== BACK BUTTON ===== */
+        .back-section {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+            border-color: transparent;
+        }
+
+        .back-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ===== PAGE TRANSITION ===== */
+        .page-transition-out {
+            animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes fadeSlideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 4px;
+                gap: 2px;
+            }
+
+            .nav-item {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .page-wrapper {
+                padding-top: 80px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+                padding: 0 16px;
+            }
+
+            .portfolio-card {
+                border-radius: 18px;
+            }
+
+            .portfolio-card-bg {
+                border-radius: 18px;
+            }
+
+            .portfolio-card-image {
+                margin: 10px 10px 0;
+                border-radius: 12px;
+            }
+
+            .portfolio-card-content {
+                padding: 14px 14px 18px;
+            }
+
+            .portfolio-card-title {
+                font-size: 17px;
+            }
+
+            .portfolio-card-subtitle {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Floating Glass Navigation -->
+    <nav>
+        <a href="index.html" class="nav-item" onclick="navigateTo(event, this.href)">Home</a>
+        <a href="#" class="nav-item active">Portfolio</a>
+        <a href="resume.html" class="nav-item" onclick="navigateTo(event, this.href)">Resume</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-badge"><i data-lucide="briefcase"></i> Portfolio</span>
+            <h1 class="section-title">All Works</h1>
+            <p class="section-subtitle">รวมผลงานทั้งหมด</p>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div class="portfolio-grid">
+
+            <!-- Card 1: AI Video -->
+            <a href="portfolio-1.html" class="portfolio-card" onclick="navigateTo(event, this.href)">
+                <div class="portfolio-card-bg"></div>
+                <div class="portfolio-card-image">
+                    <img src="card/AI Video.png" alt="AI Video Generation" loading="lazy">
+                </div>
+                <div class="portfolio-card-content">
+                    <span class="portfolio-card-category"><i data-lucide="film"></i> AI Video</span>
+                    <div class="portfolio-card-title">AI Video Generation</div>
+                    <div class="portfolio-card-subtitle">AI Video Production & Prompt Design</div>
+                </div>
+                <div class="portfolio-card-arrow"><i data-lucide="arrow-right"></i></div>
+            </a>
+
+            <!-- Card 2: AI Images -->
+            <a href="portfolio-2.html" class="portfolio-card" onclick="navigateTo(event, this.href)">
+                <div class="portfolio-card-bg"></div>
+                <div class="portfolio-card-image">
+                    <img src="card/AFS1.webp" alt="AI Image Generation" loading="lazy" style="object-position: top;">
+                </div>
+                <div class="portfolio-card-content">
+                    <span class="portfolio-card-category"><i data-lucide="image"></i> AI Images</span>
+                    <div class="portfolio-card-title">AI Image Generation</div>
+                    <div class="portfolio-card-subtitle">AI-Generated Visual Content</div>
+                </div>
+                <div class="portfolio-card-arrow"><i data-lucide="arrow-right"></i></div>
+            </a>
+
+            <!-- Card 3: AI Web Development -->
+            <a href="portfolio-3.html" class="portfolio-card" onclick="navigateTo(event, this.href)">
+                <div class="portfolio-card-bg"></div>
+                <div class="portfolio-card-image">
+                    <img src="card/AI Web Development.png" alt="AI Web Development" loading="lazy">
+                </div>
+                <div class="portfolio-card-content">
+                    <span class="portfolio-card-category"><i data-lucide="code"></i> Web Dev</span>
+                    <div class="portfolio-card-title">AI Web Development</div>
+                    <div class="portfolio-card-subtitle">Web Development with AI Tools</div>
+                </div>
+                <div class="portfolio-card-arrow"><i data-lucide="arrow-right"></i></div>
+            </a>
+
+            <!-- Card 4: Video Editing -->
+            <a href="portfolio-4.html" class="portfolio-card" onclick="navigateTo(event, this.href)">
+                <div class="portfolio-card-bg"></div>
+                <div class="portfolio-card-image">
+                    <img src="card/Video Editing.png" alt="Video Editing" loading="lazy">
+                </div>
+                <div class="portfolio-card-content">
+                    <span class="portfolio-card-category"><i data-lucide="scissors"></i> Editing</span>
+                    <div class="portfolio-card-title">Video Editing</div>
+                    <div class="portfolio-card-subtitle">Professional Video Editing & Post-Production</div>
+                </div>
+                <div class="portfolio-card-arrow"><i data-lucide="arrow-right"></i></div>
+            </a>
+
+            <!-- Card 5: AI Prompt Training -->
+            <a href="portfolio-5.html" class="portfolio-card" onclick="navigateTo(event, this.href)">
+                <div class="portfolio-card-bg"></div>
+                <div class="portfolio-card-image">
+                    <img src="card/AI Prompt Training.jpg" alt="AI Prompt Training" loading="lazy">
+                </div>
+                <div class="portfolio-card-content">
+                    <span class="portfolio-card-category"><i data-lucide="graduation-cap"></i> Training</span>
+                    <div class="portfolio-card-title">AI Prompt Training</div>
+                    <div class="portfolio-card-subtitle">AI Prompt Design Education & Workshops</div>
+                </div>
+                <div class="portfolio-card-arrow"><i data-lucide="arrow-right"></i></div>
+            </a>
+
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-section">
+            <a href="index.html" class="back-btn" onclick="navigateTo(event, this.href)">
+                <i data-lucide="arrow-left"></i> กลับหน้าหลัก
+            </a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function navigateTo(e, url) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = url; }, 350);
+        }
+    </script>
+</body>
+
+</html>

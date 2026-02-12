@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Web Development — Tawandaeng Portfolio</title>
+    <meta name="description" content="AI Web Development — สร้างเว็บไซต์ทั้งระบบด้วย AI โดย Tawandaeng Charnyouth">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        :root {
+            --system-blue: #007AFF;
+            --system-blue-light: #5AC8FA;
+            --system-green: #34C759;
+            --system-teal: #5AC8FA;
+            --system-purple: #007AFF;
+            --system-orange: #FF9500;
+            --text-primary: #1d1d1f;
+            --text-secondary: #424245;
+            --text-tertiary: #6e6e73;
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #E8F0FE 0%, #F0F4FF 30%, #F8FAFF 60%, #EFF6FF 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #007AFF, #5AC8FA);
+            top: -10%;
+            right: -5%;
+            animation: floatBlob1 20s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #5AC8FA, #34C759);
+            bottom: -10%;
+            left: -5%;
+            animation: floatBlob2 25s ease-in-out infinite;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #34C759, #007AFF);
+            top: 40%;
+            left: 30%;
+            animation: floatBlob3 18s ease-in-out infinite;
+        }
+
+        @keyframes floatBlob1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(-80px, 60px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(40px, -40px) scale(0.9);
+            }
+        }
+
+        @keyframes floatBlob2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(60px, -80px) scale(1.15);
+            }
+
+            66% {
+                transform: translate(-40px, 40px) scale(0.85);
+            }
+        }
+
+        @keyframes floatBlob3 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(-60px, -60px) scale(1.2);
+            }
+
+            66% {
+                transform: translate(80px, 30px) scale(0.8);
+            }
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+            padding: 6px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-pill);
+            z-index: 1000;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-pill);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: white;
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== PAGE WRAPPER ===== */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            padding-top: 80px;
+            animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== LAYOUT ===== */
+        .portfolio-detail {
+            display: flex;
+            flex-direction: row;
+            min-height: calc(100vh - 80px);
+            gap: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+        }
+
+        .portfolio-sidebar {
+            width: 38%;
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            padding: 0 24px 40px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .portfolio-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-category i {
+            width: 13px;
+            height: 13px;
+        }
+
+        .sidebar-title {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #1d1d1f, #424245);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-subtitle {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-cover {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+            aspect-ratio: 16/10;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .sidebar-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.4s ease;
+        }
+
+        .sidebar-cover:hover img {
+            transform: scale(1.03);
+        }
+
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-teal));
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.25);
+        }
+
+        .sidebar-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.35);
+        }
+
+        .sidebar-action-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .sidebar-action-btn.secondary {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: var(--text-primary);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .sidebar-action-btn.secondary:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-md);
+        }
+
+        .sidebar-info-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 122, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        .sidebar-info-icon i {
+            width: 16px;
+            height: 16px;
+            color: var(--system-blue);
+        }
+
+        .sidebar-info-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== CONTENT CARD ===== */
+        .content-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 48px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .content-section {
+            margin-bottom: 8px;
+        }
+
+        .content-section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            background: rgba(0, 122, 255, 0.06);
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--system-blue);
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .content-section-label i {
+            width: 13px;
+            height: 13px;
+        }
+
+        .content-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .content-section p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .content-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.06), transparent);
+            margin: 32px 0;
+        }
+
+        /* ===== CONTENT ELEMENTS ===== */
+        .content-numbered-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .content-numbered-item {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-md);
+            counter-increment: step;
+            position: relative;
+            padding-left: 56px;
+        }
+
+        .content-numbered-item::before {
+            content: counter(step);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-teal));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .content-numbered-item h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .content-numbered-item p {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .content-glass-card {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+        }
+
+        .content-glass-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .content-glass-card p {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* ===== COMPARISON GRID ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .comparison-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .comparison-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            aspect-ratio: 16/10;
+            cursor: pointer;
+        }
+
+        .comparison-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .comparison-label.old {
+            background: rgba(255, 59, 48, 0.15);
+            color: #FF3B30;
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+
+        .comparison-label.new {
+            background: rgba(52, 199, 89, 0.15);
+            color: #34C759;
+            border: 1px solid rgba(52, 199, 89, 0.2);
+        }
+
+        /* ===== PHOTO SHOWCASE ===== */
+        .photo-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .photo-card {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .photo-card img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            cursor: pointer;
+        }
+
+        .photo-card-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 12px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* ===== HIGHLIGHTS GRID ===== */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .highlight-card {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .highlight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-icon.blue {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .highlight-icon.green {
+            background: linear-gradient(135deg, #34C759, #30DB5B);
+        }
+
+        .highlight-icon.teal {
+            background: linear-gradient(135deg, #5AC8FA, #007AFF);
+        }
+
+        .highlight-icon i {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .highlight-value {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--system-blue), #5AC8FA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
+
+        .highlight-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== NAVIGATION FOOTER ===== */
+        .portfolio-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-top: 32px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .portfolio-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--system-blue), #5AC8FA);
+            color: white;
+            border-color: transparent;
+        }
+
+        .portfolio-nav-btn i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .portfolio-nav-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* ===== PAGE TRANSITION ===== */
+        .page-transition-out {
+            animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes fadeSlideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .portfolio-sidebar {
+                width: 40%;
+                padding-right: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 30px;
+            }
+
+            .content-card {
+                padding: 36px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 4px;
+                gap: 2px;
+            }
+
+            .nav-item {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .page-wrapper {
+                padding-top: 64px;
+            }
+
+            .portfolio-detail {
+                flex-direction: column;
+                padding: 0 16px 32px;
+            }
+
+            .portfolio-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                padding: 0 0 24px 0;
+            }
+
+            .sidebar-title {
+                font-size: 26px;
+            }
+
+            .sidebar-cover {
+                aspect-ratio: 16/8;
+            }
+
+            .content-card {
+                padding: 24px;
+                border-radius: var(--radius-md);
+            }
+
+            .content-section h2 {
+                font-size: 22px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-showcase {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .sidebar-title {
+                font-size: 22px;
+            }
+
+            .content-card {
+                padding: 18px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Floating Glass Navigation -->
+    <nav>
+        <a href="index.html" class="nav-item" onclick="navigateTo(event, this.href)">Home</a>
+        <a href="index.html#works" class="nav-item active" onclick="navigateTo(event, this.href)">Portfolio</a>
+        <a href="resume.html" class="nav-item" onclick="navigateTo(event, this.href)">Resume</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="portfolio-detail">
+
+            <!-- LEFT: Context Panel -->
+            <aside class="portfolio-sidebar">
+                <span class="sidebar-category"><i data-lucide="code"></i> Web Dev</span>
+                <h1 class="sidebar-title">AI Web Development</h1>
+                <p class="sidebar-subtitle">สร้างเว็บไซต์ทั้งระบบด้วย AI ตั้งแต่ออกแบบไปจนถึง Deployment</p>
+
+                <div class="sidebar-cover">
+                    <img src="card/AI Web Development.png" alt="AI Web Development">
+                </div>
+
+                <div class="sidebar-actions">
+                    <a href="https://www.mediakidsacademy.com/" target="_blank" class="sidebar-action-btn">
+                        <i data-lucide="globe"></i> เข้าชมเว็บไซต์
+                    </a>
+                    <a href="#compare" class="sidebar-action-btn secondary">
+                        <i data-lucide="git-compare"></i> ดูภาพเปรียบเทียบ
+                    </a>
+                </div>
+
+                <div class="sidebar-info">
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="wrench"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">เครื่องมือที่ใช้</div>
+                            <div class="sidebar-info-value">Gemini, Cursor AI, VS Code</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="building-2"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">ลูกค้า</div>
+                            <div class="sidebar-info-value">MEDIAKIDS Academy</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="layers"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">ขอบเขตงาน</div>
+                            <div class="sidebar-info-value">Full Website (Design + Dev)</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: Large Content Card -->
+            <main class="portfolio-content">
+                <div class="content-card">
+
+                    <!-- Section 1: รายละเอียดโปรเจกต์ -->
+                    <div class="content-section" id="project">
+                        <div class="content-section-label"><i data-lucide="briefcase"></i> โปรเจกต์</div>
+                        <h2>สร้างเว็บไซต์ทั้งระบบด้วย AI</h2>
+                        <p>ออกแบบและพัฒนาเว็บไซต์ของ MEDIAKIDS Academy ทั้งระบบโดยใช้ AI เป็นเครื่องมือหลัก
+                            ตั้งแต่การวางโครงสร้าง ออกแบบดีไซน์ตาม Mood & Tone ของบริษัท เขียนโค้ด
+                            ไปจนถึงการเผยแพร่เว็บไซต์จริง</p>
+
+                        <div class="content-numbered-list">
+                            <div class="content-numbered-item">
+                                <h3>ออกแบบดีไซน์ด้วย Prompt</h3>
+                                <p>กำหนด Mood & Tone, สีสัน, Layout ผ่าน Prompt ให้ AI
+                                    สร้างดีไซน์ที่ตรงกับภาพลักษณ์ของบริษัท</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>พัฒนาโค้ดด้วย AI</h3>
+                                <p>ใช้ AI ช่วยเขียนโค้ด HTML, CSS, JavaScript ทั้งหมด โดยควบคุมทิศทางผ่าน Prompt
+                                    ที่ออกแบบเอง</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>ทดสอบและเผยแพร่</h3>
+                                <p>ตรวจสอบ Responsive Design ในทุกหน้าจอ ปรับแต่งรายละเอียด และ Deploy เว็บไซต์จริง</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 2: เปรียบเทียบ Before / After -->
+                    <div class="content-section" id="compare">
+                        <div class="content-section-label"><i data-lucide="git-compare"></i> เปรียบเทียบ</div>
+                        <h2>Before & After</h2>
+                        <p>เปรียบเทียบเว็บไซต์เก่าของบริษัทกับเว็บไซต์ใหม่ที่สร้างด้วย AI ทั้งระบบ</p>
+
+                        <h3
+                            style="font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-secondary);">
+                            เว็บไซต์เก่า</h3>
+                        <div class="comparison-grid">
+                            <div class="comparison-card">
+                                <img src="card/w1.png" alt="เว็บไซต์เก่า หน้า 1" loading="lazy">
+                                <span class="comparison-label old">Before</span>
+                            </div>
+                            <div class="comparison-card">
+                                <img src="card/w2.png" alt="เว็บไซต์เก่า หน้า 2" loading="lazy">
+                                <span class="comparison-label old">Before</span>
+                            </div>
+                        </div>
+
+                        <h3
+                            style="font-size: 15px; font-weight: 700; margin-bottom: 8px; margin-top: 16px; color: var(--text-secondary);">
+                            เว็บไซต์ใหม่ — สร้างด้วย AI</h3>
+                        <div class="comparison-grid">
+                            <div class="comparison-card">
+                                <img src="card/w3.png" alt="เว็บไซต์ใหม่ หน้า 1" loading="lazy">
+                                <span class="comparison-label new">After</span>
+                            </div>
+                            <div class="comparison-card">
+                                <img src="card/w4.png" alt="เว็บไซต์ใหม่ หน้า 2" loading="lazy">
+                                <span class="comparison-label new">After</span>
+                            </div>
+                        </div>
+
+                        <div class="content-glass-card" style="margin-top: 16px;">
+                            <h3>ดูเว็บไซต์จริง</h3>
+                            <p>เว็บไซต์นี้ถูกพัฒนาด้วย AI ทั้งหมด ตั้งแต่ดีไซน์ไปจนถึงโค้ด
+                                สามารถเข้าชมได้ที่ปุ่มด้านล่าง</p>
+                            <a href="https://www.mediakidsacademy.com/" target="_blank"
+                                style="display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 10px 20px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); border-radius: var(--radius-pill); font-size: 13px; font-weight: 600; color: white; text-decoration: none; transition: all 0.3s ease;">
+                                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i> เข้าชมเว็บไซต์
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 3: เครื่องมือ -->
+                    <div class="content-section">
+                        <div class="content-section-label"><i data-lucide="sparkles"></i> เครื่องมือที่ใช้</div>
+                        <h2>เครื่องมือในการทำงาน</h2>
+
+                        <div class="highlights-grid">
+                            <div class="highlight-card">
+                                <div class="highlight-icon blue"><i data-lucide="bot"></i></div>
+                                <div class="highlight-value">AI</div>
+                                <div class="highlight-label">Prompt Design</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon green"><i data-lucide="code"></i></div>
+                                <div class="highlight-value">Code</div>
+                                <div class="highlight-label">Full Stack</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon teal"><i data-lucide="palette"></i></div>
+                                <div class="highlight-value">Design</div>
+                                <div class="highlight-label">UI/UX</div>
+                            </div>
+                        </div>
+
+                        <div class="content-glass-card" style="margin-top: 20px;">
+                            <h3>AI & Dev Tools</h3>
+                            <p>Gemini, Cursor AI, VS Code, HTML/CSS/JS — ใช้ AI
+                                เป็นเครื่องมือหลักในการสร้างเว็บไซต์ทั้งระบบ</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Footer -->
+                    <div class="portfolio-nav-footer">
+                        <a href="portfolio-2.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            <i data-lucide="arrow-left"></i> Previous
+                        </a>
+                        <a href="portfolio-4.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            Next <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Lightbox Image">
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function navigateTo(e, url) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = url; }, 350);
+        }
+
+        // Lightbox for comparison & photo cards
+        document.querySelectorAll('.comparison-card img, .photo-card img').forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+
+</html>

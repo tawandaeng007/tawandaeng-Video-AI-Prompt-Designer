@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generation — Tawandaeng Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --system-blue: #007AFF;
+            --system-blue-light: #5AC8FA;
+            --system-green: #34C759;
+            --system-orange: #FF9500;
+            --system-purple: #AF52DE;
+            --system-pink: #FF2D55;
+            --system-teal: #5AC8FA;
+            --system-indigo: #5856D6;
+
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+
+            --text-primary: #1d1d1f;
+            --text-secondary: #6b7280;
+            --text-tertiary: #9ca3af;
+
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --radius-pill: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #f8fafc 0%, #f0f7fc 25%, #e8f4fc 50%, #f0f8ff 75%, #e4f0f8 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        /* ===== Animated Background ===== */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            mix-blend-mode: multiply;
+            animation: blobFloat 12s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(175, 82, 222, 0.4), rgba(191, 90, 242, 0.3));
+            top: -150px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.4), rgba(90, 200, 250, 0.3));
+            bottom: 0;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(255, 149, 0, 0.3), rgba(255, 45, 85, 0.25));
+            top: 50%;
+            left: 40%;
+            animation-delay: -8s;
+        }
+
+        @keyframes blobFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.05) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.95) rotate(-5deg);
+            }
+        }
+
+        /* ===== FLOATING GLASS NAV ===== */
+        nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-pill);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-item.active {
+            color: white;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+
+        .nav-item i {
+            width: 14px;
+            height: 14px;
+            vertical-align: -2px;
+            margin-right: 4px;
+        }
+
+        /* ===== PAGE LAYOUT ===== */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            padding-top: 80px;
+            min-height: 100vh;
+            animation: pageSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes pageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-transition-out {
+            animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes fadeSlideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .portfolio-detail {
+            display: flex;
+            flex-direction: row;
+            min-height: calc(100vh - 80px);
+            gap: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+        }
+
+        /* ===== LEFT PANEL (38%) ===== */
+        .portfolio-sidebar {
+            width: 38%;
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            padding: 0 24px 40px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(175, 82, 222, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--system-purple);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(175, 82, 222, 0.12);
+            width: fit-content;
+        }
+
+        .sidebar-category i {
+            width: 12px;
+            height: 12px;
+        }
+
+        .sidebar-title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .sidebar-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        /* Cover Image */
+        .sidebar-cover {
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.4s ease;
+        }
+
+        .sidebar-cover:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Action Buttons */
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.35));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .sidebar-action-btn:hover {
+            background: linear-gradient(135deg, var(--system-purple), #BF5AF2);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 24px rgba(175, 82, 222, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .sidebar-action-btn i {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Info Tags */
+        .sidebar-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .sidebar-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .sidebar-info-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--system-purple), #BF5AF2);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-info-icon i {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .sidebar-info-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== RIGHT PANEL (62%) ===== */
+        .portfolio-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 48px;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--system-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+
+        .content-section-label i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .content-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .content-section p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        /* Numbered List Content */
+        .content-numbered-list {
+            counter-reset: content-counter;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content-numbered-item {
+            counter-increment: content-counter;
+            padding-left: 0;
+        }
+
+        .content-numbered-item h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-numbered-item h3::before {
+            content: counter(content-counter) ". ";
+            color: var(--system-purple);
+            font-weight: 800;
+        }
+
+        .content-numbered-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+
+        /* Separator */
+        .content-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06), transparent);
+            margin: 32px 0;
+        }
+
+        /* Glass Cards */
+        .content-glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.25) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .content-glass-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-glass-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+
+        /* Photo Showcase Grid */
+        .photo-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .photo-showcase.two-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .photo-showcase.single-portrait {
+            grid-template-columns: 1fr;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .photo-showcase.single-portrait .photo-card img {
+            aspect-ratio: 3/4;
+            object-position: top;
+        }
+
+        .photo-card {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+        }
+
+        .photo-card img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-card-caption {
+            padding: 10px 14px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Highlight Cards Grid */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.25));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-md);
+            padding: 20px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-icon.blue {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .highlight-icon.green {
+            background: linear-gradient(135deg, #34C759, #30DB5B);
+        }
+
+        .highlight-icon.purple {
+            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
+        }
+
+        .highlight-icon.orange {
+            background: linear-gradient(135deg, #FF9500, #FFB340);
+        }
+
+        .highlight-icon i {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .highlight-value {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--system-purple), #BF5AF2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
+
+        .highlight-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+        }
+
+        /* Navigation Footer */
+        .portfolio-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-top: 32px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .portfolio-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--system-purple), #BF5AF2);
+            color: white;
+            border-color: transparent;
+        }
+
+        .portfolio-nav-btn i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .portfolio-nav-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .portfolio-sidebar {
+                width: 40%;
+                padding-right: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 30px;
+            }
+
+            .content-card {
+                padding: 36px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 4px;
+                gap: 2px;
+            }
+
+            .nav-item {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .page-wrapper {
+                padding-top: 64px;
+            }
+
+            .portfolio-detail {
+                flex-direction: column;
+                padding: 0 16px 32px;
+            }
+
+            .portfolio-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                padding: 0 0 24px 0;
+            }
+
+            .sidebar-title {
+                font-size: 26px;
+            }
+
+            .sidebar-cover {
+                aspect-ratio: 16/8;
+            }
+
+            .content-card {
+                padding: 24px;
+                border-radius: var(--radius-md);
+            }
+
+            .content-section h2 {
+                font-size: 22px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .photo-showcase {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .sidebar-title {
+                font-size: 22px;
+            }
+
+            .content-card {
+                padding: 18px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Floating Glass Navigation -->
+    <nav>
+        <a href="index.html" class="nav-item" onclick="navigateTo(event, this.href)">Home</a>
+        <a href="index.html#works" class="nav-item active" onclick="navigateTo(event, this.href)">Portfolio</a>
+        <a href="resume.html" class="nav-item" onclick="navigateTo(event, this.href)">Resume</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="portfolio-detail">
+
+            <!-- LEFT: Context Panel -->
+            <aside class="portfolio-sidebar">
+                <span class="sidebar-category"><i data-lucide="image"></i> AI Images</span>
+                <h1 class="sidebar-title">AI Image Generation</h1>
+                <p class="sidebar-subtitle">ออกแบบกราฟิกด้วย AI Image Generation สำหรับงานโปรโมทบน Social Media
+                    และสื่อสิ่งพิมพ์</p>
+
+                <div class="sidebar-cover">
+                    <img src="card/AFS1.webp" alt="AI Image Generation">
+                </div>
+
+                <div class="sidebar-actions">
+                    <a href="#project" class="sidebar-action-btn">
+                        <i data-lucide="briefcase"></i> ดูรายละเอียดโปรเจกต์
+                    </a>
+                    <a href="#workflow" class="sidebar-action-btn">
+                        <i data-lucide="workflow"></i> ดูขั้นตอนการทำงาน
+                    </a>
+                </div>
+
+                <div class="sidebar-info">
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="wrench"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">เครื่องมือที่ใช้</div>
+                            <div class="sidebar-info-value">ChatGPT, Gemini, Photoshop</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="building-2"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">ลูกค้า</div>
+                            <div class="sidebar-info-value">AFS Intercultural Programs</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="megaphone"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">ช่องทาง</div>
+                            <div class="sidebar-info-value">Social Media & Vinyl Banner</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: Large Content Card -->
+            <main class="portfolio-content">
+                <div class="content-card">
+
+                    <!-- Section 1: รายละเอียดโปรเจกต์ -->
+                    <div class="content-section" id="project">
+                        <div class="content-section-label"><i data-lucide="briefcase"></i> โปรเจกต์</div>
+                        <h2>ออกแบบกราฟิกโปรโมทค่าย AFS</h2>
+                        <p>ได้รับมอบหมายให้ออกแบบสื่อกราฟิกสำหรับโปรโมทกิจกรรมค่ายของ AFS Intercultural Programs
+                            ทั้งในรูปแบบสื่อออนไลน์สำหรับ Social Media และสื่อสิ่งพิมพ์สำหรับป้ายไวนิลที่ใช้ในงานจริง
+                        </p>
+
+                        <div class="content-numbered-list">
+                            <div class="content-numbered-item">
+                                <h3>สร้างภาพด้วย AI Image Generation</h3>
+                                <p>ใช้ AI Gen ภาพประกอบตามคอนเซปต์ที่วางไว้ โดยเขียน Prompt ควบคุมสไตล์ สีสัน
+                                    และองค์ประกอบให้ตรงกับ Mood & Tone ของงาน</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>ปรับแต่งและจัดวาง Artwork</h3>
+                                <p>นำภาพที่ได้มาตกแต่งเพิ่มเติม ใส่ข้อความ โลโก้ และจัดวาง Layout ให้พร้อมใช้งาน
+                                    โดยเฉพาะตัวหนังสือภาษาไทยที่ต้องคมชัดและถูกต้อง</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>ส่งมอบงานทั้ง Digital และ Print</h3>
+                                <p>Export ไฟล์ในหลายขนาดสำหรับ Social Media และไฟล์ความละเอียดสูงสำหรับพิมพ์ไวนิล
+                                    เพื่อให้คุณภาพคมชัดในทุกช่องทาง</p>
+                            </div>
+                        </div>
+
+                        <div class="photo-showcase single-portrait">
+                            <div class="photo-card">
+                                <img src="card/AFS1.webp" alt="ผลงานกราฟิก AFS" loading="lazy">
+                                <div class="photo-card-caption">ตัวอย่างผลงานกราฟิกโปรโมทค่าย AFS</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 2: ขั้นตอนการทำงาน -->
+                    <div class="content-section" id="workflow">
+                        <div class="content-section-label"><i data-lucide="workflow"></i> กระบวนการทำงาน</div>
+                        <h2>จาก AI สู่ผลงานจริง</h2>
+                        <p>ภาพจาก AI เป็นเพียงวัตถุดิบตั้งต้น
+                            ขั้นตอนหลังจากนั้นคือการนำมาปรับแต่งให้เป็นงานสำเร็จที่พร้อมใช้งานจริงทั้งบนหน้าจอและบนป้ายไวนิล
+                        </p>
+
+                        <div class="content-glass-card">
+                            <h3>AI Generation → Post-Production → Delivery</h3>
+                            <p>เขียน Prompt เพื่อ Gen ภาพตามคอนเซปต์ → ปรับแต่งรายละเอียดและแก้ไขจุดที่ต้องการความแม่นยำ
+                                → ใส่ข้อความและ Layout ที่ถูกต้อง → ส่งมอบไฟล์ทั้ง Digital สำหรับ Social Media และ Print
+                                สำหรับไวนิล</p>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 3: เครื่องมือ -->
+                    <div class="content-section">
+                        <div class="content-section-label"><i data-lucide="sparkles"></i> เครื่องมือที่ใช้</div>
+                        <h2>เครื่องมือในการทำงาน</h2>
+
+                        <div class="highlights-grid">
+                            <div class="highlight-card">
+                                <div class="highlight-icon purple"><i data-lucide="wand-2"></i></div>
+                                <div class="highlight-value">AI Gen</div>
+                                <div class="highlight-label">Image Generation</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon blue"><i data-lucide="pen-tool"></i></div>
+                                <div class="highlight-value">Design</div>
+                                <div class="highlight-label">Graphic Design</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon green"><i data-lucide="share-2"></i></div>
+                                <div class="highlight-value">Social</div>
+                                <div class="highlight-label">Social Media</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon orange"><i data-lucide="printer"></i></div>
+                                <div class="highlight-value">Print</div>
+                                <div class="highlight-label">Vinyl Banner</div>
+                            </div>
+                        </div>
+
+                        <div class="content-glass-card" style="margin-top: 20px;">
+                            <h3>AI & Design Tools</h3>
+                            <p>ChatGPT (DALL·E), Gemini, Adobe Photoshop, Canva — เลือกใช้ตามความเหมาะสมของงานแต่ละชิ้น
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="portfolio-nav-footer">
+                        <a href="portfolio-1.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            <i data-lucide="arrow-left"></i> ก่อนหน้า
+                        </a>
+                        <a href="portfolio-3.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            ถัดไป <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function navigateBack(e) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = 'index.html#works'; }, 350);
+        }
+        function navigateTo(e, url) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = url; }, 350);
+        }
+    </script>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img class="lightbox-img" id="lightbox-img" alt="">
+    </div>
+
+    <style>
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lightboxFadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+            animation: lightboxZoomIn 0.3s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .photo-card {
+            cursor: zoom-in;
+        }
+
+        @keyframes lightboxFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes lightboxZoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+        // Lightbox
+        document.querySelectorAll('.photo-card img').forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+
+</html>

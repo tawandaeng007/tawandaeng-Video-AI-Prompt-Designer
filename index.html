@@ -1061,6 +1061,9 @@
         .section-title.orange {
             background: linear-gradient(135deg, #1d1d1f 0%, #FF9500 50%, #FFB340 100%);
             background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-title.pink {
@@ -1071,6 +1074,9 @@
         .section-title.teal {
             background: linear-gradient(135deg, #1d1d1f 0%, #5AC8FA 50%, #64D2FF 100%);
             background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-subtitle {
@@ -1746,6 +1752,16 @@
             font-weight: 600;
             color: var(--system-purple);
             margin-bottom: 16px;
+        }
+
+        .motion-showcase .section-badge {
+            background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 149, 0, 0.1));
+            color: var(--system-orange);
+        }
+
+        .motion-video-container {
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .video-grid {
@@ -3440,6 +3456,259 @@
             }
         }
 
+        /* ==========================================
+           ARC CAROUSEL SECTION
+           ========================================== */
+        .arc-carousel-section {
+            padding: 80px 0 100px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .arc-carousel-container {
+            position: relative;
+            width: 100%;
+            min-height: 700px;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .arc-carousel-container:active {
+            cursor: grabbing;
+        }
+
+        .arc-card {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 420px;
+            height: 520px;
+            border-radius: 32px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .arc-card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .arc-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .arc-card-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 32px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        /* Card Image */
+        .arc-card-image {
+            position: relative;
+            z-index: 2;
+            margin: 16px 16px 0 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            flex-shrink: 0;
+        }
+
+        .arc-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .arc-card:hover .arc-card-image img {
+            transform: scale(1.05);
+        }
+
+        .arc-card-overlay {
+            display: none;
+        }
+
+        .arc-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 24px 28px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .arc-card-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        .arc-card-category i {
+            width: 13px;
+            height: 13px;
+        }
+
+        .arc-card-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+
+        .arc-card-subtitle {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Carousel Controls */
+        .arc-carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .arc-view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .arc-view-all-btn:hover {
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+        }
+
+        .arc-view-all-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Arc Carousel Responsive */
+        @media (max-width: 768px) {
+            .arc-carousel-section {
+                padding: 50px 0 60px;
+            }
+
+            .arc-carousel-container {
+                min-height: 500px;
+            }
+
+            .arc-card {
+                width: 300px;
+                height: 380px;
+                border-radius: 24px;
+            }
+
+            .arc-card-bg {
+                border-radius: 24px;
+            }
+
+            .arc-card-image {
+                margin: 12px 12px 0 12px;
+                border-radius: 16px;
+            }
+
+            .arc-card-content {
+                padding: 14px 16px 18px;
+            }
+
+            .arc-card-title {
+                font-size: 19px;
+            }
+
+            .arc-card-subtitle {
+                font-size: 12px;
+            }
+
+            .arc-carousel-controls {
+                margin-top: 20px;
+            }
+
+            .arc-view-all-btn {
+                padding: 12px 24px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .arc-carousel-container {
+                min-height: 420px;
+            }
+
+            .arc-card {
+                width: 240px;
+                height: 300px;
+                border-radius: 20px;
+            }
+
+            .arc-card-bg {
+                border-radius: 20px;
+            }
+
+            .arc-card-image {
+                margin: 10px 10px 0 10px;
+                border-radius: 12px;
+            }
+
+            .arc-card-content {
+                padding: 10px 12px 14px;
+            }
+
+            .arc-card-title {
+                font-size: 16px;
+            }
+
+            .arc-card-category {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+        }
+
         /* Page Transition */
         .page-transition-out {
             animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
@@ -3470,9 +3739,9 @@
     <div class="main-content">
         <nav>
             <a href="#about" class="nav-item active">About</a>
-            <a href="#portfolio" class="nav-item">Portfolio</a>
-            <a href="#library" class="nav-item">Library</a>
             <a href="resume.html" class="nav-item">Resume</a>
+            <a href="#works" class="nav-item">Portfolio</a>
+            <a href="#library" class="nav-item">Library</a>
             <a href="#contact" class="nav-cta" data-en="Contact" data-th="ติดต่อ">Contact</a>
             <button class="lang-toggle" onclick="toggleLanguage()">
                 <span class="lang-icon">🌐</span>
@@ -3594,11 +3863,102 @@
         </section>
 
         <!-- ==========================================
+             ARC CAROUSEL PORTFOLIO SECTION
+             ========================================== -->
+        <section class="arc-carousel-section" id="works">
+            <div class="section-header">
+                <span class="section-badge"><i data-lucide="briefcase"></i> Portfolio</span>
+                <h2 class="section-title teal" data-en="Featured Works" data-th="ผลงานเด่น">Featured Works</h2>
+                <p class="section-subtitle" data-en="A curated collection of my creative projects"
+                    data-th="รวมผลงานสร้างสรรค์ที่คัดสรรมาแล้ว">A curated collection of my creative projects</p>
+            </div>
+
+            <div class="arc-carousel-container" id="arc-carousel">
+                <!-- Card 1 -->
+                <a href="portfolio-1.html" class="arc-card" data-index="0">
+                    <div class="arc-card-inner">
+                        <div class="arc-card-bg"></div>
+                        <div class="arc-card-image">
+                            <img src="card/AI Video.png" alt="AI Video" loading="lazy">
+                        </div>
+                        <div class="arc-card-content">
+                            <span class="arc-card-category"><i data-lucide="film"></i> AI Video</span>
+                            <div class="arc-card-title">AI Video Generation</div>
+                            <div class="arc-card-subtitle">AI Video Production & Prompt Design</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- Card 2 -->
+                <a href="portfolio-2.html" class="arc-card" data-index="1">
+                    <div class="arc-card-inner">
+                        <div class="arc-card-bg"></div>
+                        <div class="arc-card-image">
+                            <img src="card/AFS1.webp" alt="AI Images" loading="lazy" style="object-position: top;">
+                        </div>
+                        <div class="arc-card-content">
+                            <span class="arc-card-category"><i data-lucide="image"></i> AI Images</span>
+                            <div class="arc-card-title">AI Image Generation</div>
+                            <div class="arc-card-subtitle">AI-Generated Visual Content</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- Card 3 -->
+                <a href="portfolio-3.html" class="arc-card" data-index="2">
+                    <div class="arc-card-inner">
+                        <div class="arc-card-bg"></div>
+                        <div class="arc-card-image">
+                            <img src="card/AI Web Development.png" alt="AI Web Development" loading="lazy">
+                        </div>
+                        <div class="arc-card-content">
+                            <span class="arc-card-category"><i data-lucide="code"></i> Web Dev</span>
+                            <div class="arc-card-title">AI Web Development</div>
+                            <div class="arc-card-subtitle">Web Development with AI Tools</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- Card 4 -->
+                <a href="portfolio-4.html" class="arc-card" data-index="3">
+                    <div class="arc-card-inner">
+                        <div class="arc-card-bg"></div>
+                        <div class="arc-card-image">
+                            <img src="card/Video Editing.png" alt="Video Editing" loading="lazy">
+                        </div>
+                        <div class="arc-card-content">
+                            <span class="arc-card-category"><i data-lucide="scissors"></i> Editing</span>
+                            <div class="arc-card-title">Video Editing</div>
+                            <div class="arc-card-subtitle">Professional Video Editing & Post-Production</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- Card 5 -->
+                <a href="portfolio-5.html" class="arc-card" data-index="4">
+                    <div class="arc-card-inner">
+                        <div class="arc-card-bg"></div>
+                        <div class="arc-card-image">
+                            <img src="card/AI Prompt Training.jpg" alt="AI Prompt Training" loading="lazy">
+                        </div>
+                        <div class="arc-card-content">
+                            <span class="arc-card-category"><i data-lucide="graduation-cap"></i> Training</span>
+                            <div class="arc-card-title">AI Prompt Training</div>
+                            <div class="arc-card-subtitle">AI Prompt Design Education & Workshops</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="arc-carousel-controls">
+                <a href="portfolio.html" class="arc-view-all-btn" onclick="navigateTo(event, this.href)">
+                    <i data-lucide="layout-grid"></i> Portfolio ทั้งหมด
+                </a>
+            </div>
+        </section>
+
+        <!-- ==========================================
              VIDEO SHOWCASE SECTION
              ========================================== -->
-        <section class="video-showcase" id="portfolio">
+        <section class="video-showcase" id="video-portfolio">
             <div class="section-header">
-                <span class="section-badge"><i data-lucide="video"></i> Portfolio</span>
+                <span class="section-badge"><i data-lucide="video"></i> Additional Works</span>
                 <h2 class="section-title purple" data-en="AI Video Portfolio" data-th="ผลงาน AI Video">AI Video
                     Portfolio</h2>
                 <p class="section-subtitle" data-en="Sample AI-generated videos with the prompts used to create them"
@@ -3716,6 +4076,35 @@
                 </div>
             </div>
         </section>
+
+        <!-- ==========================================
+             MOTION WORKS (After Effects)
+             ========================================== -->
+        <section class="video-showcase motion-showcase" id="motion-portfolio">
+            <div class="section-header">
+                <span class="section-badge"><i data-lucide="wand-sparkles"></i> Additional Works</span>
+                <h2 class="section-title orange" data-en="Motion Works" data-th="ผลงาน Motion">Motion Works</h2>
+                <p class="section-subtitle" data-en="Motion graphics created with After Effects"
+                    data-th="ผลงาน Motion Graphics ที่สร้างด้วย After Effects">Motion graphics created with After
+                    Effects</p>
+            </div>
+
+            <div class="motion-video-container">
+                <div class="video-item" style="animation-delay: 0.1s;">
+                    <div class="video-embed">
+                        <iframe src="https://drive.google.com/file/d/1BDAPV5lukZWZZPvwNrX2I0ahZcqZT94M/preview"
+                            allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">
+                            Motion Graphics Showreel
+                            <span class="video-title-badge">After Effects</span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <!-- Video Prompt Modals -->
         <div class="video-modal-overlay" id="video-modal-1">
@@ -5460,6 +5849,143 @@ QUALITY: 4K, seamless looping possible`
             }, 2000);
         }
 
+
+        // ==========================================
+        // ARC CAROUSEL
+        // ==========================================
+        (function () {
+            const container = document.getElementById('arc-carousel');
+            if (!container) return;
+
+            const cards = container.querySelectorAll('.arc-card');
+            const CARD_COUNT = cards.length;
+            if (CARD_COUNT === 0) return;
+
+            // Responsive dimensions
+            function getDimensions() {
+                const vw = window.innerWidth;
+                if (vw <= 360) return { CARD_W: 240, CARD_H: 300, GAP: 30, ARC_HEIGHT: 150, MAX_ROTATE: 10 };
+                if (vw <= 768) return { CARD_W: 300, CARD_H: 380, GAP: 40, ARC_HEIGHT: 200, MAX_ROTATE: 10 };
+                return { CARD_W: 420, CARD_H: 520, GAP: 50, ARC_HEIGHT: 280, MAX_ROTATE: 12 };
+            }
+
+            let dims = getDimensions();
+            let offset = 0;
+            let speed = 0.4;
+            let isPaused = false;
+            let rafId = null;
+
+            function getTotalWidth() {
+                return CARD_COUNT * (dims.CARD_W + dims.GAP);
+            }
+
+            function getCardStyle(index) {
+                const totalWidth = getTotalWidth();
+                const viewW = container.clientWidth || 1200;
+                const centerX = viewW / 2 - dims.CARD_W / 2;
+
+                // Spread cards from center
+                const baseX = centerX + (index - Math.floor(CARD_COUNT / 2)) * (dims.CARD_W + dims.GAP);
+
+                // Apply offset with modulo wrap
+                let rawX = baseX - offset;
+
+                // Wrap around using modulo
+                rawX = ((rawX - centerX + totalWidth * 10) % totalWidth) + centerX - totalWidth / 2;
+
+                // Arc calculation — progress from 0 to 1 based on position
+                const normalizedX = (rawX - (viewW / 2 - totalWidth / 2)) / totalWidth;
+                const angle = Math.PI / 6 + normalizedX * (Math.PI * 2) / 3;
+                const y = dims.ARC_HEIGHT - Math.sin(angle) * dims.ARC_HEIGHT;
+                const rotate = -Math.cos(angle) * dims.MAX_ROTATE;
+
+                // Calculate opacity/scale based on distance from center
+                const distFromCenter = Math.abs(rawX + dims.CARD_W / 2 - viewW / 2) / (viewW / 2);
+                const scale = Math.max(0.75, 1 - distFromCenter * 0.25);
+                const opacity = Math.max(0.3, 1 - distFromCenter * 0.6);
+                const zIndex = Math.round((1 - distFromCenter) * 100);
+
+                return {
+                    transform: `translate(${rawX}px, ${y}px) rotate(${rotate}deg) scale(${scale})`,
+                    opacity: opacity,
+                    zIndex: zIndex
+                };
+            }
+
+            function updateCards() {
+                cards.forEach((card, i) => {
+                    const style = getCardStyle(i);
+                    card.style.transform = style.transform;
+                    card.style.opacity = style.opacity;
+                    card.style.zIndex = style.zIndex;
+                });
+            }
+
+            function animate() {
+                if (!isPaused) {
+                    offset = (offset + speed) % getTotalWidth();
+                }
+                updateCards();
+                rafId = requestAnimationFrame(animate);
+            }
+
+            // Start animation
+            rafId = requestAnimationFrame(animate);
+
+            // Pause on card hover (per-card to avoid flicker)
+            let hoverCount = 0;
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => { hoverCount++; isPaused = true; });
+                card.addEventListener('mouseleave', () => { hoverCount--; if (hoverCount <= 0) { hoverCount = 0; isPaused = false; } });
+            });
+
+            // Touch support — pause on touch
+            container.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+            container.addEventListener('touchend', () => {
+                setTimeout(() => { isPaused = false; }, 1500);
+            });
+
+            // Drag support
+            let isDragging = false;
+            let dragStartX = 0;
+            let dragOffset = 0;
+
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragOffset = offset;
+                e.preventDefault();
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const dx = e.clientX - dragStartX;
+                offset = dragOffset - dx;
+                // Keep it positive
+                const tw = getTotalWidth();
+                offset = ((offset % tw) + tw) % tw;
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Manual shift
+            window.arcCarouselShift = function (dir) {
+                const shiftAmount = dims.CARD_W + dims.GAP;
+                const tw = getTotalWidth();
+                offset = ((offset + dir * shiftAmount) % tw + tw) % tw;
+            };
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                dims = getDimensions();
+                updateCards();
+            });
+
+            // Initial render
+            updateCards();
+        })();
 
         // Initialize icons for library
         lucide.createIcons();

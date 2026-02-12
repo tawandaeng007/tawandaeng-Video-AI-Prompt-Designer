@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editing — Tawandaeng Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --system-blue: #007AFF;
+            --system-blue-light: #5AC8FA;
+            --system-green: #34C759;
+            --system-orange: #FF9500;
+            --system-purple: #AF52DE;
+            --system-pink: #FF2D55;
+            --system-teal: #5AC8FA;
+            --system-indigo: #5856D6;
+
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+
+            --text-primary: #1d1d1f;
+            --text-secondary: #6b7280;
+            --text-tertiary: #9ca3af;
+
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --radius-pill: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #f8fafc 0%, #f0f7fc 25%, #e8f4fc 50%, #f0f8ff 75%, #e4f0f8 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        /* ===== Animated Background ===== */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            mix-blend-mode: multiply;
+            animation: blobFloat 12s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.4), rgba(90, 200, 250, 0.3));
+            top: -150px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(50, 173, 230, 0.4), rgba(0, 122, 255, 0.3));
+            bottom: 0;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(90, 200, 250, 0.3), rgba(0, 122, 255, 0.25));
+            top: 50%;
+            left: 40%;
+            animation-delay: -8s;
+        }
+
+        @keyframes blobFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.05) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.95) rotate(-5deg);
+            }
+        }
+
+        /* ===== FLOATING GLASS NAV ===== */
+        nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-pill);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-item.active {
+            color: white;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+
+        /* ===== PAGE LAYOUT ===== */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            padding-top: 80px;
+            min-height: 100vh;
+            animation: pageSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes pageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-transition-out {
+            animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes fadeSlideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .portfolio-detail {
+            display: flex;
+            flex-direction: row;
+            min-height: calc(100vh - 80px);
+            gap: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+        }
+
+        /* ===== LEFT PANEL (38%) ===== */
+        .portfolio-sidebar {
+            width: 38%;
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            padding: 0 24px 40px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(0, 122, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--system-blue);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(0, 122, 255, 0.12);
+            width: fit-content;
+        }
+
+        .sidebar-category i {
+            width: 12px;
+            height: 12px;
+        }
+
+        .sidebar-title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .sidebar-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        /* Cover Image */
+        .sidebar-cover {
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .sidebar-cover:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Action Buttons */
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.35));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .sidebar-action-btn:hover {
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .sidebar-action-btn i {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Info Tags */
+        .sidebar-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .sidebar-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .sidebar-info-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-info-icon i {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .sidebar-info-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== RIGHT PANEL (62%) ===== */
+        .portfolio-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 247, 250, 0.5) 50%, rgba(240, 243, 248, 0.6) 100%);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 48px;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--system-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+
+        .content-section-label i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .content-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .content-section p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        /* Video Embed */
+        .video-embed {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            margin-top: 20px;
+            margin-bottom: 8px;
+            background: #000;
+        }
+
+        .video-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: var(--radius-md);
+        }
+
+        /* Numbered Content */
+        .content-numbered-list {
+            counter-reset: content-counter;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content-numbered-item {
+            counter-increment: content-counter;
+        }
+
+        .content-numbered-item h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-numbered-item h3::before {
+            content: counter(content-counter) ". ";
+            color: var(--system-blue);
+            font-weight: 800;
+        }
+
+        .content-numbered-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+
+        /* Separator */
+        .content-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06), transparent);
+            margin: 32px 0;
+        }
+
+        /* Glass Cards */
+        .content-glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.25) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .content-glass-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-glass-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+
+        /* Highlight Cards Grid */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.25));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-md);
+            padding: 20px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-icon.blue {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .highlight-icon.green {
+            background: linear-gradient(135deg, #34C759, #30DB5B);
+        }
+
+        .highlight-icon.purple {
+            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
+        }
+
+        .highlight-icon.orange {
+            background: linear-gradient(135deg, #FF9500, #FFB340);
+        }
+
+        .highlight-icon i {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .highlight-value {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
+
+        .highlight-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+        }
+
+        /* Navigation Footer */
+        .portfolio-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-top: 32px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .portfolio-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+            border-color: transparent;
+        }
+
+        .portfolio-nav-btn i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .portfolio-nav-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .portfolio-sidebar {
+                width: 40%;
+                padding-right: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 30px;
+            }
+
+            .content-card {
+                padding: 36px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 4px;
+                gap: 2px;
+            }
+
+            .nav-item {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .page-wrapper {
+                padding-top: 64px;
+            }
+
+            .portfolio-detail {
+                flex-direction: column;
+                padding: 0 16px 32px;
+            }
+
+            .portfolio-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                padding: 0 0 24px 0;
+            }
+
+            .sidebar-title {
+                font-size: 26px;
+            }
+
+            .sidebar-cover {
+                aspect-ratio: 16/8;
+            }
+
+            .content-card {
+                padding: 24px;
+                border-radius: var(--radius-md);
+            }
+
+            .content-section h2 {
+                font-size: 22px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .sidebar-title {
+                font-size: 22px;
+            }
+
+            .content-card {
+                padding: 18px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Floating Glass Navigation -->
+    <nav>
+        <a href="index.html" class="nav-item" onclick="navigateTo(event, this.href)">Home</a>
+        <a href="index.html#works" class="nav-item active" onclick="navigateTo(event, this.href)">Portfolio</a>
+        <a href="resume.html" class="nav-item" onclick="navigateTo(event, this.href)">Resume</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="portfolio-detail">
+
+            <!-- LEFT: Context Panel -->
+            <aside class="portfolio-sidebar">
+                <span class="sidebar-category"><i data-lucide="scissors"></i> Video Editing</span>
+                <h1 class="sidebar-title">Video Editing</h1>
+                <p class="sidebar-subtitle">ผลงานการถ่ายทำและตัดต่อวิดีโอ
+                    สำหรับใช้ในงาน Orientation ครูชาวต่างชาติที่จะเข้ามาสอนในประเทศไทย</p>
+
+                <div class="sidebar-cover">
+                    <img src="card/Video Editing.png" alt="Video Editing">
+                </div>
+
+                <div class="sidebar-actions">
+                    <a href="#video" class="sidebar-action-btn">
+                        <i data-lucide="play-circle"></i> ชมผลงานวิดีโอ
+                    </a>
+                    <a href="#process" class="sidebar-action-btn">
+                        <i data-lucide="layers"></i> ดูกระบวนการทำงาน
+                    </a>
+                </div>
+
+                <div class="sidebar-info">
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="wrench"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">เครื่องมือที่ใช้</div>
+                            <div class="sidebar-info-value">Adobe Premiere Pro, After Effects</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="target"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">ประเภทงาน</div>
+                            <div class="sidebar-info-value">Orientation & Culture Video</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="user"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">บทบาท</div>
+                            <div class="sidebar-info-value">Videographer & Editor</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: Large Content Card -->
+            <main class="portfolio-content">
+                <div class="content-card">
+
+                    <!-- Section 1: ผลงานวิดีโอ -->
+                    <div class="content-section" id="video">
+                        <div class="content-section-label"><i data-lucide="film"></i> ผลงานวิดีโอ</div>
+                        <h2>วิดีโอแนะนำวัฒนธรรมไทย สำหรับ Orientation ครูต่างชาติ</h2>
+                        <p>วิดีโอชิ้นนี้ถ่ายทำและตัดต่อด้วยตนเองทั้งหมด ตั้งแต่ขั้นตอนการวางแผนเนื้อหา การถ่ายทำภาคสนาม
+                            ไปจนถึงการตัดต่อขั้นสุดท้าย
+                            เพื่อนำไปใช้เปิดในการอบรมปฐมนิเทศครูชาวต่างชาติที่จะเข้ามาสอนในโรงเรียนของประเทศไทย
+                            ให้เห็นถึงวิถีชีวิต ขนบธรรมเนียม และวัฒนธรรมอันงดงามของไทย</p>
+
+                        <div class="video-embed">
+                            <iframe src="https://drive.google.com/file/d/1hD6ENQMlDVxTLgRYZ5AF0WsH5sA5dOAX/preview"
+                                allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 2: กระบวนการทำงาน -->
+                    <div class="content-section" id="process">
+                        <div class="content-section-label"><i data-lucide="layers"></i> กระบวนการทำงาน</div>
+                        <h2>ขั้นตอนการผลิตผลงาน</h2>
+
+                        <div class="content-numbered-list">
+                            <div class="content-numbered-item">
+                                <h3>วางแผนเนื้อหาและ Storyboard</h3>
+                                <p>ศึกษาข้อมูลเกี่ยวกับวัฒนธรรมไทยในแง่มุมที่ครูชาวต่างชาติควรรู้ก่อนเข้ามาใช้ชีวิตในประเทศไทย
+                                    วางโครงสร้างเรื่องราวให้ลื่นไหลและเข้าใจง่าย
+                                    เพื่อให้ผู้ชมรู้สึกเชื่อมต่อกับเนื้อหาตั้งแต่ต้นจนจบ</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>ถ่ายทำภาคสนาม</h3>
+                                <p>ลงพื้นที่ถ่ายทำด้วยตนเอง เลือกมุมกล้องที่สื่อสารได้ชัดเจน จับภาพบรรยากาศ สถานที่
+                                    และวิถีชีวิตที่สะท้อนถึงเอกลักษณ์ของวัฒนธรรมไทย โดยใส่ใจในเรื่องแสง สี
+                                    และองค์ประกอบของภาพทุกช็อต</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>ตัดต่อและเรียบเรียงเรื่องราว</h3>
+                                <p>นำฟุตเทจทั้งหมดมาเรียบเรียงเป็นเรื่องราวที่มีจังหวะการเล่าเรื่องน่าติดตาม
+                                    เลือกจุดตัดที่เหมาะสม ใส่ดนตรีประกอบที่ช่วยเสริมอารมณ์ของวิดีโอให้สมบูรณ์
+                                    พร้อมเพิ่ม Title/Subtitle เพื่อความเข้าใจ</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>ส่งมอบผลงาน</h3>
+                                <p>ตรวจสอบคุณภาพผลงานในทุกแพลตฟอร์ม ปรับ Export Settings ให้เหมาะกับการใช้งานจริง
+                                    และส่งมอบวิดีโอพร้อมใช้ในงาน Orientation ได้ทันที</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 3: ทักษะที่ใช้ -->
+                    <div class="content-section">
+                        <div class="content-section-label"><i data-lucide="bar-chart-3"></i> ทักษะที่ใช้ในงานนี้</div>
+                        <h2>ความสามารถที่นำมาใช้</h2>
+                        <div class="highlights-grid">
+                            <div class="highlight-card">
+                                <div class="highlight-icon blue"><i data-lucide="eye"></i></div>
+                                <div class="highlight-value">เซ้นส์</div>
+                                <div class="highlight-label">การมองภาพรวม</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon green"><i data-lucide="film"></i></div>
+                                <div class="highlight-value">ลำดับ</div>
+                                <div class="highlight-label">การเรียบเรียงเรื่อง</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon purple"><i data-lucide="heart"></i></div>
+                                <div class="highlight-value">อารมณ์</div>
+                                <div class="highlight-label">Mood & Tone</div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon orange"><i data-lucide="music"></i></div>
+                                <div class="highlight-value">จังหวะ</div>
+                                <div class="highlight-label">Sound Design</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="portfolio-nav-footer">
+                        <a href="portfolio-3.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            <i data-lucide="arrow-left"></i> ก่อนหน้า
+                        </a>
+                        <a href="portfolio-5.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            ถัดไป <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function navigateTo(e, url) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = url; }, 350);
+        }
+    </script>
+</body>
+
+</html>
