@@ -3439,6 +3439,23 @@
                 font-size: 22px;
             }
         }
+
+        /* Page Transition */
+        .page-transition-out {
+            animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes fadeSlideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+        }
     </style>
 </head>
 
@@ -3455,6 +3472,7 @@
             <a href="#about" class="nav-item active">About</a>
             <a href="#portfolio" class="nav-item">Portfolio</a>
             <a href="#library" class="nav-item">Library</a>
+            <a href="resume.html" class="nav-item">Resume</a>
             <a href="#contact" class="nav-cta" data-en="Contact" data-th="ติดต่อ">Contact</a>
             <button class="lang-toggle" onclick="toggleLanguage()">
                 <span class="lang-icon">🌐</span>
@@ -5445,6 +5463,18 @@ QUALITY: 4K, seamless looping possible`
 
         // Initialize icons for library
         lucide.createIcons();
+
+        // Smooth page transition for Resume link
+        document.querySelectorAll('a[href="resume.html"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = this.href;
+                document.querySelector('.main-content').classList.add('page-transition-out');
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 350);
+            });
+        });
     </script>
 </body>
 

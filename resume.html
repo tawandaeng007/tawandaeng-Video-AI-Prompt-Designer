@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - ตะวันแดง ชาญยุทธ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background: #dce6f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .site-nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 100px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            color: #1d1d1f;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-item.active {
+            color: white;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 100px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.5);
+        }
+
+        @media print {
+            .site-nav {
+                display: none;
+            }
+
+            body {
+                padding-top: 0;
+            }
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                padding-top: 0;
+                background: white;
+            }
+
+            .page {
+                box-shadow: none !important;
+            }
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(170deg, #f6f9fd 0%, #edf4fb 40%, #e6f0fa 70%, #eef5fc 100%);
+            box-shadow: 0 16px 60px rgba(0, 0, 0, 0.14);
+        }
+
+        /* Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .b1 {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.18), transparent 70%);
+            top: -120px;
+            right: -100px;
+        }
+
+        .b2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(90, 200, 250, 0.14), transparent 70%);
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .b3 {
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.08), transparent 70%);
+            top: 48%;
+            left: 32%;
+        }
+
+        /* ═══ HERO ═══ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            padding: 40px 44px 30px;
+        }
+
+        .photo {
+            width: 140px;
+            height: 175px;
+            border-radius: 22px;
+            object-fit: cover;
+            object-position: top center;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+            flex-shrink: 0;
+        }
+
+        .hero-info {
+            flex: 1;
+        }
+
+        .hero-name {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #1a1a1f 0%, #007AFF 60%, #5AC8FA 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .hero-role {
+            font-size: 16px;
+            font-weight: 600;
+            color: #007AFF;
+            margin-bottom: 18px;
+        }
+
+        .hero-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+        }
+
+        .hc {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .hc-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(0, 122, 255, 0.25);
+        }
+
+        .hc-icon svg {
+            width: 13px;
+            height: 13px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Separator */
+        .sep {
+            height: 1px;
+            margin: 0 44px;
+            background: linear-gradient(90deg, transparent, rgba(0, 122, 255, 0.15), rgba(0, 122, 255, 0.15), transparent);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ═══ BODY ═══ */
+        .body {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 0 28px;
+            padding: 24px 44px 40px;
+            align-items: start;
+        }
+
+        /* ═══ GLASS CARD ═══ */
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.22));
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 18px;
+            padding: 22px 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.035), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
+        }
+
+        .card:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section header */
+        .sh {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .sh-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .sh-icon svg {
+            width: 15px;
+            height: 15px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .sh-icon.green {
+            background: linear-gradient(135deg, #34C759, #30DB5B);
+        }
+
+        .sh-icon.purple {
+            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
+        }
+
+        .sh-text {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #007AFF;
+        }
+
+        /* ═══ EXPERIENCE ═══ */
+        .exp {
+            margin-bottom: 18px;
+        }
+
+        .exp:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+            gap: 12px;
+        }
+
+        .exp-role {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1d1d1f;
+            line-height: 1.3;
+        }
+
+        .exp-date {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: white;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            border-radius: 100px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25);
+        }
+
+        .exp-co {
+            font-size: 12px;
+            font-weight: 600;
+            color: #34C759;
+            margin-bottom: 10px;
+        }
+
+        .exp-list {
+            list-style: none;
+        }
+
+        .exp-list li {
+            position: relative;
+            padding-left: 16px;
+            font-size: 11px;
+            color: #4b5563;
+            line-height: 1.65;
+            margin-bottom: 4px;
+        }
+
+        .exp-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6.5px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .exp-sep {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 122, 255, 0.12), rgba(0, 122, 255, 0.06), transparent);
+            margin: 18px 0;
+        }
+
+        /* ═══ EDUCATION ═══ */
+        .edu {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .edu-badge {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(175, 82, 222, 0.1), rgba(191, 90, 242, 0.06));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .edu-badge svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: #AF52DE;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .edu-deg {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 2px;
+        }
+
+        .edu-school {
+            font-size: 11.5px;
+            font-weight: 500;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .edu-honor {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, rgba(255, 150, 0, 0.12), rgba(255, 179, 64, 0.06));
+            border-radius: 100px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #FF9500;
+        }
+
+        /* ═══ RIGHT SIDEBAR ═══ */
+        .right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sb-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #007AFF;
+            margin-bottom: 12px;
+        }
+
+        .sb-dot {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            border-radius: 50%;
+        }
+
+        .about-text {
+            font-size: 11px;
+            line-height: 1.7;
+            color: #4b5563;
+        }
+
+        /* Skills */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.04);
+            color: #374151;
+        }
+
+        .tag.hl {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.22);
+        }
+
+        /* Tools */
+        .tools {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .tool {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 11px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .tool-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .tool-dot.ai {
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+        }
+
+        .tool-dot.edit {
+            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
+        }
+
+        /* Bottom strip */
+        .bottom-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #007AFF, #5AC8FA, #34C759, #5AC8FA, #007AFF);
+            z-index: 2;
+        }
+
+        /* ═══ PAGE ENTRANCE ANIMATIONS ═══ */
+        @keyframes pageSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .page {
+            animation: pageSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero {
+            animation: fadeSlideUp 0.6s ease 0.2s both;
+        }
+
+        .sep {
+            animation: fadeIn 0.4s ease 0.4s both;
+        }
+
+        .left .card:nth-child(1) {
+            animation: fadeSlideUp 0.5s ease 0.4s both;
+        }
+
+        .left .card:nth-child(2) {
+            animation: fadeSlideUp 0.5s ease 0.55s both;
+        }
+
+        .right .card:nth-child(1) {
+            animation: fadeSlideUp 0.5s ease 0.5s both;
+        }
+
+        .right .card:nth-child(2) {
+            animation: fadeSlideUp 0.5s ease 0.6s both;
+        }
+
+        .right .card:nth-child(3) {
+            animation: fadeSlideUp 0.5s ease 0.7s both;
+        }
+
+        .site-nav {
+            animation: fadeIn 0.5s ease 0.1s both;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-item">About</a>
+        <a href="index.html#portfolio" class="nav-item">Portfolio</a>
+        <a href="index.html#library" class="nav-item">Library</a>
+        <a href="resume.html" class="nav-item active">Resume</a>
+        <a href="index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+
+    <div class="page">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+
+        <!-- ═══ HERO ═══ -->
+        <div class="hero">
+            <img src="tawan.png" alt="ตะวันแดง ชาญยุทธ" class="photo">
+            <div class="hero-info">
+                <h1 class="hero-name">ตะวันแดง ชาญยุทธ</h1>
+                <div class="hero-role">AI Creative Specialist</div>
+                <div class="hero-contacts">
+                    <div class="hc">
+                        <div class="hc-icon"><svg viewBox="0 0 24 24">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg></div>
+                        062-393-9911
+                    </div>
+                    <div class="hc">
+                        <div class="hc-icon"><svg viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg></div>
+                        Tawandaeng.bu@gmail.com
+                    </div>
+                    <div class="hc">
+                        <div class="hc-icon"><svg viewBox="0 0 24 24">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg></div>
+                        รังสิต ปทุมธานี
+                    </div>
+                    <div class="hc">
+                        <div class="hc-icon"><svg viewBox="0 0 24 24">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg></div>
+                        อายุ 27 ปี
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sep"></div>
+
+        <!-- ═══ BODY ═══ -->
+        <div class="body">
+            <div class="left">
+                <!-- ประวัติการศึกษา (Education) - moved above -->
+                <div class="card">
+                    <div class="sh">
+                        <div class="sh-icon purple"><svg viewBox="0 0 24 24">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                <path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5" />
+                            </svg></div>
+                        <span class="sh-text">ประวัติการศึกษา</span>
+                    </div>
+                    <div class="edu">
+                        <div class="edu-badge"><svg viewBox="0 0 24 24">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                <path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5" />
+                            </svg></div>
+                        <div>
+                            <div class="edu-deg">ปริญญาตรี สาขานิเทศศาสตร์ (โฆษณา)</div>
+                            <div class="edu-school">Bangkok University</div>
+                            <div class="edu-honor">★ เกียรตินิยมอันดับ 2</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ประสบการณ์ทำงาน (Experience) -->
+                <div class="card">
+                    <div class="sh">
+                        <div class="sh-icon green"><svg viewBox="0 0 24 24">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg></div>
+                        <span class="sh-text">ประสบการณ์ทำงาน</span>
+                    </div>
+                    <div class="exp">
+                        <div class="exp-top">
+                            <div class="exp-role">นักการตลาดดิจิทัล (AI Creative Specialist)</div>
+                            <div class="exp-date">2022 – ปัจจุบัน</div>
+                        </div>
+                        <div class="exp-co">บริษัท มีเดียคิดส์ จำกัด</div>
+                        <ul class="exp-list">
+                            <li>ใช้ AI เป็นเครื่องมือหลักในการสร้างสรรค์งานดิจิทัล ทั้งภาพ วิดีโอ และคอนเทนต์ออนไลน์
+                            </li>
+                            <li>ออกแบบและพัฒนา prompt เพื่อควบคุมผลลัพธ์ของ AI ให้ตรงกับเป้าหมายงาน</li>
+                            <li>สร้างและปรับ workflow การใช้ AI เพื่อเพิ่มประสิทธิภาพและความสม่ำเสมอของผลงาน</li>
+                            <li>นำ AI มาใช้สนับสนุนงานด้านครีเอทีฟ การตลาด และสื่อดิจิทัลในหลายรูปแบบ</li>
+                            <li>คัดเลือก ตรวจสอบ และปรับแก้งานที่สร้างจาก AI เพื่อให้ใช้งานได้จริงในเชิงธุรกิจ</li>
+                            <li>ทำงานร่วมกับทีมภายใน เพื่อแปลงโจทย์งานให้เป็น AI-generated content ที่เหมาะสม</li>
+                            <li>ใช้ AI เป็นเครื่องมือหลักในการสร้างเว็บไซต์องค์กรแบบ end-to-end</li>
+                            <li>ออกแบบ prompt และ workflow เพื่อให้ AI สร้างเว็บไซต์ที่ใช้งานได้จริง</li>
+                        </ul>
+                    </div>
+                    <div class="exp-sep"></div>
+                    <div class="exp">
+                        <div class="exp-top">
+                            <div class="exp-role">เจ้าหน้าที่การตลาดอาวุโส (Video Editor)</div>
+                            <div class="exp-date">2020 – 2022</div>
+                        </div>
+                        <div class="exp-co">บริษัท มีเดียคิดส์ จำกัด</div>
+                        <ul class="exp-list">
+                            <li>ตัดต่อวิดีโอสำหรับสื่อการเรียนรู้และคอนเทนต์ดิจิทัลในรูปแบบต่าง ๆ</li>
+                            <li>เรียบเรียงภาพ เสียง และจังหวะวิดีโอให้เข้าใจง่าย เหมาะกับกลุ่มเป้าหมาย</li>
+                            <li>ทำงานร่วมกับทีมคอนเทนต์และทีมโปรดักชัน เพื่อพัฒนาวิดีโอให้ตรงตามโจทย์</li>
+                            <li>ปรับแก้และพัฒนางานตามฟีดแบ็ก เพื่อให้ได้คุณภาพตามมาตรฐานองค์กร</li>
+                            <li>ดูแลไฟล์วิดีโอและโครงสร้างงานให้พร้อมใช้งานในหลายแพลตฟอร์ม</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="right">
+                <div class="card">
+                    <div class="sb-title"><span class="sb-dot"></span>เกี่ยวกับฉัน</div>
+                    <p class="about-text">นักสร้างสรรค์งานด้านวิดีโอและ AI ที่เชี่ยวชาญการออกแบบ Prompt และ Workflow
+                        เพื่อสร้างวิดีโอและคอนเทนต์ดิจิทัลอย่างมีประสิทธิภาพ มุ่งเน้นผลลัพธ์ที่ใช้งานได้จริง
+                        ผสานความคิดสร้างสรรค์เชิงโฆษณาเข้ากับการวิเคราะห์
+                        เพื่อยกระดับงานสื่อและการสื่อสารแบรนด์ในเชิงธุรกิจ</p>
+                </div>
+
+                <div class="card">
+                    <div class="sb-title"><span class="sb-dot"></span>ทักษะความสามารถ</div>
+                    <div class="tags">
+                        <span class="tag hl">Video AI Prompt</span>
+                        <span class="tag hl">Image AI Prompt</span>
+                        <span class="tag hl">Prompt Engineering</span>
+                        <span class="tag hl">Web AI Prompt</span>
+                        <span class="tag">Video Editing</span>
+                        <span class="tag">Motion</span>
+                        <span class="tag">Creative Ideation</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="sb-title"><span class="sb-dot"></span>เครื่องมือ</div>
+                    <div class="tools">
+                        <div class="tool"><span class="tool-dot ai"></span>Sora</div>
+                        <div class="tool"><span class="tool-dot ai"></span>Flow</div>
+                        <div class="tool"><span class="tool-dot ai"></span>Veo</div>
+                        <div class="tool"><span class="tool-dot ai"></span>Kling</div>
+                        <div class="tool"><span class="tool-dot ai"></span>Runway</div>
+                        <div class="tool"><span class="tool-dot edit"></span>Premiere</div>
+                        <div class="tool"><span class="tool-dot edit"></span>After Effect</div>
+                        <div class="tool"><span class="tool-dot edit"></span>Capcut</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-strip"></div>
+    </div>
+</body>
+
+</html>
