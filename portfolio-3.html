@@ -39,9 +39,6 @@
             box-sizing: border-box;
         }
 
-        [data-lucide] {
-            color: white;
-        }
 
         body {
             font-family: 'Inter', 'Noto Sans Thai', -apple-system, sans-serif;
@@ -218,13 +215,13 @@
             width: 380px;
             min-width: 340px;
             flex-shrink: 0;
-            position: sticky;
-            top: 80px;
-            height: calc(100vh - 80px);
-            overflow-y: auto;
             padding: 0 24px 40px 0;
             display: flex;
             flex-direction: column;
+        }
+
+        .portfolio-sidebar>* {
+            flex-shrink: 0;
         }
 
         .portfolio-sidebar::-webkit-scrollbar {
@@ -254,8 +251,9 @@
         }
 
         .sidebar-category i {
-            width: 13px;
-            height: 13px;
+            width: 12px;
+            height: 12px;
+            color: #000;
         }
 
         .sidebar-title {
@@ -375,7 +373,8 @@
         .sidebar-info-icon i {
             width: 16px;
             height: 16px;
-            color: var(--system-blue);
+            color: white !important;
+            stroke: white !important;
         }
 
         .sidebar-info-label {
@@ -665,7 +664,8 @@
         .highlight-icon i {
             width: 20px;
             height: 20px;
-            color: white;
+            color: white !important;
+            stroke: white !important;
         }
 
         .highlight-value {
