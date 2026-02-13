@@ -265,16 +265,16 @@
         /* Cover Image */
         .sidebar-cover {
             width: 100%;
-            aspect-ratio: 16/10;
             border-radius: var(--radius-md);
             margin-bottom: 24px;
             overflow: hidden;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            min-height: 200px;
         }
 
         .sidebar-cover img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
             transition: transform 0.4s ease;
         }
@@ -768,9 +768,7 @@
                 font-size: 26px;
             }
 
-            .sidebar-cover {
-                aspect-ratio: 16/8;
-            }
+
 
             .content-card {
                 padding: 24px;
