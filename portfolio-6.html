@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Training — Tawandaeng Portfolio</title>
+    <title>Pepsi AI Commercial — Tawandaeng Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -46,7 +46,6 @@
             scroll-behavior: smooth;
         }
 
-
         body {
             font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
@@ -78,7 +77,7 @@
         .blob-1 {
             width: 600px;
             height: 600px;
-            background: linear-gradient(135deg, rgba(0, 122, 255, 0.4), rgba(90, 200, 250, 0.3));
+            background: linear-gradient(135deg, rgba(255, 45, 85, 0.3), rgba(255, 149, 0, 0.2));
             top: -150px;
             right: -100px;
         }
@@ -86,7 +85,7 @@
         .blob-2 {
             width: 500px;
             height: 500px;
-            background: linear-gradient(135deg, rgba(50, 173, 230, 0.4), rgba(0, 122, 255, 0.3));
+            background: linear-gradient(135deg, rgba(255, 85, 120, 0.3), rgba(255, 45, 85, 0.2));
             bottom: 0;
             left: -100px;
             animation-delay: -4s;
@@ -95,7 +94,7 @@
         .blob-3 {
             width: 400px;
             height: 400px;
-            background: linear-gradient(135deg, rgba(90, 200, 250, 0.3), rgba(0, 122, 255, 0.25));
+            background: linear-gradient(135deg, rgba(255, 149, 0, 0.25), rgba(255, 45, 85, 0.2));
             top: 50%;
             left: 40%;
             animation-delay: -8s;
@@ -117,7 +116,7 @@
             }
         }
 
-        /* ===== FLOATING GLASS NAV (same as main page) ===== */
+        /* ===== FLOATING GLASS NAV ===== */
         nav {
             position: fixed;
             top: 16px;
@@ -156,13 +155,6 @@
             color: white;
             background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
             box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
-        }
-
-        .nav-item i {
-            width: 14px;
-            height: 14px;
-            vertical-align: -2px;
-            margin-right: 4px;
         }
 
         /* ===== PAGE LAYOUT ===== */
@@ -212,7 +204,7 @@
             padding: 0 24px 40px;
         }
 
-        /* ===== LEFT PANEL — hero / context (35-40%) ===== */
+        /* ===== LEFT PANEL ===== */
         .portfolio-sidebar {
             width: 380px;
             min-width: 340px;
@@ -231,23 +223,22 @@
             align-items: center;
             gap: 6px;
             padding: 6px 14px;
-            background: rgba(0, 122, 255, 0.08);
+            background: rgba(255, 45, 85, 0.08);
             backdrop-filter: blur(10px);
             border-radius: var(--radius-pill);
             font-size: 12px;
             font-weight: 600;
-            color: var(--system-blue);
+            color: var(--system-pink);
             margin-bottom: 14px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            border: 1px solid rgba(0, 122, 255, 0.12);
+            border: 1px solid rgba(255, 45, 85, 0.12);
             width: fit-content;
         }
 
         .sidebar-category i {
             width: 12px;
             height: 12px;
-            color: #000;
         }
 
         .sidebar-title {
@@ -265,7 +256,6 @@
             margin-bottom: 28px;
         }
 
-        /* Cover Image */
         .sidebar-cover {
             width: 100%;
             height: 220px;
@@ -286,7 +276,6 @@
             transform: scale(1.03);
         }
 
-        /* Action Buttons */
         .sidebar-actions {
             display: flex;
             flex-direction: column;
@@ -314,10 +303,10 @@
         }
 
         .sidebar-action-btn:hover {
-            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            background: linear-gradient(135deg, var(--system-pink), #FF6B8A);
             color: white;
             border-color: transparent;
-            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 8px 24px rgba(255, 45, 85, 0.3);
             transform: translateY(-2px);
         }
 
@@ -327,7 +316,6 @@
             flex-shrink: 0;
         }
 
-        /* Info Tags */
         .sidebar-info {
             display: flex;
             flex-direction: column;
@@ -354,7 +342,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            background: linear-gradient(135deg, var(--system-pink), #FF6B8A);
             border-radius: 10px;
             flex-shrink: 0;
         }
@@ -380,7 +368,7 @@
             color: var(--text-primary);
         }
 
-        /* ===== RIGHT PANEL — large content card (60-65%) ===== */
+        /* ===== RIGHT PANEL ===== */
         .portfolio-content {
             flex: 1;
             min-width: 0;
@@ -397,7 +385,6 @@
             min-height: calc(100vh - 120px);
         }
 
-        /* Content Sections */
         .content-section {
             margin-bottom: 40px;
         }
@@ -412,7 +399,7 @@
             gap: 8px;
             font-size: 12px;
             font-weight: 700;
-            color: var(--system-blue);
+            color: var(--system-pink);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 14px;
@@ -438,7 +425,7 @@
             margin-bottom: 14px;
         }
 
-        /* Numbered List Content */
+        /* Numbered List */
         .content-numbered-list {
             counter-reset: content-counter;
             display: flex;
@@ -448,7 +435,6 @@
 
         .content-numbered-item {
             counter-increment: content-counter;
-            padding-left: 0;
         }
 
         .content-numbered-item h3 {
@@ -460,7 +446,7 @@
 
         .content-numbered-item h3::before {
             content: counter(content-counter) ". ";
-            color: var(--system-blue);
+            color: var(--system-pink);
             font-weight: 800;
         }
 
@@ -478,156 +464,7 @@
             margin: 32px 0;
         }
 
-        /* Glass Cards for content */
-        .content-glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.25) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: var(--radius-md);
-            padding: 24px;
-            margin-bottom: 14px;
-        }
-
-        .content-glass-card h3 {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .content-glass-card p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.75;
-            margin-bottom: 0;
-        }
-
-        /* Highlight Cards Grid */
-        .highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-        }
-
-        .highlight-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.25));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: var(--radius-md);
-            padding: 20px 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .highlight-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
-        }
-
-        .highlight-icon {
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            margin: 0 auto 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .highlight-icon.blue {
-            background: linear-gradient(135deg, #007AFF, #5AC8FA);
-        }
-
-        .highlight-icon.green {
-            background: linear-gradient(135deg, #34C759, #30DB5B);
-        }
-
-        .highlight-icon.purple {
-            background: linear-gradient(135deg, #AF52DE, #BF5AF2);
-        }
-
-        .highlight-icon.orange {
-            background: linear-gradient(135deg, #FF9500, #FFB340);
-        }
-
-        .highlight-icon i {
-            width: 20px;
-            height: 20px;
-            color: white !important;
-            stroke: white !important;
-        }
-
-        .highlight-value {
-            font-size: 24px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 2px;
-        }
-
-        .highlight-label {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-tertiary);
-        }
-
-        /* Gallery */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        .gallery-item {
-            aspect-ratio: 16/10;
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-        }
-
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .gallery-placeholder i {
-            width: 28px;
-            height: 28px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .gallery-placeholder span {
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .gallery-item:nth-child(1) .gallery-placeholder {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
-        .gallery-item:nth-child(2) .gallery-placeholder {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-        }
-
-        .gallery-item:nth-child(3) .gallery-placeholder {
-            background: linear-gradient(135deg, #43e97b, #38f9d7);
-        }
-
-        .gallery-item:nth-child(4) .gallery-placeholder {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-        }
-
-        /* Photo Showcase Grid */
+        /* Photo Showcase */
         .photo-showcase {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -639,12 +476,18 @@
             grid-template-columns: repeat(2, 1fr);
         }
 
+        .photo-showcase.single-col {
+            grid-template-columns: 1fr;
+            max-width: 500px;
+        }
+
         .photo-card {
             border-radius: var(--radius-sm);
             overflow: hidden;
             position: relative;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
+            cursor: zoom-in;
         }
 
         .photo-card:hover {
@@ -660,6 +503,10 @@
             transition: transform 0.4s ease;
         }
 
+        .photo-card.portrait img {
+            aspect-ratio: 3/4;
+        }
+
         .photo-card:hover img {
             transform: scale(1.05);
         }
@@ -672,6 +519,64 @@
             font-size: 12px;
             font-weight: 600;
             color: var(--text-secondary);
+        }
+
+        /* Step Arrow */
+        .step-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .step-flow .photo-card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 340px;
+        }
+
+        .step-arrow {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--system-pink), #FF6B8A);
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(255, 45, 85, 0.3);
+        }
+
+        .step-arrow i {
+            width: 18px;
+            height: 18px;
+            color: white !important;
+            stroke: white !important;
+        }
+
+        /* Video Embed */
+        .video-embed {
+            width: 100%;
+            position: relative;
+            padding-top: 177.78%;
+            /* 9:16 vertical */
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+            background: linear-gradient(135deg, rgba(255, 45, 85, 0.08), rgba(255, 149, 0, 0.05));
+            max-width: 400px;
+            margin: 16px auto 0;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* Navigation Footer */
@@ -705,7 +610,7 @@
         .portfolio-nav-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            background: linear-gradient(135deg, var(--system-pink), #FF6B8A);
             color: white;
             border-color: transparent;
         }
@@ -720,298 +625,7 @@
             pointer-events: none;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .portfolio-sidebar {
-                width: 340px;
-                padding-right: 20px;
-            }
-
-            .sidebar-title {
-                font-size: 30px;
-            }
-
-            .content-card {
-                padding: 36px;
-            }
-
-            .highlights-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 10px;
-                padding: 4px;
-                gap: 2px;
-            }
-
-            .nav-item {
-                padding: 8px 14px;
-                font-size: 13px;
-            }
-
-            .page-wrapper {
-                padding-top: 64px;
-            }
-
-            .portfolio-detail {
-                flex-direction: column;
-                padding: 0 16px 32px;
-            }
-
-            .portfolio-sidebar {
-                width: 100% !important;
-                min-width: 0 !important;
-                height: auto;
-                position: relative;
-                top: 0;
-                padding: 0 0 24px 0;
-            }
-
-            .sidebar-title {
-                font-size: 26px;
-            }
-
-
-
-            .content-card {
-                padding: 24px;
-                border-radius: var(--radius-md);
-            }
-
-            .content-section h2 {
-                font-size: 22px;
-            }
-
-            .highlights-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .photo-showcase {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .sidebar-title {
-                font-size: 22px;
-            }
-
-            .content-card {
-                padding: 18px;
-            }
-
-            .highlights-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-item {
-                padding: 6px 10px;
-                font-size: 12px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
-
-    <!-- Floating Glass Navigation (same style as main page) -->
-    <nav>
-        <a href="index.html" class="nav-item" onclick="navigateTo(event, this.href)">Home</a>
-        <a href="index.html#works" class="nav-item active" onclick="navigateTo(event, this.href)">Portfolio</a>
-        <a href="resume.html" class="nav-item" onclick="navigateTo(event, this.href)">Resume</a>
-    </nav>
-
-    <div class="page-wrapper">
-        <div class="portfolio-detail">
-
-            <!-- LEFT: Hero / Context Panel (≈38%) -->
-            <aside class="portfolio-sidebar" style="width:380px; min-width:340px; flex-shrink:0;">
-                <span class="sidebar-category"><i data-lucide="graduation-cap"></i> Training</span>
-                <h1 class="sidebar-title">AI Prompt Training</h1>
-                <p class="sidebar-subtitle">ผู้เชี่ยวชาญด้านการออกแบบ Prompt สำหรับ AI
-                    พร้อมประสบการณ์การสอนและการอบรมจากผู้เชี่ยวชาญในสายงานโดยตรง</p>
-
-                <div class="sidebar-cover" style="width:100%; height:220px; overflow:hidden; border-radius:18px;">
-                    <img src="card/AI Prompt Training.jpg" alt="AI Prompt Training"
-                        style="width:100%; height:100%; object-fit:cover;">
-                </div>
-
-                <div class="sidebar-actions">
-                    <a href="#teaching" class="sidebar-action-btn">
-                        <i data-lucide="presentation"></i> ดูผลงานการสอน
-                    </a>
-                    <a href="#training" class="sidebar-action-btn">
-                        <i data-lucide="award"></i> ดูการอบรม
-                    </a>
-                </div>
-
-                <div class="sidebar-info">
-                    <div class="sidebar-info-item">
-                        <div class="sidebar-info-icon"><i data-lucide="wrench"></i></div>
-                        <div>
-                            <div class="sidebar-info-label">เครื่องมือที่ใช้</div>
-                            <div class="sidebar-info-value">ChatGPT, Gemini, Sora, Veo</div>
-                        </div>
-                    </div>
-                    <div class="sidebar-info-item">
-                        <div class="sidebar-info-icon"><i data-lucide="target"></i></div>
-                        <div>
-                            <div class="sidebar-info-label">ความเชี่ยวชาญ</div>
-                            <div class="sidebar-info-value">Prompt Design & AI Workflow</div>
-                        </div>
-                    </div>
-                    <div class="sidebar-info-item">
-                        <div class="sidebar-info-icon"><i data-lucide="user"></i></div>
-                        <div>
-                            <div class="sidebar-info-label">บทบาท</div>
-                            <div class="sidebar-info-value">AI Prompt Trainer</div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <main class="portfolio-content">
-                <div class="content-card">
-
-                    <!-- Section 1: ผลงานการสอนภายในองค์กร -->
-                    <div class="content-section" id="teaching">
-                        <div class="content-section-label"><i data-lucide="presentation"></i> ผลงานการสอน</div>
-                        <h2>การถ่ายทอดความรู้ด้าน AI ภายในองค์กร</h2>
-                        <p>ได้รับมอบหมายให้เป็นผู้จัดอบรมด้าน AI ให้กับพนักงานทุกแผนกภายในบริษัท
-                            โดยเนื้อหาครอบคลุมตั้งแต่พื้นฐานการใช้งาน ChatGPT อย่างมีประสิทธิภาพ ไปจนถึงเทคนิคการเขียน
-                            Prompt ที่ได้ผลลัพธ์ตรงตามต้องการ รวมถึงการสร้างภาพและวิดีโอด้วยเครื่องมือ AI</p>
-
-                        <div class="content-numbered-list">
-                            <div class="content-numbered-item">
-                                <h3>การใช้งาน ChatGPT อย่างมืออาชีพ</h3>
-                                <p>สอนเทคนิคการสื่อสารกับ AI ให้ได้ผลลัพธ์ที่ดี ทั้งการตั้งคำถาม การกำหนดบริบท
-                                    และการปรับแต่ง Prompt ให้เหมาะกับงานแต่ละประเภท เช่น งานเขียนคอนเทนต์
-                                    งานวิเคราะห์ข้อมูล และงานสร้างสรรค์</p>
-                            </div>
-                            <div class="content-numbered-item">
-                                <h3>เทคนิคการเขียน Prompt สำหรับสร้างภาพ AI</h3>
-                                <p>แนะนำหลักการเขียน Prompt สำหรับเครื่องมืออย่าง Gemini ตั้งแต่โครงสร้างประโยค
-                                    การกำหนดสไตล์ แสง องค์ประกอบ ไปจนถึงเทคนิคขั้นสูง เพื่อให้ได้ภาพที่ตรงกับความต้องการ
-                                </p>
-                            </div>
-                            <div class="content-numbered-item">
-                                <h3>การสร้างวิดีโอด้วย AI</h3>
-                                <p>สอนการใช้เครื่องมือ AI สำหรับผลิตวิดีโอ เช่น Sora และ Veo ครอบคลุมตั้งแต่การเขียน
-                                    Prompt สำหรับวิดีโอ การควบคุมการเคลื่อนไหว ไปจนถึงการตัดต่อและปรับแต่งผลงาน</p>
-                            </div>
-                        </div>
-
-                        <div class="photo-showcase">
-                            <div class="photo-card">
-                                <img src="card/teach1.jpg" alt="การสอน AI Prompt ภายในองค์กร" loading="lazy">
-                                <div class="photo-card-caption">Workshop การใช้ ChatGPT</div>
-                            </div>
-                            <div class="photo-card">
-                                <img src="card/teach2.png" alt="การอบรม Prompt Design" loading="lazy">
-                                <div class="photo-card-caption">อบรมเทคนิคการเขียน Prompt</div>
-                            </div>
-                            <div class="photo-card">
-                                <img src="card/teach3.png" alt="การสอน AI สร้างภาพและวิดีโอ" loading="lazy">
-                                <div class="photo-card-caption">สอนสร้างภาพและวิดีโอด้วย AI</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-divider"></div>
-
-                    <!-- Section 2: การพัฒนาทักษะจากผู้เชี่ยวชาญ -->
-                    <div class="content-section" id="training">
-                        <div class="content-section-label"><i data-lucide="award"></i> การพัฒนาทักษะ</div>
-                        <h2>การอบรมจากผู้เชี่ยวชาญเฉพาะทาง</h2>
-                        <p>เพื่อพัฒนาทักษะอย่างต่อเนื่อง จึงได้เข้าร่วมอบรมกับผู้เชี่ยวชาญที่มีประสบการณ์ตรงในด้าน AI
-                            และ Prompt Engineering เพื่อนำความรู้มาประยุกต์ใช้ในการทำงานจริงและถ่ายทอดต่อให้ทีมงาน</p>
-
-                        <div class="content-numbered-list">
-                            <div class="content-numbered-item">
-                                <h3>เทคนิค Prompt Engineering ขั้นสูง</h3>
-                                <p>เรียนรู้หลักการและเทคนิคขั้นสูงในการออกแบบ Prompt จากผู้เชี่ยวชาญ ครอบคลุมทั้ง
-                                    Chain-of-Thought, Few-Shot Learning และเทคนิคอื่นๆ ที่ช่วยให้ได้ผลลัพธ์จาก AI
-                                    ที่มีคุณภาพสูงขึ้น</p>
-                            </div>
-                            <div class="content-numbered-item">
-                                <h3>AI Workflow สำหรับงานสร้างสรรค์</h3>
-                                <p>ศึกษากระบวนการทำงานร่วมกับ AI ในงานสร้างสรรค์ ตั้งแต่การวางแผน
-                                    การเลือกเครื่องมือที่เหมาะสม ไปจนถึงการควบคุมคุณภาพผลงาน เพื่อให้ Workflow
-                                    มีประสิทธิภาพสูงสุด</p>
-                            </div>
-                            <div class="content-numbered-item">
-                                <h3>แนวโน้มและอนาคตของ AI</h3>
-                                <p>ติดตามพัฒนาการล่าสุดของเทคโนโลยี AI ทั้งในด้านการสร้างภาพ วิดีโอ และเสียง
-                                    เพื่อเตรียมพร้อมนำเทคโนโลยีใหม่ๆ มาใช้ในงานได้อย่างทันท่วงที</p>
-                            </div>
-                        </div>
-
-                        <div class="photo-showcase">
-                            <div class="photo-card">
-                                <img src="card/train1.jpg" alt="อบรมจากผู้เชี่ยวชาญ AI" loading="lazy">
-                                <div class="photo-card-caption">อบรม AI จากผู้เชี่ยวชาญ</div>
-                            </div>
-                            <div class="photo-card">
-                                <img src="card/train2.jpg" alt="เรียนรู้ Prompt Engineering" loading="lazy">
-                                <div class="photo-card-caption">เรียนรู้ Prompt Engineering</div>
-                            </div>
-                            <div class="photo-card">
-                                <img src="card/train3.jpg" alt="Workshop AI ขั้นสูง" loading="lazy">
-                                <div class="photo-card-caption">Workshop AI ขั้นสูง</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Navigation -->
-                    <div class="portfolio-nav-footer">
-                        <a href="portfolio-4.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
-                            <i data-lucide="arrow-left"></i> ก่อนหน้า
-                        </a>
-                        <a href="portfolio-6.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
-                            ถัดไป <i data-lucide="arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <script>
-        lucide.createIcons();
-        function navigateBack(e) {
-            e.preventDefault();
-            document.querySelector('.page-wrapper').classList.add('page-transition-out');
-            setTimeout(() => { window.location.href = 'index.html#works'; }, 350);
-        }
-        function navigateTo(e, url) {
-            e.preventDefault();
-            document.querySelector('.page-wrapper').classList.add('page-transition-out');
-            setTimeout(() => { window.location.href = url; }, 350);
-        }
-    </script>
-
-    <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-        <img class="lightbox-img" id="lightbox-img" alt="">
-    </div>
-
-    <style>
+        /* ===== LIGHTBOX ===== */
         .lightbox {
             display: none;
             position: fixed;
@@ -1062,10 +676,6 @@
             transform: scale(1.1);
         }
 
-        .photo-card {
-            cursor: zoom-in;
-        }
-
         @keyframes lightboxFadeIn {
             from {
                 opacity: 0;
@@ -1087,10 +697,286 @@
                 opacity: 1;
             }
         }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .portfolio-sidebar {
+                width: 340px;
+                padding-right: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 30px;
+            }
+
+            .content-card {
+                padding: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 4px;
+                gap: 2px;
+            }
+
+            .nav-item {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .page-wrapper {
+                padding-top: 64px;
+            }
+
+            .portfolio-detail {
+                flex-direction: column;
+                padding: 0 16px 32px;
+            }
+
+            .portfolio-sidebar {
+                width: 100% !important;
+                min-width: 0 !important;
+                height: auto;
+                position: relative;
+                top: 0;
+                padding: 0 0 24px 0;
+            }
+
+            .sidebar-title {
+                font-size: 26px;
+            }
+
+            .content-card {
+                padding: 24px;
+                border-radius: var(--radius-md);
+            }
+
+            .content-section h2 {
+                font-size: 22px;
+            }
+
+            .photo-showcase {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .step-flow {
+                flex-direction: column;
+            }
+
+            .step-arrow {
+                transform: rotate(90deg);
+            }
+
+            .video-embed {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .sidebar-title {
+                font-size: 22px;
+            }
+
+            .content-card {
+                padding: 18px;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
     </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-item" onclick="navigateTo(event, this.href)">Home</a>
+        <a href="index.html#works" class="nav-item active" onclick="navigateTo(event, this.href)">Portfolio</a>
+        <a href="resume.html" class="nav-item" onclick="navigateTo(event, this.href)">Resume</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="portfolio-detail">
+
+            <!-- LEFT: Sidebar -->
+            <aside class="portfolio-sidebar">
+                <span class="sidebar-category"><i data-lucide="film"></i> AI Video</span>
+                <h1 class="sidebar-title">Pepsi AI Commercial</h1>
+                <p class="sidebar-subtitle">สร้างวิดีโอโฆษณา Pepsi Strawberries 'N' Cream ด้วย AI
+                    ตั้งแต่ออกแบบภาพจนถึงผลิตวิดีโอสำเร็จ</p>
+
+                <div class="sidebar-cover">
+                    <img src="card/p2.png" alt="Pepsi Strawberries N Cream AI Commercial">
+                </div>
+
+                <div class="sidebar-actions">
+                    <a href="#result" class="sidebar-action-btn">
+                        <i data-lucide="play"></i> ดูวิดีโอผลงาน
+                    </a>
+                    <a href="#process" class="sidebar-action-btn">
+                        <i data-lucide="layers"></i> ดูขั้นตอนการทำงาน
+                    </a>
+                </div>
+
+                <div class="sidebar-info">
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="wrench"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">เครื่องมือ</div>
+                            <div class="sidebar-info-value">Veo 3.1, AI Image Gen</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="target"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">ประเภทงาน</div>
+                            <div class="sidebar-info-value">Product Commercial</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon"><i data-lucide="user"></i></div>
+                        <div>
+                            <div class="sidebar-info-label">บทบาท</div>
+                            <div class="sidebar-info-value">AI Creative Director</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: Content -->
+            <main class="portfolio-content">
+                <div class="content-card">
+
+                    <!-- Section 1: Inspiration -->
+                    <div class="content-section" id="inspiration">
+                        <div class="content-section-label"><i data-lucide="lightbulb"></i> Inspiration</div>
+                        <h2>ไอเดียจากเว็บไซต์โลตัส</h2>
+                        <p>เจอ Pepsi Strawberries 'N' Cream รสชาติใหม่ขายอยู่บนเว็บไซต์โลตัส
+                            ก็เลยได้ไอเดียอยากลองเอามาทำเป็นวิดีโอโฆษณาด้วย AI
+                            — ดูว่าจะเปลี่ยนภาพโปรดักต์ธรรมดาให้กลายเป็นโฆษณาระดับมืออาชีพได้แค่ไหน</p>
+
+                        <div class="photo-showcase single-col">
+                            <div class="photo-card portrait">
+                                <img src="card/p0.jpg" alt="Pepsi Strawberries N Cream จากเว็บไซต์โลตัส" loading="lazy">
+                                <div class="photo-card-caption">ภาพสินค้าจากเว็บไซต์โลตัส — จุดเริ่มต้นของไอเดีย</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 2: Creative Process -->
+                    <div class="content-section" id="process">
+                        <div class="content-section-label"><i data-lucide="palette"></i> Creative Process</div>
+                        <h2>ออกแบบ Visual ก่อนสั่ง AI ทำวิดีโอ</h2>
+                        <p>ไม่ได้ปล่อยให้ AI คิดเองทั้งหมด — ออกแบบ "เฟรมแรก" และ "เฟรมสุดท้าย" ก่อน
+                            แล้วค่อยกำหนดทิศทางการเคลื่อนไหวทั้งหมดให้ AI ทำตาม</p>
+
+                        <div class="content-numbered-list">
+                            <div class="content-numbered-item">
+                                <h3>สร้าง First Frame — ภาพเปิดเรื่อง</h3>
+                                <p>ออกแบบภาพส่วนผสม Strawberries & Cream สวิงตัวในอากาศ
+                                    สะท้อนรสชาติใหม่ของ Pepsi ให้คนดูรู้สึกถึงความสดชื่นตั้งแต่วินาทีแรก</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>สร้าง Last Frame — ภาพปิด Hero Shot</h3>
+                                <p>กระป๋อง Pepsi ลอยขึ้นมาเด่นกลางเฟรม ล้อมรอบด้วยสตรอว์เบอร์รี่และครีมสาด
+                                    ปิดด้วยความรู้สึก "ต้องลอง" ให้กับคนดู</p>
+                            </div>
+                            <div class="content-numbered-item">
+                                <h3>กำหนด Motion — ใส่เฟรมแรก/สุดท้ายลงเครื่องมือ AI</h3>
+                                <p>นำทั้งสองเฟรมไปใส่ในเครื่องมือ AI พร้อมเขียน Prompt กำหนดทิศทางการเคลื่อนไหว
+                                    — ควบคุมทุกรายละเอียดตั้งแต่จังหวะครีมไหล ไปจนถึงสตรอว์เบอร์รี่ที่ลอยเข้าเฟรม</p>
+                            </div>
+                        </div>
+
+                        <!-- Step Flow: First Frame → Last Frame -->
+                        <div class="step-flow">
+                            <div class="photo-card portrait">
+                                <img src="card/p1.png" alt="First Frame — Strawberries & Cream Splash" loading="lazy">
+                                <div class="photo-card-caption">First Frame — ภาพเปิดเรื่อง</div>
+                            </div>
+                            <div class="step-arrow"><i data-lucide="arrow-right"></i></div>
+                            <div class="photo-card portrait">
+                                <img src="card/p2.png" alt="Last Frame — Product Hero Shot" loading="lazy">
+                                <div class="photo-card-caption">Last Frame — Product Hero Shot</div>
+                            </div>
+                        </div>
+
+                        <!-- p3: Tool Screenshot -->
+                        <div class="photo-showcase" style="grid-template-columns: 1fr; margin-top: 20px;">
+                            <div class="photo-card">
+                                <img src="card/p3.png" alt="การใส่ First Frame และ Last Frame ลงเครื่องมือ AI"
+                                    loading="lazy" style="aspect-ratio: auto;">
+                                <div class="photo-card-caption">ใส่ First & Last Frame ลงเครื่องมือ AI พร้อมเขียน Prompt
+                                    กำหนด Motion</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-divider"></div>
+
+                    <!-- Section 3: Final Result -->
+                    <div class="content-section" id="result">
+                        <div class="content-section-label"><i data-lucide="film"></i> Final Result</div>
+                        <h2>ผลงานวิดีโอสำเร็จ</h2>
+                        <p>วิดีโอโฆษณา Pepsi Strawberries 'N' Cream ที่สร้างด้วย AI ทั้งหมด
+                            — จากภาพสินค้าบนเว็บ สู่วิดีโอโฆษณาที่พร้อมใช้งาน</p>
+
+                        <div class="video-embed">
+                            <iframe src="https://drive.google.com/file/d/1XQynGxKvr_gY0Ik-FEbzV7RptLvVmzKY/preview"
+                                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="portfolio-nav-footer">
+                        <a href="portfolio-5.html" class="portfolio-nav-btn" onclick="navigateTo(event, this.href)">
+                            <i data-lucide="arrow-left"></i> ก่อนหน้า
+                        </a>
+                        <a class="portfolio-nav-btn disabled">
+                            ถัดไป <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img class="lightbox-img" id="lightbox-img" alt="">
+    </div>
 
     <script>
-        // Lightbox
+        lucide.createIcons();
+
+        function navigateBack(e) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = 'index.html#works'; }, 350);
+        }
+
+        function navigateTo(e, url) {
+            e.preventDefault();
+            document.querySelector('.page-wrapper').classList.add('page-transition-out');
+            setTimeout(() => { window.location.href = url; }, 350);
+        }
+
+        // Lightbox — click any photo to zoom
         document.querySelectorAll('.photo-card img').forEach(img => {
             img.addEventListener('click', (e) => {
                 e.stopPropagation();
