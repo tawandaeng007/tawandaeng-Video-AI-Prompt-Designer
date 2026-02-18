@@ -1,0 +1,490 @@
+id,title,category,tool,preview,prompt,videoUrl,isFeatured,icon
+1,"Lay's Lime & Chili TVC",my-work,Sora,"Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips. No voice-over. Music-only pacing plus natural sound design...","Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips.
+No voice-over. Music-only pacing plus natural sound design.
+Must look like a real agency-produced commercial, not AI-generated.
+
+COLOR GRADING & LIGHTING (match reference tone):
+Professional high-end commercial lighting.
+Warm champagne / peach / soft pink gradient background (clean studio backdrop).
+High-key exposure with soft bloom (subtle), creamy highlights, no harsh contrast.
+Soft key light from front-left + gentle rim light to separate the chip from background.
+Very clean specular highlights on chip surface, crisp texture, no over-saturation.
+Shallow depth of field with soft bokeh and smooth background falloff.
+Tiny floating crumbs/dust particles with gentle motion blur (premium, not messy).
+Overall look: elegant, bright, airy, premium advertising grade.
+
+PRODUCT:
+Lay's potato chips, Lime & Chili flavor.
+Green packaging.
+In the final shot, the bag must be clean, sharp, and clearly readable.
+
+AUDIO (NO VOICE):
+Use only:
+- a pleasing, crisp chip-break sound (shot 1)
+- subtle crumb scatter sound (shot 1)
+- subtle droplet/powder impact sound (shot 2)
+- soft chip drop sound (shot 3)
+- background music
+
+TIMELINE / SHOT LIST
+
+[SHOT 1 — HERO CHIP BREAK (Chip A)]
+Scene:
+Warm peach/champagne studio gradient background, minimal and premium.
+One potato chip (Chip A) floating in mid-air.
+
+Camera:
+Close-up, centered.
+Chip rotates slowly, controlled and elegant.
+The chip turns to face the camera straight-on (perfect front view).
+Slight slow push-in. Very shallow depth of field.
+
+Action:
+Chip A breaks cleanly in half in slow motion.
+A small amount of tiny crumbs/particles scatter subtly (not messy).
+Sound: a crisp, pleasing chip snap.
+
+Lighting:
+Soft key light + gentle rim light, clean highlights emphasizing texture.
+No harsh shadows, no dramatic contrast.
+
+Cut rule:
+Cut immediately after the break moment lands (no lingering too long).
+
+[SHOT 2 — FLAVOR IMPACT MACRO (Chip B, different chip)]
+Important:
+This is a NEW chip (Chip B), not the broken chip from Shot 1.
+
+Scene:
+Extreme macro shot of Chip B surface.
+Chip texture fills the frame, showing fine bubbles and crisp detail.
+
+Camera:
+Ultra macro, very shallow depth of field.
+Stable, controlled framing.
+
+Action:
+Fresh lime juice droplets and micro-spray blast toward the chip surface,
+followed by chili powder particles.
+Droplets hit and create tiny realistic splashes and surface tension.
+Chili powder impacts and clings into the chip texture.
+Motion is fast but physically realistic.
+No fade-in, no pop-in.
+
+Lighting:
+Same premium warm studio tone, with subtle cool highlight on droplets (freshness)
+and subtle warm accent on powder (heat), kept realistic and restrained.
+
+Sound:
+Subtle droplet impact + powder hit (clean, not exaggerated).
+
+Hold:
+A brief moment where liquid spreads naturally and seasoning settles into texture.
+
+[SHOT 3 — CHIP FALLS INTO OPEN PACK + ZOOM OUT (Chip B continues)]
+Scene:
+Cut to a wider clean commercial frame.
+The Lay's bag is already present at the bottom of frame, upright, stable, and OPEN.
+The bag opening must be clearly visible.
+
+Camera:
+Start medium close-up so the opening is readable.
+Then slowly zoom out (or slow pull-back) to reveal the full bag clearly.
+
+Action:
+Chip B (the seasoned chip from Shot 2) falls naturally from above
+straight into the open bag.
+It drops cleanly inside with realistic rotation and speed.
+No chips bounce out.
+Sound: soft chip drop into bag (subtle).
+
+End-frame composition:
+As the camera zooms out and settles:
+- The Lay's bag is fully visible, centered and dominant, branding readable.
+- At the BASE of the bag (on the surface in front of it), arrange supporting elements neatly:
+  a few crispy chips, lime slices, and red chili peppers
+  as styling props.
+These elements must be arranged beautifully as a base display,
+framing the product without touching or overlapping the packaging.
+No elements overlap the logo or top edge of the bag.
+
+Final hold:
+Clean, confident final frame for brand recognition.
+No additional motion.
+
+NEGATIVE PROMPTS / HARD RULES
+- No voice-over, no dialogue.
+- No people.
+- No neon colors, no heavy cinematic shadows, no gritty film grain, no strong vignette.
+- No fade-in or pop-in objects.
+- No cartoon physics, no exaggerated splashes.
+- No ingredients attached to or placed on top of the packaging.
+- No elements overlapping the logo or top edge of the bag.
+- Must not look like AI art.",https://drive.google.com/file/d/1TERqCNhkoJOHaGFHPYMPOFJjoz8T0nvF/preview,TRUE,
+2,"Lay's Ingredient Storytelling",my-work,Sora,"Create an ingredient storytelling commercial for Lay's Lime & Chili potato chips. The commercial should visually communicate the flavor through ingredients and motion...","Create an ingredient storytelling commercial for Lay's Lime & Chili potato chips.
+
+The commercial should visually communicate the flavor through ingredients and motion, ending with a natural, physical product resolve.
+No voice-over. Music-only pacing.
+
+Product:
+Lay's potato chips, Lime & Chili flavor.
+
+Flavor story goal:
+Communicate a refreshing lime brightness combined with a bold spicy chili kick, leading to an exciting and craveable flavor impression.
+
+Ingredients:
+Fresh green lime slices, red chili peppers, golden crispy potato chips.
+
+Scene:
+Clean, premium advertising environment.
+Soft green gradient background inspired by lime, subtle warm red accents inspired by chili.
+Minimal, polished, broadcast-ready setup.
+
+Camera:
+Close-up and macro-focused shots.
+Straight-on and slightly angled perspectives.
+Smooth, slow camera movement.
+Stable and controlled framing.
+
+Lighting:
+Professional commercial lighting.
+Bright, clean, high-clarity look.
+Soft highlights enhancing lime texture, chili surface, and chip crispiness.
+No harsh shadows.
+
+Ingredient presentation:
+Lime slices with visible juice texture.
+Chili peppers with rich surface detail.
+Potato chips showing crisp edges and crunch texture.
+Elegant and balanced spacing.
+
+Motion design:
+Ingredients move in slow, fluid motion.
+Each element enters the frame sequentially: first lime slices drifting in gentle arcs, then chili peppers following with slightly stronger motion, then potato chips gliding in with controlled energy.
+All movement follows natural gravity and inertia.
+No fading, no popping, no sudden appearance.
+
+Motion resolve and end frame:
+As motion slows, the Lay's Lime & Chili chip bag is already present, standing upright and stationary at the center of the frame.
+The moving ingredients gradually lose momentum and settle naturally into position around the bag: lime slices resting near the top and sides, chili peppers aligning diagonally, potato chips landing closest to the pack base.
+All elements come to rest smoothly, as if placed by motion, not animation.
+
+Final frame:
+The product bag remains clearly visible and dominant.
+Ingredients are neatly arranged around it.
+No additional motion.
+Strong, clean brand recognition moment.
+
+Editing rhythm:
+Slow to medium pacing.
+Clear visual beats as each ingredient joins the composition.
+Calm, confident ending hold.
+
+Style & tone:
+Premium FMCG ingredient-focused advertising style.
+Fresh, bold, appetizing.
+Looks like a real TV or digital ingredient commercial, not AI-generated.
+
+Audio direction:
+No dialogue or voice-over.
+Designed for background music only.
+
+Negative prompts:
+No fade-in elements.
+No pop-in animation.
+No exaggerated motion.
+No fantasy physics.
+No AI-art style.",https://drive.google.com/file/d/1L4M578zh_T30397wBI8Tdxrlu833VrkS/preview,TRUE,
+3,"Lay's Premium TVC",my-work,Sora,"Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips. No voice-over. Music-only pacing plus natural sound design...","Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips.
+No voice-over. Music-only pacing plus natural sound design.
+Must look like a real agency-produced commercial, not AI-generated.
+
+COLOR GRADING & LIGHTING (match reference tone):
+Professional high-end commercial lighting.
+Warm champagne / peach / soft pink gradient background (clean studio backdrop).
+High-key exposure with soft bloom (subtle), creamy highlights, no harsh contrast.
+Soft key light from front-left + gentle rim light to separate the chip from background.
+Very clean specular highlights on chip surface, crisp texture, no over-saturation.
+Shallow depth of field with soft bokeh and smooth background falloff.
+Tiny floating crumbs/dust particles with gentle motion blur (premium, not messy).
+Overall look: elegant, bright, airy, premium advertising grade.
+
+PRODUCT:
+Lay's potato chips, Lime & Chili flavor.
+Green packaging.
+In the final shot, the bag must be clean, sharp, and clearly readable.
+
+AUDIO (NO VOICE):
+Use only:
+- a pleasing, crisp chip-break sound (shot 1)
+- subtle crumb scatter sound (shot 1)
+- subtle droplet/powder impact sound (shot 2)
+- soft chip drop sound (shot 3)
+- background music
+
+TIMELINE / SHOT LIST
+
+[SHOT 1 — HERO CHIP BREAK (Chip A)]
+Scene:
+Warm peach/champagne studio gradient background, minimal and premium.
+One potato chip (Chip A) floating in mid-air.
+
+Camera:
+Close-up, centered.
+Chip rotates slowly, controlled and elegant.
+The chip turns to face the camera straight-on (perfect front view).
+Slight slow push-in. Very shallow depth of field.
+
+Action:
+Chip A breaks cleanly in half in slow motion.
+A small amount of tiny crumbs/particles scatter subtly (not messy).
+Sound: a crisp, pleasing chip snap.
+
+Lighting:
+Soft key light + gentle rim light, clean highlights emphasizing texture.
+No harsh shadows, no dramatic contrast.
+
+Cut rule:
+Cut immediately after the break moment lands (no lingering too long).
+
+[SHOT 2 — FLAVOR IMPACT MACRO (Chip B, different chip)]
+Important:
+This is a NEW chip (Chip B), not the broken chip from Shot 1.
+
+Scene:
+Extreme macro shot of Chip B surface.
+Chip texture fills the frame, showing fine bubbles and crisp detail.
+
+Camera:
+Ultra macro, very shallow depth of field.
+Stable, controlled framing.
+
+Action:
+Fresh lime juice droplets and micro-spray blast toward the chip surface,
+followed by chili powder particles.
+Droplets hit and create tiny realistic splashes and surface tension.
+Chili powder impacts and clings into the chip texture.
+Motion is fast but physically realistic.
+No fade-in, no pop-in.
+
+Lighting:
+Same premium warm studio tone, with subtle cool highlight on droplets (freshness)
+and subtle warm accent on powder (heat), kept realistic and restrained.
+
+Sound:
+Subtle droplet impact + powder hit (clean, not exaggerated).
+
+Hold:
+A brief moment where liquid spreads naturally and seasoning settles into texture.
+
+[SHOT 3 — CHIP FALLS INTO OPEN PACK + ZOOM OUT (Chip B continues)]
+Scene:
+Cut to a wider clean commercial frame.
+The Lay's bag is already present at the bottom of frame, upright, stable, and OPEN.
+The bag opening must be clearly visible.
+
+Camera:
+Start medium close-up so the opening is readable.
+Then slowly zoom out (or slow pull-back) to reveal the full bag clearly.
+
+Action:
+Chip B (the seasoned chip from Shot 2) falls naturally from above
+straight into the open bag.
+It drops cleanly inside with realistic rotation and speed.
+No chips bounce out.
+Sound: soft chip drop into bag (subtle).
+
+End-frame composition:
+As the camera zooms out and settles:
+- The Lay's bag is fully visible, centered and dominant, branding readable.
+- At the BASE of the bag (on the surface in front of it), arrange supporting elements neatly:
+  a few crispy chips, lime slices, and red chili peppers
+  as styling props.
+These elements must be arranged beautifully as a base display,
+framing the product without touching or overlapping the packaging.
+No elements overlap the logo or top edge of the bag.
+
+Final hold:
+Clean, confident final frame for brand recognition.
+No additional motion.
+
+NEGATIVE PROMPTS / HARD RULES
+- No voice-over, no dialogue.
+- No people.
+- No neon colors, no heavy cinematic shadows, no gritty film grain, no strong vignette.
+- No fade-in or pop-in objects.
+- No cartoon physics, no exaggerated splashes.
+- No ingredients attached to or placed on top of the packaging.
+- No elements overlapping the logo or top edge of the bag.
+- Must not look like AI art.",https://drive.google.com/file/d/1pX4RSeT-TwuVgdrjrwk-om2_T8aNRoKr/preview,TRUE,
+4,"Lay's Snacking Experience",my-work,Sora,"Create a follow-the-hand snacking commercial for Lay's Lime & Chili potato chips. The commercial should show a satisfying snacking experience...","Create a follow-the-hand snacking commercial for Lay's Lime & Chili potato chips.
+
+The commercial should show a satisfying snacking experience
+by following the hand from the product to the mouth.
+No dialogue. No voice-over. Music-only pacing.
+
+Product:
+Lay's potato chips, Lime & Chili flavor.
+
+Snacking experience goal:
+Communicate a satisfying crunch and craveable texture,
+highlighting the refreshing lime taste and spicy chili kick.
+
+Human visibility rule:
+Only partial human visibility.
+Lower half of the face only, showing mouth and chin.
+No full face.
+No eyes or direct facial expression toward camera.
+
+Scene:
+Clean, everyday lifestyle environment.
+Simple table setting.
+Natural and relatable, not staged.
+Broadcast-ready look.
+
+Camera:
+Start with the Lay's bag clearly visible on the table.
+Eye-level perspective.
+As the hand reaches into the bag,
+the camera smoothly follows the hand upward
+in one continuous, controlled motion.
+Stable tracking movement with no shaking.
+
+Lighting:
+Soft natural lighting.
+Comfortable, realistic exposure.
+Clear visibility of the product, hand, chip, and mouth.
+No dramatic contrast.
+
+Product interaction sequence:
+The Lay's bag rests naturally on the table.
+A hand opens the bag and reaches inside.
+A single chip is picked up.
+The chip is brought upward.
+The camera follows the hand smoothly.
+The chip reaches the mouth.
+A bite occurs, breaking the chip clearly.
+
+Crunch emphasis:
+Clear visual of the chip breaking.
+Natural jaw movement.
+Visible crisp texture.
+No exaggerated chewing.
+
+Motion & timing:
+Smooth continuous motion from start to bite.
+No fast cuts.
+Clear beginning, middle, and end of the action.
+
+End frame:
+Lower half of the face in frame.
+The bite finishes.
+Subtle jaw movement indicating crunch.
+Satisfying, appetizing final hold.
+
+Style & tone:
+Real FMCG snack advertising style.
+Natural, appetizing, satisfying.
+Looks like a real TV or digital snack commercial,
+not AI-generated.
+
+Audio direction:
+No dialogue or voice-over.
+Designed for background music only.
+
+Negative prompts:
+No full face reveal.
+No over-acting.
+No cinematic drama.
+No exaggerated motion.
+No AI-art style.",https://drive.google.com/file/d/1Iv4MLYgCQzhWFFPz4CmxfMmdmvL15Fo4/preview,TRUE,
+5,"Fresh Fruit Water Splash",product,Kling,"Cinematic slow motion shot of fresh red strawberries falling into crystal clear water, creating dynamic splashes, water droplets suspended in air...","Cinematic slow motion shot of fresh red strawberries falling into crystal clear water.
+
+VISUAL ELEMENTS:
+- Dynamic water splashes
+- Water droplets suspended in air
+- Studio lighting with dark background
+- Commercial food advertisement style
+
+CAMERA:
+- High-speed capture (1000fps equivalent)
+- Tight framing on impact
+- Shallow depth of field
+
+QUALITY: 4K, broadcast-ready
+STYLE: Premium FMCG commercial",,FALSE,droplets
+7,"Gift Box Magical Reveal",product,Sora,"Golden gift box slowly opening with warm glowing light rays emerging from inside, magical particles floating upward, luxury product reveal style...","Golden gift box slowly opening with warm glowing light rays emerging from inside.
+
+VISUAL EFFECTS:
+- Magical particles floating upward
+- Shallow depth of field
+- Luxury product reveal style
+- Smooth camera push-in
+
+LIGHTING:
+- Warm golden tones
+- Soft volumetric light
+- Premium feel
+
+USE CASE: Retail promo, holiday campaigns
+QUALITY: 4K cinematic",,FALSE,gift
+8,"Thai Family Dinner",lifestyle,Veo3,"Thai family of four sharing dinner at home, warm golden hour sunlight through window, mother serving rice, children laughing, father smiling, cozy dining room...","Thai family of four sharing dinner at home.
+
+SCENE SETUP:
+- Warm golden hour sunlight through window
+- Cozy dining room setting
+- Natural, unposed feel
+
+CHARACTERS:
+- Mother serving rice
+- Children laughing
+- Father smiling
+
+STYLE: Natural documentary style
+MOOD: Warm, family-oriented, authentic
+QUALITY: 4K, broadcast-ready",,FALSE,users
+9,"Birthday Celebration",lifestyle,Kling,"Child blowing out birthday candles on cake, family gathered around, warm indoor lighting, confetti falling in slow motion, joyful expressions, natural documentary style...","Child blowing out birthday candles on cake.
+
+SCENE ELEMENTS:
+- Family gathered around
+- Warm indoor lighting
+- Confetti falling in slow motion
+- Joyful expressions
+
+STYLE: Natural documentary style
+CAMERA: Multiple angles, handheld feel
+MOOD: Celebratory, joyful, memorable
+QUALITY: 4K",,FALSE,party-popper
+10,"Warehouse Aerial Shot",corporate,Sora,"Cinematic aerial drone shot flying through massive modern warehouse, rows of organized shelves with products, warm industrial lighting, workers in uniform...","Cinematic aerial drone shot flying through massive modern warehouse.
+
+VISUAL ELEMENTS:
+- Rows of organized shelves with products
+- Warm industrial lighting
+- Workers in uniform
+- Camera smoothly gliding forward
+
+STYLE: Corporate promotional style
+MOVEMENT: Continuous forward motion
+QUALITY: 4K epic scale",,FALSE,warehouse
+11,"Modern Office Team",corporate,Sora,"Modern open-plan office environment, diverse team collaborating around digital screens, natural daylight from large windows, professional dynamic atmosphere...","Modern open-plan office environment.
+
+SCENE:
+- Diverse team collaborating around digital screens
+- Natural daylight from large windows
+- Professional, dynamic atmosphere
+
+STYLE: Corporate brand film
+MOOD: Innovative, collaborative, professional
+CAMERA: Smooth tracking shots
+QUALITY: 4K",,FALSE,building-2
+12,"Epic Logo Reveal",cinematic,Sora,"Dramatic 3D logo reveal emerging from dark smoke particles, golden metallic texture catching light, cinematic lens flares, epic orchestral mood...","Dramatic 3D logo reveal emerging from dark smoke particles.
+
+VISUAL EFFECTS:
+- Golden metallic texture catching light
+- Cinematic lens flares
+- Epic orchestral mood
+- Particles dissolving into logo
+
+STYLE: Cinematic intro/outro
+USE CASE: Brand videos, presentations
+QUALITY: 4K, seamless looping possible",,FALSE,clapperboard

@@ -2471,9 +2471,15 @@
             overflow: hidden;
         }
 
+        .template-thumbnail.has-video {
+            aspect-ratio: auto;
+            padding-top: 56.25%;
+        }
+
         .template-thumbnail.has-video iframe {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -3725,6 +3731,360 @@
                 transform: translateY(-30px);
             }
         }
+
+        /* Add Prompt Button */
+        .add-prompt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--system-green), #2db84d);
+            color: white;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+            font-family: inherit;
+        }
+
+        .add-prompt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.4);
+        }
+
+        .add-prompt-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Loading Skeleton */
+        .template-loading {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .skeleton-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            animation: skeletonPulse 1.5s ease-in-out infinite;
+        }
+
+        .skeleton-thumb {
+            height: 180px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.04) 25%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0.04) 75%);
+            background-size: 200% 100%;
+            animation: skeletonShimmer 1.5s ease-in-out infinite;
+        }
+
+        .skeleton-content {
+            padding: 16px;
+        }
+
+        .skeleton-line {
+            height: 14px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.04) 25%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0.04) 75%);
+            background-size: 200% 100%;
+            animation: skeletonShimmer 1.5s ease-in-out infinite;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .skeleton-line.short {
+            width: 60%;
+        }
+
+        .skeleton-line.medium {
+            width: 80%;
+        }
+
+        @keyframes skeletonPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes skeletonShimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Add Prompt Modal */
+        .add-prompt-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .add-prompt-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .add-prompt-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 640px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.3s ease;
+        }
+
+        .add-prompt-overlay.active .add-prompt-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .add-prompt-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .add-prompt-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .add-prompt-header h3 i {
+            width: 20px;
+            height: 20px;
+            color: var(--system-green);
+        }
+
+        .add-prompt-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-prompt-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .add-prompt-close i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .add-prompt-form {
+            padding: 20px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--system-blue);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group textarea.prompt-textarea {
+            min-height: 200px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-submit-btn {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            margin-top: 8px;
+        }
+
+        .form-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+        }
+
+        .form-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-submit-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-submit-btn .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            display: none;
+        }
+
+        .form-submit-btn.loading .spinner {
+            display: block;
+        }
+
+        .form-submit-btn.loading .btn-text {
+            display: none;
+        }
+
+        .form-submit-btn.loading i {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Loading Error */
+        .loading-error {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .loading-error i {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            color: var(--system-orange);
+        }
+
+        .loading-error h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .loading-error button {
+            margin-top: 16px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--system-blue), var(--system-blue-light));
+            color: white;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .add-prompt-modal {
+                max-height: 90vh;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .template-loading {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -4704,6 +5064,9 @@ No AI-art style.</pre>
                 <p class="section-subtitle" data-en="Ready-to-use prompt collection for professional AI video creation"
                     data-th="ระบบจัดเก็บ prompt ที่ค้นหาและกรองได้ พร้อมใช้งานทันที">Ready-to-use prompt collection for
                     professional AI video creation</p>
+                <button class="add-prompt-btn" onclick="openAddPromptModal()">
+                    <i data-lucide="plus"></i> Add Prompt
+                </button>
             </div>
 
             <!-- Search Bar -->
@@ -4752,252 +5115,67 @@ No AI-art style.</pre>
 
 
 
-            <!-- Template Cards Grid -->
-            <div class="template-grid" id="template-grid">
-                <!-- My Work Templates (4 videos) -->
-                <div class="template-card glass-card featured" data-category="my-work" data-tool="sora" data-id="1">
-                    <div class="template-thumbnail has-video">
-                        <iframe src="https://drive.google.com/file/d/1TERqCNhkoJOHaGFHPYMPOFJjoz8T0nvF/preview"
-                            allow="autoplay"></iframe>
-                        <div class="template-play-overlay"
-                            onclick="openVideoPlayer('https://drive.google.com/file/d/1TERqCNhkoJOHaGFHPYMPOFJjoz8T0nvF/preview', 'Lay\'s Lime & Chili TVC')">
-                            <div class="play-btn"><i data-lucide="play"></i></div>
-                        </div>
-                        <span class="template-badge my-work-badge-card">My Work</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Lay's Lime & Chili TVC</h4>
-                            <div class="template-tool">Sora</div>
-                        </div>
-                        <div class="template-category">Product / FMCG</div>
-                        <p class="template-prompt-preview">Create a premium FMCG TVC-style commercial for Lay's Lime &
-                            Chili potato chips. No voice-over. Music-only pacing plus natural sound design...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(1)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(1)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Template Cards Grid (dynamically loaded from Google Sheets) -->
+            <div class="template-grid" id="template-grid"></div>
 
-                <div class="template-card glass-card featured" data-category="my-work" data-tool="sora" data-id="2">
-                    <div class="template-thumbnail has-video">
-                        <iframe src="https://drive.google.com/file/d/1L4M578zh_T30397wBI8Tdxrlu833VrkS/preview"
-                            allow="autoplay"></iframe>
-                        <div class="template-play-overlay"
-                            onclick="openVideoPlayer('https://drive.google.com/file/d/1L4M578zh_T30397wBI8Tdxrlu833VrkS/preview', 'Lay\'s Ingredient Storytelling')">
-                            <div class="play-btn"><i data-lucide="play"></i></div>
-                        </div>
-                        <span class="template-badge my-work-badge-card">My Work</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Lay's Ingredient Storytelling</h4>
-                            <div class="template-tool">Sora</div>
-                        </div>
-                        <div class="template-category">Product / FMCG</div>
-                        <p class="template-prompt-preview">Create an ingredient storytelling commercial for Lay's Lime &
-                            Chili potato chips. The commercial should visually communicate the flavor through
-                            ingredients and motion...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(2)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(2)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
+            <!-- Loading State -->
+            <div class="template-loading" id="template-loading">
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
                     </div>
                 </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                    </div>
+                </div>
+            </div>
 
-                <div class="template-card glass-card featured" data-category="my-work" data-tool="sora" data-id="3">
-                    <div class="template-thumbnail has-video">
-                        <iframe src="https://drive.google.com/file/d/1pX4RSeT-TwuVgdrjrwk-om2_T8aNRoKr/preview"
-                            allow="autoplay"></iframe>
-                        <div class="template-play-overlay"
-                            onclick="openVideoPlayer('https://drive.google.com/file/d/1pX4RSeT-TwuVgdrjrwk-om2_T8aNRoKr/preview', 'Lay\'s Premium TVC')">
-                            <div class="play-btn"><i data-lucide="play"></i></div>
-                        </div>
-                        <span class="template-badge my-work-badge-card">My Work</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Lay's Premium TVC</h4>
-                            <div class="template-tool">Sora</div>
-                        </div>
-                        <div class="template-category">Product / FMCG</div>
-                        <p class="template-prompt-preview">Create a premium FMCG TVC-style commercial for Lay's Lime &
-                            Chili potato chips. No voice-over. Music-only pacing plus natural sound design...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(3)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(3)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="template-card glass-card featured" data-category="my-work" data-tool="sora" data-id="4">
-                    <div class="template-thumbnail has-video">
-                        <iframe src="https://drive.google.com/file/d/1Iv4MLYgCQzhWFFPz4CmxfMmdmvL15Fo4/preview"
-                            allow="autoplay"></iframe>
-                        <div class="template-play-overlay"
-                            onclick="openVideoPlayer('https://drive.google.com/file/d/1Iv4MLYgCQzhWFFPz4CmxfMmdmvL15Fo4/preview', 'Lay\'s Snacking Experience')">
-                            <div class="play-btn"><i data-lucide="play"></i></div>
-                        </div>
-                        <span class="template-badge my-work-badge-card">My Work</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Lay's Snacking Experience</h4>
-                            <div class="template-tool">Sora</div>
-                        </div>
-                        <div class="template-category">Product / FMCG</div>
-                        <p class="template-prompt-preview">Create a follow-the-hand snacking commercial for Lay's Lime &
-                            Chili potato chips. The commercial should show a satisfying snacking experience...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(4)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(4)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product/FMCG Templates -->
-                <div class="template-card glass-card" data-category="product" data-tool="kling" data-id="5">
-                    <div class="template-thumbnail">
-                        <div class="template-icon-preview"><i data-lucide="droplets"></i></div>
-                        <span class="template-badge product">Product</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Fresh Fruit Water Splash</h4>
-                            <div class="template-tool">Kling</div>
-                        </div>
-                        <div class="template-category">Product / Food</div>
-                        <p class="template-prompt-preview">Cinematic slow motion shot of fresh red strawberries falling
-                            into crystal clear water, creating dynamic splashes, water droplets suspended in air...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(5)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(5)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lifestyle Templates -->
-                <div class="template-card glass-card" data-category="lifestyle" data-tool="veo3" data-id="8">
-                    <div class="template-thumbnail">
-                        <div class="template-icon-preview"><i data-lucide="users"></i></div>
-                        <span class="template-badge lifestyle">Lifestyle</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Thai Family Dinner</h4>
-                            <div class="template-tool">Veo3</div>
-                        </div>
-                        <div class="template-category">Lifestyle / Family</div>
-                        <p class="template-prompt-preview">Thai family of four sharing dinner at home, warm golden hour
-                            sunlight through window, mother serving rice, children laughing, father smiling, cozy dining
-                            room...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(8)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(8)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="template-card glass-card" data-category="lifestyle" data-tool="kling" data-id="9">
-                    <div class="template-thumbnail">
-                        <div class="template-icon-preview"><i data-lucide="party-popper"></i></div>
-                        <span class="template-badge lifestyle">Lifestyle</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Birthday Celebration</h4>
-                            <div class="template-tool">Kling</div>
-                        </div>
-                        <div class="template-category">Lifestyle / Celebration</div>
-                        <p class="template-prompt-preview">Child blowing out birthday candles on cake, family gathered
-                            around, warm indoor lighting, confetti falling in slow motion, joyful expressions, natural
-                            documentary style...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(9)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(9)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Corporate Templates -->
-                <div class="template-card glass-card" data-category="corporate" data-tool="sora" data-id="10">
-                    <div class="template-thumbnail">
-                        <div class="template-icon-preview"><i data-lucide="warehouse"></i></div>
-                        <span class="template-badge corporate">Corporate</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Warehouse Aerial Shot</h4>
-                            <div class="template-tool">Sora</div>
-                        </div>
-                        <div class="template-category">Corporate / Industrial</div>
-                        <p class="template-prompt-preview">Cinematic aerial drone shot flying through massive modern
-                            warehouse, rows of organized shelves with products, warm industrial lighting, workers in
-                            uniform...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(10)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(10)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cinematic Templates -->
-                <div class="template-card glass-card" data-category="cinematic" data-tool="sora" data-id="12">
-                    <div class="template-thumbnail">
-                        <div class="template-icon-preview"><i data-lucide="clapperboard"></i></div>
-                        <span class="template-badge cinematic">Cinematic</span>
-                    </div>
-                    <div class="template-content">
-                        <div class="template-header">
-                            <h4 class="template-title">Epic Logo Reveal</h4>
-                            <div class="template-tool">Sora</div>
-                        </div>
-                        <div class="template-category">Cinematic / Intro</div>
-                        <p class="template-prompt-preview">Dramatic 3D logo reveal emerging from dark smoke particles,
-                            golden metallic texture catching light, cinematic lens flares, epic orchestral mood...</p>
-                        <div class="template-actions">
-                            <button class="template-btn primary" onclick="openTemplateModal(12)">
-                                <i data-lucide="file-text"></i> View Prompt
-                            </button>
-                            <button class="template-btn" onclick="copyPrompt(12)">
-                                <i data-lucide="copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Loading Error -->
+            <div class="loading-error" id="loading-error" style="display: none;">
+                <i data-lucide="wifi-off"></i>
+                <h4>ไม่สามารถโหลดข้อมูลได้</h4>
+                <p>กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</p>
+                <button onclick="loadPromptsFromSheet()">ลองใหม่อีกครั้ง</button>
             </div>
 
 
@@ -5009,6 +5187,91 @@ No AI-art style.</pre>
                     a different keyword or category</p>
             </div>
         </section>
+
+        <!-- Add Prompt Modal -->
+        <div class="add-prompt-overlay" id="add-prompt-overlay">
+            <div class="add-prompt-modal">
+                <div class="add-prompt-header">
+                    <h3><i data-lucide="plus-circle"></i> เพิ่ม Prompt ใหม่</h3>
+                    <button class="add-prompt-close" onclick="closeAddPromptModal()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <form class="add-prompt-form" id="add-prompt-form" onsubmit="submitNewPrompt(event)">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" name="title" required placeholder="ชื่อ prompt เช่น Lay's TVC">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select name="category" required>
+                                <option value="">เลือก category</option>
+                                <option value="my-work">My Work</option>
+                                <option value="product">Product/FMCG</option>
+                                <option value="lifestyle">Lifestyle</option>
+                                <option value="corporate">Corporate</option>
+                                <option value="cinematic">Cinematic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>AI Tool *</label>
+                            <select name="tool" required>
+                                <option value="">เลือกเครื่องมือ</option>
+                                <option value="Sora">Sora</option>
+                                <option value="Kling">Kling</option>
+                                <option value="Veo3">Veo3</option>
+                                <option value="Runway">Runway</option>
+                                <option value="Pika">Pika</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Preview Text *</label>
+                        <input type="text" name="preview" required placeholder="คำอธิบายสั้นๆ 1-2 บรรทัด">
+                    </div>
+                    <div class="form-group">
+                        <label>Full Prompt *</label>
+                        <textarea name="prompt" class="prompt-textarea" required
+                            placeholder="วาง prompt ฉบับเต็มที่นี่..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Video URL (optional)</label>
+                            <input type="url" name="videoUrl" placeholder="https://drive.google.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Icon (optional)</label>
+                            <select name="icon">
+                                <option value="">ไม่มีไอคอน</option>
+                                <option value="droplets">💧 Droplets</option>
+                                <option value="users">👥 Users</option>
+                                <option value="party-popper">🎉 Party</option>
+                                <option value="warehouse">🏭 Warehouse</option>
+                                <option value="building-2">🏢 Building</option>
+                                <option value="clapperboard">🎬 Clapperboard</option>
+                                <option value="gift">🎁 Gift</option>
+                                <option value="sparkles">✨ Sparkles</option>
+                                <option value="camera">📷 Camera</option>
+                                <option value="film">🎞️ Film</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" name="isFeatured" style="width: 16px; height: 16px;"> Featured (My
+                            Work)
+                        </label>
+                    </div>
+                    <button type="submit" class="form-submit-btn" id="submit-btn">
+                        <div class="spinner"></div>
+                        <i data-lucide="send"></i>
+                        <span class="btn-text">เพิ่ม Prompt</span>
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <section id="contact">
             <div class="contact-wrapper">
@@ -5208,536 +5471,303 @@ No AI-art style.</pre>
         });
 
         // ==========================================
-        // PROMPT LIBRARY FUNCTIONS
+        // PROMPT LIBRARY — GOOGLE SHEETS INTEGRATION
         // ==========================================
 
-        // Prompt Data for modals
-        const promptData = {
-            1: {
-                title: "Lay's Lime & Chili TVC",
-                prompt: `Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips.
-No voice-over. Music-only pacing plus natural sound design.
-Must look like a real agency-produced commercial, not AI-generated.
-
-COLOR GRADING & LIGHTING (match reference tone):
-Professional high-end commercial lighting.
-Warm champagne / peach / soft pink gradient background (clean studio backdrop).
-High-key exposure with soft bloom (subtle), creamy highlights, no harsh contrast.
-Soft key light from front-left + gentle rim light to separate the chip from background.
-Very clean specular highlights on chip surface, crisp texture, no over-saturation.
-Shallow depth of field with soft bokeh and smooth background falloff.
-Tiny floating crumbs/dust particles with gentle motion blur (premium, not messy).
-Overall look: elegant, bright, airy, premium advertising grade.
-
-PRODUCT:
-Lay's potato chips, Lime & Chili flavor.
-Green packaging.
-In the final shot, the bag must be clean, sharp, and clearly readable.
-
-AUDIO (NO VOICE):
-Use only:
-- a pleasing, crisp chip-break sound (shot 1)
-- subtle crumb scatter sound (shot 1)
-- subtle droplet/powder impact sound (shot 2)
-- soft chip drop sound (shot 3)
-- background music
-
-TIMELINE / SHOT LIST
-
-[SHOT 1 — HERO CHIP BREAK (Chip A)]
-Scene:
-Warm peach/champagne studio gradient background, minimal and premium.
-One potato chip (Chip A) floating in mid-air.
-
-Camera:
-Close-up, centered.
-Chip rotates slowly, controlled and elegant.
-The chip turns to face the camera straight-on (perfect front view).
-Slight slow push-in. Very shallow depth of field.
-
-Action:
-Chip A breaks cleanly in half in slow motion.
-A small amount of tiny crumbs/particles scatter subtly (not messy).
-Sound: a crisp, pleasing chip snap.
-
-Lighting:
-Soft key light + gentle rim light, clean highlights emphasizing texture.
-No harsh shadows, no dramatic contrast.
-
-Cut rule:
-Cut immediately after the break moment lands (no lingering too long).
-
-[SHOT 2 — FLAVOR IMPACT MACRO (Chip B, different chip)]
-Important:
-This is a NEW chip (Chip B), not the broken chip from Shot 1.
-
-Scene:
-Extreme macro shot of Chip B surface.
-Chip texture fills the frame, showing fine bubbles and crisp detail.
-
-Camera:
-Ultra macro, very shallow depth of field.
-Stable, controlled framing.
-
-Action:
-Fresh lime juice droplets and micro-spray blast toward the chip surface,
-followed by chili powder particles.
-Droplets hit and create tiny realistic splashes and surface tension.
-Chili powder impacts and clings into the chip texture.
-Motion is fast but physically realistic.
-No fade-in, no pop-in.
-
-Lighting:
-Same premium warm studio tone, with subtle cool highlight on droplets (freshness)
-and subtle warm accent on powder (heat), kept realistic and restrained.
-
-Sound:
-Subtle droplet impact + powder hit (clean, not exaggerated).
-
-Hold:
-A brief moment where liquid spreads naturally and seasoning settles into texture.
-
-[SHOT 3 — CHIP FALLS INTO OPEN PACK + ZOOM OUT (Chip B continues)]
-Scene:
-Cut to a wider clean commercial frame.
-The Lay's bag is already present at the bottom of frame, upright, stable, and OPEN.
-The bag opening must be clearly visible.
-
-Camera:
-Start medium close-up so the opening is readable.
-Then slowly zoom out (or slow pull-back) to reveal the full bag clearly.
-
-Action:
-Chip B (the seasoned chip from Shot 2) falls naturally from above
-straight into the open bag.
-It drops cleanly inside with realistic rotation and speed.
-No chips bounce out.
-Sound: soft chip drop into bag (subtle).
-
-End-frame composition:
-As the camera zooms out and settles:
-- The Lay's bag is fully visible, centered and dominant, branding readable.
-- At the BASE of the bag (on the surface in front of it), arrange supporting elements neatly:
-  a few crispy chips, lime slices, and red chili peppers
-  as styling props.
-These elements must be arranged beautifully as a base display,
-framing the product without touching or overlapping the packaging.
-No elements overlap the logo or top edge of the bag.
-
-Final hold:
-Clean, confident final frame for brand recognition.
-No additional motion.
-
-NEGATIVE PROMPTS / HARD RULES
-- No voice-over, no dialogue.
-- No people.
-- No neon colors, no heavy cinematic shadows, no gritty film grain, no strong vignette.
-- No fade-in or pop-in objects.
-- No cartoon physics, no exaggerated splashes.
-- No ingredients attached to or placed on top of the packaging.
-- No elements overlapping the logo or top edge of the bag.
-- Must not look like AI art.`
-            },
-            2: {
-                title: "Lay's Ingredient Storytelling",
-                prompt: `Create an ingredient storytelling commercial for Lay's Lime & Chili potato chips.
-
-The commercial should visually communicate the flavor through ingredients and motion, ending with a natural, physical product resolve.
-No voice-over. Music-only pacing.
-
-Product:
-Lay's potato chips, Lime & Chili flavor.
-
-Flavor story goal:
-Communicate a refreshing lime brightness combined with a bold spicy chili kick, leading to an exciting and craveable flavor impression.
-
-Ingredients:
-Fresh green lime slices, red chili peppers, golden crispy potato chips.
-
-Scene:
-Clean, premium advertising environment.
-Soft green gradient background inspired by lime, subtle warm red accents inspired by chili.
-Minimal, polished, broadcast-ready setup.
-
-Camera:
-Close-up and macro-focused shots.
-Straight-on and slightly angled perspectives.
-Smooth, slow camera movement.
-Stable and controlled framing.
-
-Lighting:
-Professional commercial lighting.
-Bright, clean, high-clarity look.
-Soft highlights enhancing lime texture, chili surface, and chip crispiness.
-No harsh shadows.
-
-Ingredient presentation:
-Lime slices with visible juice texture.
-Chili peppers with rich surface detail.
-Potato chips showing crisp edges and crunch texture.
-Elegant and balanced spacing.
-
-Motion design:
-Ingredients move in slow, fluid motion.
-Each element enters the frame sequentially: first lime slices drifting in gentle arcs, then chili peppers following with slightly stronger motion, then potato chips gliding in with controlled energy.
-All movement follows natural gravity and inertia.
-No fading, no popping, no sudden appearance.
-
-Motion resolve and end frame:
-As motion slows, the Lay's Lime & Chili chip bag is already present, standing upright and stationary at the center of the frame.
-The moving ingredients gradually lose momentum and settle naturally into position around the bag: lime slices resting near the top and sides, chili peppers aligning diagonally, potato chips landing closest to the pack base.
-All elements come to rest smoothly, as if placed by motion, not animation.
-
-Final frame:
-The product bag remains clearly visible and dominant.
-Ingredients are neatly arranged around it.
-No additional motion.
-Strong, clean brand recognition moment.
-
-Editing rhythm:
-Slow to medium pacing.
-Clear visual beats as each ingredient joins the composition.
-Calm, confident ending hold.
-
-Style & tone:
-Premium FMCG ingredient-focused advertising style.
-Fresh, bold, appetizing.
-Looks like a real TV or digital ingredient commercial, not AI-generated.
-
-Audio direction:
-No dialogue or voice-over.
-Designed for background music only.
-
-Negative prompts:
-No fade-in elements.
-No pop-in animation.
-No exaggerated motion.
-No fantasy physics.
-No AI-art style.`
-            },
-            3: {
-                title: "Lay's Premium TVC",
-                prompt: `Create a premium FMCG TVC-style commercial for Lay's Lime & Chili potato chips.
-No voice-over. Music-only pacing plus natural sound design.
-Must look like a real agency-produced commercial, not AI-generated.
-
-COLOR GRADING & LIGHTING (match reference tone):
-Professional high-end commercial lighting.
-Warm champagne / peach / soft pink gradient background (clean studio backdrop).
-High-key exposure with soft bloom (subtle), creamy highlights, no harsh contrast.
-Soft key light from front-left + gentle rim light to separate the chip from background.
-Very clean specular highlights on chip surface, crisp texture, no over-saturation.
-Shallow depth of field with soft bokeh and smooth background falloff.
-Tiny floating crumbs/dust particles with gentle motion blur (premium, not messy).
-Overall look: elegant, bright, airy, premium advertising grade.
-
-PRODUCT:
-Lay's potato chips, Lime & Chili flavor.
-Green packaging.
-In the final shot, the bag must be clean, sharp, and clearly readable.
-
-AUDIO (NO VOICE):
-Use only:
-- a pleasing, crisp chip-break sound (shot 1)
-- subtle crumb scatter sound (shot 1)
-- subtle droplet/powder impact sound (shot 2)
-- soft chip drop sound (shot 3)
-- background music
-
-TIMELINE / SHOT LIST
-
-[SHOT 1 — HERO CHIP BREAK (Chip A)]
-Scene:
-Warm peach/champagne studio gradient background, minimal and premium.
-One potato chip (Chip A) floating in mid-air.
-
-Camera:
-Close-up, centered.
-Chip rotates slowly, controlled and elegant.
-The chip turns to face the camera straight-on (perfect front view).
-Slight slow push-in. Very shallow depth of field.
-
-Action:
-Chip A breaks cleanly in half in slow motion.
-A small amount of tiny crumbs/particles scatter subtly (not messy).
-Sound: a crisp, pleasing chip snap.
-
-Lighting:
-Soft key light + gentle rim light, clean highlights emphasizing texture.
-No harsh shadows, no dramatic contrast.
-
-Cut rule:
-Cut immediately after the break moment lands (no lingering too long).
-
-[SHOT 2 — FLAVOR IMPACT MACRO (Chip B, different chip)]
-Important:
-This is a NEW chip (Chip B), not the broken chip from Shot 1.
-
-Scene:
-Extreme macro shot of Chip B surface.
-Chip texture fills the frame, showing fine bubbles and crisp detail.
-
-Camera:
-Ultra macro, very shallow depth of field.
-Stable, controlled framing.
-
-Action:
-Fresh lime juice droplets and micro-spray blast toward the chip surface,
-followed by chili powder particles.
-Droplets hit and create tiny realistic splashes and surface tension.
-Chili powder impacts and clings into the chip texture.
-Motion is fast but physically realistic.
-No fade-in, no pop-in.
-
-Lighting:
-Same premium warm studio tone, with subtle cool highlight on droplets (freshness)
-and subtle warm accent on powder (heat), kept realistic and restrained.
-
-Sound:
-Subtle droplet impact + powder hit (clean, not exaggerated).
-
-Hold:
-A brief moment where liquid spreads naturally and seasoning settles into texture.
-
-[SHOT 3 — CHIP FALLS INTO OPEN PACK + ZOOM OUT (Chip B continues)]
-Scene:
-Cut to a wider clean commercial frame.
-The Lay's bag is already present at the bottom of frame, upright, stable, and OPEN.
-The bag opening must be clearly visible.
-
-Camera:
-Start medium close-up so the opening is readable.
-Then slowly zoom out (or slow pull-back) to reveal the full bag clearly.
-
-Action:
-Chip B (the seasoned chip from Shot 2) falls naturally from above
-straight into the open bag.
-It drops cleanly inside with realistic rotation and speed.
-No chips bounce out.
-Sound: soft chip drop into bag (subtle).
-
-End-frame composition:
-As the camera zooms out and settles:
-- The Lay's bag is fully visible, centered and dominant, branding readable.
-- At the BASE of the bag (on the surface in front of it), arrange supporting elements neatly:
-  a few crispy chips, lime slices, and red chili peppers
-  as styling props.
-These elements must be arranged beautifully as a base display,
-framing the product without touching or overlapping the packaging.
-No elements overlap the logo or top edge of the bag.
-
-Final hold:
-Clean, confident final frame for brand recognition.
-No additional motion.
-
-NEGATIVE PROMPTS / HARD RULES
-- No voice-over, no dialogue.
-- No people.
-- No neon colors, no heavy cinematic shadows, no gritty film grain, no strong vignette.
-- No fade-in or pop-in objects.
-- No cartoon physics, no exaggerated splashes.
-- No ingredients attached to or placed on top of the packaging.
-- No elements overlapping the logo or top edge of the bag.
-- Must not look like AI art.`
-            },
-            4: {
-                title: "Lay's Snacking Experience",
-                prompt: `Create a follow-the-hand snacking commercial for Lay's Lime & Chili potato chips.
-
-The commercial should show a satisfying snacking experience
-by following the hand from the product to the mouth.
-No dialogue. No voice-over. Music-only pacing.
-
-Product:
-Lay's potato chips, Lime & Chili flavor.
-
-Snacking experience goal:
-Communicate a satisfying crunch and craveable texture,
-highlighting the refreshing lime taste and spicy chili kick.
-
-Human visibility rule:
-Only partial human visibility.
-Lower half of the face only, showing mouth and chin.
-No full face.
-No eyes or direct facial expression toward camera.
-
-Scene:
-Clean, everyday lifestyle environment.
-Simple table setting.
-Natural and relatable, not staged.
-Broadcast-ready look.
-
-Camera:
-Start with the Lay's bag clearly visible on the table.
-Eye-level perspective.
-As the hand reaches into the bag,
-the camera smoothly follows the hand upward
-in one continuous, controlled motion.
-Stable tracking movement with no shaking.
-
-Lighting:
-Soft natural lighting.
-Comfortable, realistic exposure.
-Clear visibility of the product, hand, chip, and mouth.
-No dramatic contrast.
-
-Product interaction sequence:
-The Lay's bag rests naturally on the table.
-A hand opens the bag and reaches inside.
-A single chip is picked up.
-The chip is brought upward.
-The camera follows the hand smoothly.
-The chip reaches the mouth.
-A bite occurs, breaking the chip clearly.
-
-Crunch emphasis:
-Clear visual of the chip breaking.
-Natural jaw movement.
-Visible crisp texture.
-No exaggerated chewing.
-
-Motion & timing:
-Smooth continuous motion from start to bite.
-No fast cuts.
-Clear beginning, middle, and end of the action.
-
-End frame:
-Lower half of the face in frame.
-The bite finishes.
-Subtle jaw movement indicating crunch.
-Satisfying, appetizing final hold.
-
-Style & tone:
-Real FMCG snack advertising style.
-Natural, appetizing, satisfying.
-Looks like a real TV or digital snack commercial,
-not AI-generated.
-
-Audio direction:
-No dialogue or voice-over.
-Designed for background music only.
-
-Negative prompts:
-No full face reveal.
-No over-acting.
-No cinematic drama.
-No exaggerated motion.
-No AI-art style.`
-            },
-            5: {
-                title: "Fresh Fruit Water Splash",
-                prompt: `Cinematic slow motion shot of fresh red strawberries falling into crystal clear water.
-
-VISUAL ELEMENTS:
-- Dynamic water splashes
-- Water droplets suspended in air
-- Studio lighting with dark background
-- Commercial food advertisement style
-
-CAMERA:
-- High-speed capture (1000fps equivalent)
-- Tight framing on impact
-- Shallow depth of field
-
-QUALITY: 4K, broadcast-ready
-STYLE: Premium FMCG commercial`
-            },
-            7: {
-                title: "Gift Box Magical Reveal",
-                prompt: `Golden gift box slowly opening with warm glowing light rays emerging from inside.
-
-VISUAL EFFECTS:
-- Magical particles floating upward
-- Shallow depth of field
-- Luxury product reveal style
-- Smooth camera push-in
-
-LIGHTING:
-- Warm golden tones
-- Soft volumetric light
-- Premium feel
-
-USE CASE: Retail promo, holiday campaigns
-QUALITY: 4K cinematic`
-            },
-            8: {
-                title: "Thai Family Dinner",
-                prompt: `Thai family of four sharing dinner at home.
-
-SCENE SETUP:
-- Warm golden hour sunlight through window
-- Cozy dining room setting
-- Natural, unposed feel
-
-CHARACTERS:
-- Mother serving rice
-- Children laughing
-- Father smiling
-
-STYLE: Natural documentary style
-MOOD: Warm, family-oriented, authentic
-QUALITY: 4K, broadcast-ready`
-            },
-            9: {
-                title: "Birthday Celebration",
-                prompt: `Child blowing out birthday candles on cake.
-
-SCENE ELEMENTS:
-- Family gathered around
-- Warm indoor lighting
-- Confetti falling in slow motion
-- Joyful expressions
-
-STYLE: Natural documentary style
-CAMERA: Multiple angles, handheld feel
-MOOD: Celebratory, joyful, memorable
-QUALITY: 4K`
-            },
-            10: {
-                title: "Warehouse Aerial Shot",
-                prompt: `Cinematic aerial drone shot flying through massive modern warehouse.
-
-VISUAL ELEMENTS:
-- Rows of organized shelves with products
-- Warm industrial lighting
-- Workers in uniform
-- Camera smoothly gliding forward
-
-STYLE: Corporate promotional style
-MOVEMENT: Continuous forward motion
-QUALITY: 4K epic scale`
-            },
-            11: {
-                title: "Modern Office Team",
-                prompt: `Modern open-plan office environment.
-
-SCENE:
-- Diverse team collaborating around digital screens
-- Natural daylight from large windows
-- Professional, dynamic atmosphere
-
-STYLE: Corporate brand film
-MOOD: Innovative, collaborative, professional
-CAMERA: Smooth tracking shots
-QUALITY: 4K`
-            },
-            12: {
-                title: "Epic Logo Reveal",
-                prompt: `Dramatic 3D logo reveal emerging from dark smoke particles.
-
-VISUAL EFFECTS:
-- Golden metallic texture catching light
-- Cinematic lens flares
-- Epic orchestral mood
-- Particles dissolving into logo
-
-STYLE: Cinematic intro/outro
-USE CASE: Brand videos, presentations
-QUALITY: 4K, seamless looping possible`
+        // === CONFIG ===
+        const SHEET_ID = '1kZMHSltMqJYDjLIzZMnHTUOL9YeKxgBbkd8wC6OYnQk';
+        const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
+        // *** เปลี่ยน URL นี้หลัง deploy Apps Script ***
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXHruyPTyTHCIU1ZPWcjSB4r_goIjZgkwsgoWQnTuu7N0Awds0yLUOriUAN5rxDU9C/exec';
+
+        // === STATE ===
+        let promptData = {};
+        let allPrompts = [];
+
+        // === AUTO-CONVERT GOOGLE DRIVE URL TO EMBED FORMAT ===
+        function toEmbedUrl(url) {
+            if (!url) return '';
+            url = url.trim();
+            // Format: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+            // Format: https://drive.google.com/file/d/FILE_ID/view
+            // Format: https://drive.google.com/file/d/FILE_ID/edit
+            const fileMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (fileMatch) {
+                return 'https://drive.google.com/file/d/' + fileMatch[1] + '/preview';
             }
-        };
+            // Format: https://drive.google.com/open?id=FILE_ID
+            const openMatch = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+            if (openMatch) {
+                return 'https://drive.google.com/file/d/' + openMatch[1] + '/preview';
+            }
+            // Already correct or unknown format — return as-is
+            return url;
+        }
 
-        // Search and Filter Functionality
+        // === CSV PARSER ===
+        function parseCSV(csv) {
+            // Step 1: Split CSV into logical lines (preserving quotes for step 2)
+            const lines = [];
+            let currentLine = '';
+            let inQuotes = false;
+            for (let i = 0; i < csv.length; i++) {
+                const ch = csv[i];
+                if (ch === '"') {
+                    inQuotes = !inQuotes;
+                    currentLine += ch; // KEEP quotes for field parsing
+                } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+                    if (currentLine.trim()) lines.push(currentLine);
+                    currentLine = '';
+                    if (ch === '\r' && csv[i + 1] === '\n') i++;
+                } else {
+                    currentLine += ch;
+                }
+            }
+            if (currentLine.trim()) lines.push(currentLine);
+
+            if (lines.length < 2) return [];
+
+            // Step 2: Split each logical line into fields (handles quoted fields with commas)
+            function splitCSVLine(line) {
+                const fields = [];
+                let field = '';
+                let inQ = false;
+                for (let i = 0; i < line.length; i++) {
+                    const c = line[i];
+                    if (c === '"') {
+                        if (inQ && line[i + 1] === '"') {
+                            field += '"'; // escaped quote ""
+                            i++;
+                        } else {
+                            inQ = !inQ; // toggle quote mode, don't add to field
+                        }
+                    } else if (c === ',' && !inQ) {
+                        fields.push(field);
+                        field = '';
+                    } else {
+                        field += c;
+                    }
+                }
+                fields.push(field);
+                return fields;
+            }
+
+            const headers = splitCSVLine(lines[0]);
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                const vals = splitCSVLine(lines[i]);
+                const obj = {};
+                headers.forEach((h, idx) => {
+                    obj[h.trim()] = (vals[idx] || '').trim();
+                });
+                data.push(obj);
+            }
+            return data;
+        }
+
+        // === LOAD FROM GOOGLE SHEETS ===
+        async function loadPromptsFromSheet() {
+            const loading = document.getElementById('template-loading');
+            const errorEl = document.getElementById('loading-error');
+            const grid = document.getElementById('template-grid');
+
+            loading.style.display = 'grid';
+            errorEl.style.display = 'none';
+            grid.style.display = 'none';
+            grid.innerHTML = '';
+
+            try {
+                const response = await fetch(SHEET_CSV_URL);
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const csv = await response.text();
+                allPrompts = parseCSV(csv);
+                // เรียง: งาน Featured/My Work ขึ้นก่อน, แล้วตามด้วย ID สูงสุด (ใหม่สุด)
+                allPrompts.sort((a, b) => {
+                    const aFeatured = a.isFeatured === 'TRUE' ? 1 : 0;
+                    const bFeatured = b.isFeatured === 'TRUE' ? 1 : 0;
+                    if (bFeatured !== aFeatured) return bFeatured - aFeatured;
+                    return Number(b.id) - Number(a.id);
+                });
+
+                // Build promptData lookup
+                promptData = {};
+                allPrompts.forEach(p => {
+                    promptData[p.id] = { title: p.title, prompt: p.prompt };
+                });
+
+                renderTemplateCards(allPrompts);
+                updateFilterCounts(allPrompts);
+
+                loading.style.display = 'none';
+                grid.style.display = 'grid';
+
+                lucide.createIcons();
+            } catch (err) {
+                console.error('Failed to load prompts:', err);
+                console.log('Using fallback data...');
+                // Use fallback data when fetch fails
+                allPrompts = FALLBACK_PROMPTS;
+                promptData = {};
+                allPrompts.forEach(p => {
+                    promptData[p.id] = { title: p.title, prompt: p.prompt };
+                });
+                renderTemplateCards(allPrompts);
+                updateFilterCounts(allPrompts);
+                loading.style.display = 'none';
+                grid.style.display = 'grid';
+                lucide.createIcons();
+            }
+        }
+
+        // === RENDER TEMPLATE CARDS ===
+        function renderTemplateCards(prompts) {
+            const grid = document.getElementById('template-grid');
+            grid.innerHTML = '';
+
+            // Remove old dynamic modals
+            document.querySelectorAll('.dynamic-prompt-modal').forEach(el => el.remove());
+
+            const categoryLabels = {
+                'my-work': 'My Work',
+                'product': 'Product',
+                'lifestyle': 'Lifestyle',
+                'corporate': 'Corporate',
+                'cinematic': 'Cinematic'
+            };
+
+            prompts.forEach(p => {
+                const isFeatured = p.isFeatured === 'TRUE';
+                const embedUrl = toEmbedUrl(p.videoUrl);
+                const hasVideo = embedUrl !== '';
+                const icon = p.icon || 'file-text';
+                const category = p.category || 'product';
+                const badgeLabel = categoryLabels[category] || category;
+                const tool = p.tool || 'AI';
+
+                let thumbnailHTML = '';
+                if (hasVideo) {
+                    const safeTitle = (p.title || '').replace(/'/g, "\\'");
+                    thumbnailHTML = `
+                        <div class="template-thumbnail has-video">
+                            <iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <div class="template-play-overlay" onclick="openVideoPlayer('${embedUrl}', '${safeTitle}')">
+                                <div class="play-btn"><i data-lucide="play"></i></div>
+                            </div>
+                            <span class="template-badge ${isFeatured ? 'my-work-badge-card' : category}">${badgeLabel}</span>
+                        </div>`;
+                } else {
+                    thumbnailHTML = `
+                        <div class="template-thumbnail">
+                            <div class="template-icon-preview"><i data-lucide="${icon}"></i></div>
+                            <span class="template-badge ${category}">${badgeLabel}</span>
+                        </div>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = `template-card glass-card${isFeatured ? ' featured' : ''}`;
+                card.dataset.category = category;
+                card.dataset.tool = tool.toLowerCase();
+                card.dataset.id = p.id;
+
+                card.innerHTML = `
+                    ${thumbnailHTML}
+                    <div class="template-content">
+                        <div class="template-header">
+                            <h4 class="template-title">${p.title || 'Untitled'}</h4>
+                            <div class="template-tool">${tool}</div>
+                        </div>
+                        <div class="template-category">${badgeLabel}</div>
+                        <p class="template-prompt-preview">${p.preview || ''}</p>
+                        <div class="template-actions">
+                            <button class="template-btn primary" onclick="openDynamicPromptModal(${p.id})">
+                                <i data-lucide="file-text"></i> View Prompt
+                            </button>
+                            <button class="template-btn" onclick="copyPrompt(${p.id})">
+                                <i data-lucide="copy"></i>
+                            </button>
+                        </div>
+                    </div>`;
+
+                grid.appendChild(card);
+
+                // Create dynamic modal for this prompt
+                const modal = document.createElement('div');
+                modal.className = 'video-modal-overlay dynamic-prompt-modal';
+                modal.id = 'dynamic-modal-' + p.id;
+                modal.innerHTML = `
+                    <div class="video-modal">
+                        <div class="video-modal-header">
+                            <h3>${p.title || 'Untitled'}</h3>
+                            <button class="modal-close-btn" onclick="closeDynamicPromptModal(${p.id})">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                        <div class="video-modal-body">
+                            <pre class="video-prompt-text">${(p.prompt || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+                        </div>
+                    </div>`;
+                document.body.appendChild(modal);
+
+                // Close on overlay click
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeDynamicPromptModal(p.id);
+                });
+            });
+        }
+
+        // === UPDATE FILTER COUNTS ===
+        function updateFilterCounts(prompts) {
+            const counts = { all: prompts.length };
+            prompts.forEach(p => {
+                const cat = p.category || '';
+                counts[cat] = (counts[cat] || 0) + 1;
+            });
+
+            const countAll = document.getElementById('count-all');
+            const countMyWork = document.getElementById('count-my-work');
+            const countProduct = document.getElementById('count-product');
+            const countLifestyle = document.getElementById('count-lifestyle');
+            const countCorporate = document.getElementById('count-corporate');
+            const countCinematic = document.getElementById('count-cinematic');
+
+            if (countAll) countAll.textContent = counts.all || 0;
+            if (countMyWork) countMyWork.textContent = counts['my-work'] || 0;
+            if (countProduct) countProduct.textContent = counts['product'] || 0;
+            if (countLifestyle) countLifestyle.textContent = counts['lifestyle'] || 0;
+            if (countCorporate) countCorporate.textContent = counts['corporate'] || 0;
+            if (countCinematic) countCinematic.textContent = counts['cinematic'] || 0;
+        }
+
+        // === DYNAMIC MODAL FUNCTIONS ===
+        function openDynamicPromptModal(id) {
+            const modal = document.getElementById('dynamic-modal-' + id);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            }
+        }
+
+        function closeDynamicPromptModal(id) {
+            const modal = document.getElementById('dynamic-modal-' + id);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Also support old openTemplateModal for backward compat
+        function openTemplateModal(id) {
+            // Try dynamic modal first, fallback to video modal
+            const dynModal = document.getElementById('dynamic-modal-' + id);
+            if (dynModal) {
+                openDynamicPromptModal(id);
+            } else {
+                openVideoModal(id);
+            }
+        }
+
+        // === SEARCH & FILTER ===
         const searchInput = document.getElementById('library-search');
         const searchClear = document.getElementById('search-clear');
         const templateGrid = document.getElementById('template-grid');
@@ -5748,13 +5778,11 @@ QUALITY: 4K, seamless looping possible`
 
         let currentFilter = 'all';
 
-        // Search function
         function performSearch() {
             const query = searchInput.value.toLowerCase().trim();
             const cards = templateGrid.querySelectorAll('.template-card');
             let visibleCount = 0;
 
-            // Show/hide clear button
             searchClear.style.display = query ? 'flex' : 'none';
 
             cards.forEach(card => {
@@ -5779,26 +5807,24 @@ QUALITY: 4K, seamless looping possible`
                 }
             });
 
-            // Show/hide no results
             noResults.style.display = visibleCount === 0 ? 'block' : 'none';
             templateGrid.style.display = visibleCount === 0 ? 'none' : 'grid';
 
-            // Update results count
             if (query) {
                 resultsCount.textContent = `พบ ${visibleCount} รายการ`;
             } else {
                 resultsCount.textContent = '';
             }
 
-            // Show/hide My Work header based on filter
-            if (currentFilter === 'all' || currentFilter === 'my-work') {
-                myWorkSection.style.display = 'block';
-            } else {
-                myWorkSection.style.display = 'none';
+            if (myWorkSection) {
+                if (currentFilter === 'all' || currentFilter === 'my-work') {
+                    myWorkSection.style.display = 'block';
+                } else {
+                    myWorkSection.style.display = 'none';
+                }
             }
         }
 
-        // Event listeners
         searchInput.addEventListener('input', performSearch);
 
         searchClear.addEventListener('click', () => {
@@ -5807,7 +5833,6 @@ QUALITY: 4K, seamless looping possible`
             searchInput.focus();
         });
 
-        // Filter tabs
         filterTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 filterTabs.forEach(t => t.classList.remove('active'));
@@ -5817,12 +5842,7 @@ QUALITY: 4K, seamless looping possible`
             });
         });
 
-        // Open Template Modal (reuse video modal)
-        function openTemplateModal(id) {
-            openVideoModal(id);
-        }
-
-        // Copy Prompt Function
+        // === COPY PROMPT ===
         function copyPrompt(id) {
             const data = promptData[id];
             if (!data) return;
@@ -5849,6 +5869,116 @@ QUALITY: 4K, seamless looping possible`
                 toast.classList.remove('show');
             }, 2000);
         }
+
+        // === ADD PROMPT MODAL ===
+        function openAddPromptModal() {
+            const overlay = document.getElementById('add-prompt-overlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeAddPromptModal() {
+            const overlay = document.getElementById('add-prompt-overlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on overlay click
+        document.getElementById('add-prompt-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'add-prompt-overlay') closeAddPromptModal();
+        });
+
+        // === SUBMIT NEW PROMPT ===
+        async function submitNewPrompt(event) {
+            event.preventDefault();
+
+            if (!APPS_SCRIPT_URL) {
+                alert('กรุณาตั้งค่า APPS_SCRIPT_URL ก่อนใช้งาน\nดูวิธีการที่ apps-script-code.js');
+                return;
+            }
+
+            const form = document.getElementById('add-prompt-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formData = new FormData(form);
+
+            const data = {
+                title: formData.get('title'),
+                category: formData.get('category'),
+                tool: formData.get('tool'),
+                preview: formData.get('preview'),
+                prompt: formData.get('prompt'),
+                videoUrl: toEmbedUrl(formData.get('videoUrl') || ''),
+                isFeatured: formData.get('isFeatured') === 'on',
+                icon: formData.get('icon') || ''
+            };
+
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                // no-cors mode won't give us response body, so assume success
+                showCopyToast();
+                const toast = document.querySelector('.copy-toast');
+                if (toast) toast.innerHTML = '<i data-lucide="check"></i> เพิ่ม Prompt สำเร็จ!';
+                lucide.createIcons();
+
+                form.reset();
+                closeAddPromptModal();
+
+                // Reload data after short delay
+                setTimeout(() => loadPromptsFromSheet(), 2000);
+
+            } catch (err) {
+                console.error('Submit error:', err);
+                alert('เกิดข้อผิดพลาดในการเพิ่ม prompt กรุณาลองใหม่');
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        // === CLOSE DYNAMIC MODALS ON ESCAPE ===
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Close add prompt modal
+                const addOverlay = document.getElementById('add-prompt-overlay');
+                if (addOverlay.classList.contains('active')) {
+                    closeAddPromptModal();
+                    return;
+                }
+                // Close any dynamic prompt modal
+                document.querySelectorAll('.dynamic-prompt-modal.active').forEach(m => {
+                    m.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
+        // === FALLBACK DATA (used when fetch fails, e.g. file:// protocol) ===
+        const FALLBACK_PROMPTS = [
+            { id: '1', title: "Lay's Lime & Chili TVC", category: 'my-work', tool: 'Sora', preview: 'Create a premium FMCG TVC-style commercial for Lay\'s Lime & Chili potato chips...', prompt: 'Create a premium FMCG TVC-style commercial...', videoUrl: 'https://drive.google.com/file/d/1TERqCNhkoJOHaGFHPYMPOFJjoz8T0nvF/preview', isFeatured: 'TRUE', icon: '' },
+            { id: '2', title: "Lay's Ingredient Storytelling", category: 'my-work', tool: 'Sora', preview: 'Create an ingredient storytelling commercial...', prompt: 'Create an ingredient storytelling commercial...', videoUrl: 'https://drive.google.com/file/d/1L4M578zh_T30397wBI8Tdxrlu833VrkS/preview', isFeatured: 'TRUE', icon: '' },
+            { id: '3', title: "Lay's Premium TVC", category: 'my-work', tool: 'Sora', preview: 'Create a premium FMCG TVC-style commercial...', prompt: 'Create a premium FMCG TVC-style commercial...', videoUrl: 'https://drive.google.com/file/d/1pX4RSeT-TwuVgdrjrwk-om2_T8aNRoKr/preview', isFeatured: 'TRUE', icon: '' },
+            { id: '4', title: "Lay's Snacking Experience", category: 'my-work', tool: 'Sora', preview: 'Create a follow-the-hand snacking commercial...', prompt: 'Create a follow-the-hand snacking commercial...', videoUrl: 'https://drive.google.com/file/d/1Iv4MLYgCQzhWFFPz4CmxfMmdmvL15Fo4/preview', isFeatured: 'TRUE', icon: '' },
+            { id: '5', title: 'Fresh Fruit Water Splash', category: 'product', tool: 'Kling', preview: 'Cinematic slow motion shot of fresh red strawberries falling into crystal clear water...', prompt: 'Cinematic slow motion shot...', videoUrl: '', isFeatured: 'FALSE', icon: 'droplets' },
+            { id: '7', title: 'Gift Box Magical Reveal', category: 'product', tool: 'Sora', preview: 'Golden gift box slowly opening with warm glowing light rays...', prompt: 'Golden gift box slowly opening...', videoUrl: '', isFeatured: 'FALSE', icon: 'gift' },
+            { id: '8', title: 'Thai Family Dinner', category: 'lifestyle', tool: 'Veo3', preview: 'Thai family of four sharing dinner at home...', prompt: 'Thai family of four sharing dinner...', videoUrl: '', isFeatured: 'FALSE', icon: 'users' },
+            { id: '9', title: 'Birthday Celebration', category: 'lifestyle', tool: 'Kling', preview: 'Child blowing out birthday candles on cake...', prompt: 'Child blowing out birthday candles...', videoUrl: '', isFeatured: 'FALSE', icon: 'party-popper' },
+            { id: '10', title: 'Warehouse Aerial Shot', category: 'corporate', tool: 'Sora', preview: 'Cinematic aerial drone shot flying through massive modern warehouse...', prompt: 'Cinematic aerial drone shot...', videoUrl: '', isFeatured: 'FALSE', icon: 'warehouse' },
+            { id: '11', title: 'Modern Office Team', category: 'corporate', tool: 'Sora', preview: 'Modern open-plan office environment...', prompt: 'Modern open-plan office environment...', videoUrl: '', isFeatured: 'FALSE', icon: 'building-2' },
+            { id: '12', title: 'Epic Logo Reveal', category: 'cinematic', tool: 'Sora', preview: 'Dramatic 3D logo reveal emerging from dark smoke particles...', prompt: 'Dramatic 3D logo reveal...', videoUrl: '', isFeatured: 'FALSE', icon: 'clapperboard' }
+        ];
+
+        // === INIT: Load prompts immediately ===
+        loadPromptsFromSheet();
 
 
         // ==========================================
