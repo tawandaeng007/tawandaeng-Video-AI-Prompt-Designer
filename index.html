@@ -60,6 +60,7 @@
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
     .resume-modal[open]{display:flex;flex-direction:column;height:92svh;overflow:hidden}.resume-header{flex:none}.resume-controls .btn{min-width:80px}.resume-viewer{flex:1;min-height:0;max-height:none;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;scroll-behavior:auto;overflow-anchor:none}.resume-viewer.dragging{cursor:grabbing}.resume-viewer img{-webkit-user-drag:none;user-select:none}.resume-hint{flex:none;padding:6px 16px;color:#bbc3c6;font-size:12px;line-height:1.5;border-bottom:1px solid var(--line)}#resume-zoom .zoom-out,#resume-zoom[aria-pressed="true"] .zoom-in{display:none}#resume-zoom[aria-pressed="true"] .zoom-out{display:inline}
     .resume-zoom-toolbar{display:flex;align-items:center;gap:10px;flex:none;padding:10px 16px;border-bottom:1px solid var(--line)}.resume-zoom-step{width:44px;height:44px;flex:none;border:1px solid var(--line);background:transparent;font-size:24px;cursor:pointer}.resume-zoom-step:disabled{opacity:.35;cursor:default}.resume-percent-label{display:flex;align-items:center;justify-content:center;gap:3px;width:92px;height:44px;flex:none;border:1px solid var(--line);font-size:16px}.resume-percent-label input{width:54px;min-width:0;padding:0;border:0;outline-offset:2px;background:transparent;color:var(--text);font:inherit;text-align:right;appearance:textfield;-moz-appearance:textfield}.resume-percent-label input::-webkit-inner-spin-button,.resume-percent-label input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}#resume-range{min-width:60px;width:100%;height:44px;margin:0;accent-color:var(--accent);cursor:pointer}@media(max-width:620px){.resume-zoom-toolbar{gap:8px;padding:8px 10px}.resume-percent-label{width:80px}}
+    #resume-range{touch-action:none}
   </style>
 </head>
 <body>
@@ -124,7 +125,7 @@
     const resumeModal=document.getElementById('resume-modal'),resumeViewer=document.getElementById('resume-viewer'),resumeZoom=document.getElementById('resume-zoom');
     const resumeImage=resumeViewer.querySelector('img'),resumePointers=new Map();
     const resumePercent=document.getElementById('resume-percent'),resumeRange=document.getElementById('resume-range'),resumeMinus=document.getElementById('resume-minus'),resumePlus=document.getElementById('resume-plus');
-    let resumeScale=1,resumeFitWidth=0;
+    let resumeScale=1,resumeFitWidth=0,resumeRangePointer=null;
     function syncResumeZoom(){
       const percent=Math.round(resumeScale*100);
       resumePercent.value=String(percent);resumeRange.value=String(percent);
@@ -136,6 +137,7 @@
     }
     function resetResumeView(){
       clearResumePointers();
+      endResumeRange();
       resumeScale=1;resumeImage.style.width='100%';
       resumeViewer.classList.remove('zoomed');resumeZoom.setAttribute('aria-pressed','false');
       resumeViewer.scrollTop=0;resumeViewer.scrollLeft=0;resumeFitWidth=resumeViewer.clientWidth;
@@ -193,11 +195,41 @@
     function clearResumePointers(){
       for(const pointerId of [...resumePointers.keys()])endResumePointer({pointerId});
     }
+    function updateResumeRange(event){
+      const rect=resumeRange.getBoundingClientRect();
+      const fraction=Math.min(1,Math.max(0,(event.clientX-rect.left-8)/Math.max(1,rect.width-16)));
+      changeResumePercent(Math.round(100+fraction*300));
+    }
+    function startResumeRange(event){
+      if(resumeRangePointer!==null||(event.pointerType==='mouse'&&event.button!==0))return;
+      event.preventDefault();resumeRange.focus({preventScroll:true});
+      resumeRangePointer=event.pointerId;resumeRange.setPointerCapture(event.pointerId);updateResumeRange(event);
+    }
+    function moveResumeRange(event){
+      if(event.pointerId!==resumeRangePointer)return;
+      event.preventDefault();updateResumeRange(event);
+    }
+    function endResumeRange(event){
+      if(resumeRangePointer===null||(event&&event.pointerId!==resumeRangePointer))return;
+      const pointerId=resumeRangePointer;resumeRangePointer=null;
+      if(resumeRange.hasPointerCapture(pointerId))resumeRange.releasePointerCapture(pointerId);
+    }
+    function keyResumeRange(event){
+      const steps={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1,PageDown:-25,PageUp:25};
+      if(event.key==='Home'||event.key==='End'||Object.hasOwn(steps,event.key)){
+        event.preventDefault();
+        changeResumePercent(event.key==='Home'?100:event.key==='End'?400:Math.round(resumeScale*100)+steps[event.key]);
+      }
+    }
     document.querySelectorAll('[data-open-resume]').forEach(button=>button.addEventListener('click',openResume));
     document.getElementById('resume-close').addEventListener('click',closeResume);resumeZoom.addEventListener('click',toggleResumeZoom);
     resumeMinus.addEventListener('click',()=>changeResumePercent(Math.round(resumeScale*100)-25));
     resumePlus.addEventListener('click',()=>changeResumePercent(Math.round(resumeScale*100)+25));
     resumeRange.addEventListener('input',()=>changeResumePercent(resumeRange.value));
+    resumeRange.addEventListener('pointerdown',startResumeRange);
+    resumeRange.addEventListener('pointermove',moveResumeRange);
+    for(const eventName of ['pointerup','pointercancel','lostpointercapture'])resumeRange.addEventListener(eventName,endResumeRange);
+    resumeRange.addEventListener('keydown',keyResumeRange);
     resumePercent.addEventListener('change',()=>changeResumePercent(resumePercent.value));
     resumePercent.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();changeResumePercent(resumePercent.value)}});
     resumeViewer.addEventListener('pointerdown',startResumePointer);
@@ -205,7 +237,7 @@
     for(const eventName of ['pointerup','pointercancel','lostpointercapture'])resumeViewer.addEventListener(eventName,endResumePointer);
     resumeImage.addEventListener('dragstart',event=>event.preventDefault());
     window.addEventListener('resize',()=>{if(resumeModal.open)resetResumeView()});
-    resumeModal.addEventListener('click',event=>{if(event.target===resumeModal)closeResume()});resumeModal.addEventListener('close',()=>{clearResumePointers();if(!document.getElementById('project-modal').classList.contains('open'))document.body.classList.remove('modal-open')});
+    resumeModal.addEventListener('click',event=>{if(event.target===resumeModal)closeResume()});resumeModal.addEventListener('close',()=>{clearResumePointers();endResumeRange();if(!document.getElementById('project-modal').classList.contains('open'))document.body.classList.remove('modal-open')});
     const drivePreview=id=>`https://drive.google.com/file/d/${id}/preview`;
     const projects={
       motion:{eyebrow:'CP AXTRA · AI Motion',eyebrowTh:'CP AXTRA · AI Motion',title:'AI Motion',titleTh:'AI Motion',description:'Motion graphics for CP AXTRA, with AI accounting for approximately 90% of production. All movement and 3D models were generated with AI. Two examples are shown below.',descriptionTh:'งานโมชั่นสำหรับ CP AXTRA ที่ใช้ AI ในการผลิตประมาณ 90% โดยการเคลื่อนไหวและโมเดล 3D ต่าง ๆ เจนจาก AI ทั้งหมด รวมตัวอย่างผลงาน 2 คลิปไว้ด้านล่าง',tags:['AI Motion','90% AI Production','AI-generated 3D'],clips:[{label:'AI Motion 01',labelTh:'AI Motion 01',src:'งานอัพเดทเพิ่มเติม/งาน CP AXTRA/งานโมชั่นเจนจาก AI/งาน2.mp4'},{label:'AI Motion 02',labelTh:'AI Motion 02',src:'งานอัพเดทเพิ่มเติม/งาน CP AXTRA/งานโมชั่นเจนจาก AI/งาน1.mp4'}]},

@@ -30,6 +30,13 @@ for (const width of [294, 364, 1000]) {
   const percent = element(), range = element(), minus = element(), plus = element();
   const body = element(), window = element(), links = [element(), element()], project = element();
   const captures = new Set();
+  const rangeCaptures = new Set();
+  Object.assign(range, {
+    getBoundingClientRect() { return { left: 100, width: 216 }; },
+    setPointerCapture(id) { rangeCaptures.add(id); },
+    hasPointerCapture(id) { return rangeCaptures.has(id); },
+    releasePointerCapture(id) { rangeCaptures.delete(id); this.fire('lostpointercapture', { pointerId: id }); }
+  });
   Object.assign(viewer, {
     clientWidth: width, clientHeight: 440, clientLeft: 0, clientTop: 0,
     getBoundingClientRect() { return { left: 10, top: 100 }; },
@@ -78,6 +85,15 @@ for (const width of [294, 364, 1000]) {
   percent.value = ''; percent.fire('change'); assert.equal(percent.value, '400');
   percent.value = '75'; percent.fire('keydown', { key: 'Enter', preventDefault() {} });
   assert.equal(percent.value, '100'); assert.ok(minus.disabled);
+  range.fire('pointerdown', { pointerId: 90, pointerType: 'touch', clientX: 208, preventDefault() {} });
+  assert.equal(percent.value, '250'); assert.ok(rangeCaptures.has(90));
+  range.fire('pointermove', { pointerId: 90, clientX: 258, preventDefault() {} });
+  assert.equal(percent.value, '325');
+  range.fire('pointerup', { pointerId: 90 }); assert.equal(rangeCaptures.size, 0);
+  for (const [key, expected] of [['Home', '100'], ['ArrowRight', '101'], ['PageUp', '126'], ['End', '400'], ['ArrowLeft', '399'], ['PageDown', '374']]) {
+    range.fire('keydown', { key, preventDefault() {} }); assert.equal(percent.value, expected);
+  }
+  fit();
   zoom.fire('click');
   assert.ok(scale() >= 2 && scale() <= 4);
   assert.equal(zoom.attributes['aria-pressed'], 'true');
