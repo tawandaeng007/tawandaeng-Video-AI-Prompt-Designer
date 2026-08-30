@@ -14,7 +14,9 @@ for (const [, , thai, text] of html.matchAll(/<([a-z][\w-]*)\b[^>]*\bdata-th="([
 assert.ok(html.includes('aria-controls="nav-links" aria-expanded="false"'));
 assert.ok(html.includes('@media(max-width:480px){.hero-history li{grid-template-columns:minmax(0,1fr);'));
 assert.ok(html.includes('.menu-toggle{min-width:44px;min-height:44px;'));
-assert.ok(html.includes('.modal-head{position:sticky;top:0;'));
+assert.ok(html.includes('.modal-head{position:static;flex:none;'));
+assert.ok(html.includes('.modal-body{flex:1;min-height:0;min-width:0;overflow-y:auto;'));
+assert.ok(html.includes('backdrop-filter:none;-webkit-backdrop-filter:none;'));
 assert.ok(html.includes('font-size:clamp(32px,8.5vw,48px);line-height:1.2;overflow-wrap:anywhere'));
 assert.ok(html.includes('.clinic-gallery{grid-template-columns:minmax(0,1fr)}'));
 const menuState = { open: false, expanded: 'false' };
@@ -55,7 +57,8 @@ assert.ok(fs.existsSync(path.join(root, 'card/ai-motion-cover.png')));
 const motionCard = html.match(/<article[^>]*data-project="motion"[\s\S]*?<\/article>/)[0];
 assert.ok(motionCard.includes('src="card/ai-motion-cover.png"'));
 assert.ok(!motionCard.includes('<video'));
-assert.ok(html.includes('.video-frame.local-video{aspect-ratio:auto;'));
+assert.ok(html.includes('aspect-ratio:var(--video-ratio);'));
+assert.ok(html.includes('width:min(100%,calc(var(--video-max-height,65svh) * var(--video-ratio)))'));
 assert.ok(projects.motion.descriptionTh.includes('90%'));
 assert.ok(projects.motion.descriptionTh.includes('โมเดล 3D'));
 assert.ok(projects.motion.descriptionTh.includes('เจนจาก AI ทั้งหมด'));
@@ -149,27 +152,52 @@ for (const asset of ['card/cp-axtra-logo.svg', 'card/lotuss-logo.svg']) {
   assert.ok(!/(?:href|src)\s*=\s*["']https?:/i.test(svg));
 }
 
+const videoSizesSource = html.split(/\r?\n/).find(line => line.includes('const projectVideoSizes='));
+const videoSizes = vm.runInNewContext(videoSizesSource + ';projectVideoSizes');
+assert.deepEqual(Array.from(videoSizes.lotus[0]), [1080, 1920]);
+assert.deepEqual(Array.from(videoSizes.songkran[1]), [1080, 1920]);
+assert.deepEqual(videoSizes.bts.map(size => Array.from(size)).flat().join(','), '1280,720,1280,720,1280,720');
+assert.deepEqual(videoSizes.motion.map(size => Array.from(size)).flat().join(','), '1200,1200,1200,628');
+const expectedDriveIds = {
+  bts: ['1tHPnQl84Y4FLXerbC5E7nHie-liRBAvc', '18yD8BnCs_6lPM7sXIcvHhyZFY-3-wkgb', '14WX3TxP6v1nN7OUuOhgprknU1pq_NYB4'],
+  lotus: ['1lT4OhfLGQSeA3GGSSsYRFldfLMzDwQhv'],
+  songkran: ['1SSdxnwKi5gusUEHqmRy2V3Cb92mxIt2D', '1gPe-_Hi0g55hdoR4GFqYjnoMDvikAtRi'],
+  awards: ['1hziWG5gxsnQzv3Bx3hW1QfVUYE4nsl89']
+};
+for (const [key, ids] of Object.entries(expectedDriveIds)) {
+  assert.deepEqual(Array.from(projects[key].clips, clip => clip.id), ids, `${key}: original Drive sources preserved`);
+}
 for (const lang of ['en', 'th']) {
   const elements = new Map();
+  const frameStyle = new Map();
+  let preventScroll = false;
   const context = vm.createContext({
-    projects, currentLang: lang, modalBody: { innerHTML: '' },
-    modal: { classList: { add() {} } }, lucide: { createIcons() {} },
+    projects, projectVideoSizes: videoSizes, currentLang: lang,
+    modalBody: { innerHTML: '', scrollTop: 600, clientHeight: 540, style: { setProperty(name, value) { frameStyle.set(name, value); } } },
+    modal: { scrollTop: 400, classList: { add() {}, remove() {} } }, lucide: { createIcons() {} },
+    getComputedStyle: () => ({ paddingTop: '14px', paddingBottom: '14px' }),
     drivePreview: id => `https://drive.google.com/file/d/${id}/preview`,
     document: {
       getElementById(id) {
-        if (!elements.has(id)) elements.set(id, { textContent: '', focus() {} });
+        if (!elements.has(id)) elements.set(id, { textContent: '', focus(options) { preventScroll = options.preventScroll; } });
         return elements.get(id);
       },
-      body: { classList: { add() {} } }
+      body: { classList: { add() {}, remove() {} } }
     }
   });
-  for (const name of ['localized', 'descriptionMarkup', 'openProject']) {
+  for (const name of ['localized', 'descriptionMarkup', 'videoMarkup', 'sizeProjectVideos', 'openProject', 'closeProject']) {
     const source = html.split(/\r?\n/).find(line => line.includes(`function ${name}(`));
     assert.ok(source, name);
     vm.runInContext(source, context);
   }
   for (const key of projectKeys) {
+    context.modalBody.scrollTop = 600;
+    context.modal.scrollTop = 400;
     vm.runInContext(`openProject(${JSON.stringify(key)})`, context);
+    assert.equal(context.modalBody.scrollTop, 0, 'Each project opens at its description, not a previous scroll position');
+    assert.equal(context.modal.scrollTop, 0);
+    assert.equal(preventScroll, true, 'Focusing close should not scroll the page');
+    assert.equal(frameStyle.get('--video-max-height'), '512px');
     const title = lang === 'th' && projects[key].titleTh ? projects[key].titleTh : projects[key].title;
     assert.equal(elements.get('modal-title').textContent, title);
     if (projects[key].clips) {
@@ -180,6 +208,12 @@ for (const lang of ['en', 'th']) {
       const localClips = Array.from(projects[key].clips).filter(clip => clip.src);
       assert.equal((markup.match(/<iframe /g) || []).length, remoteClips.length);
       assert.equal((markup.match(/<video controls playsinline/g) || []).length, localClips.length);
+      const ratios = [...markup.matchAll(/style="--video-ratio:([\d.]+)"/g)].map(match => Number(match[1]));
+      assert.deepEqual(ratios, Array.from(projects[key].clips, (_, index) => {
+        const [width, height] = videoSizes[key]?.[index] || [16, 9];
+        return width / height;
+      }), `${key}: each clip uses its own aspect ratio`);
+      assert.equal((markup.match(/allowfullscreen/g) || []).length, remoteClips.length);
       assert.ok(!markup.includes('<button'), `${key}: no clip selection buttons`);
       const sources = [...markup.matchAll(/<iframe src="([^"]+)"/g)].map(match => match[1]);
       assert.deepEqual(sources, remoteClips.map(clip => `https://drive.google.com/file/d/${clip.id}/preview`), `${key}: clips stay in order`);
@@ -196,6 +230,11 @@ for (const lang of ['en', 'th']) {
       assert.ok(context.modalBody.innerHTML.includes(lang === 'th' ? 'วิดีโอพิธีมอบรางวัล' : 'Awards Ceremony Video'));
     }
   }
+  context.modalBody.clientHeight = 280;
+  vm.runInContext('sizeProjectVideos()', context);
+  assert.equal(frameStyle.get('--video-max-height'), '252px', 'Recalculate video size after device rotation');
+  vm.runInContext('closeProject()', context);
+  assert.equal(context.modalBody.innerHTML, '', 'Closing the project unloads its players');
 }
 
 const noOpClasses = { add() {}, remove() {} };
