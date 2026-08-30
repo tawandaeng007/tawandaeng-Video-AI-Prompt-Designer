@@ -193,7 +193,7 @@ for (const lang of ['en', 'th']) {
     }
   });
   vm.runInContext("let projectPageMode=false,projectReturnScroll=0,projectReturnFocus=null", context);
-  for (const name of ['localized', 'descriptionMarkup', 'videoMarkup', 'enterProjectView', 'fitDriveFrames', 'sizeProjectVideos', 'openProject', 'closeProject']) {
+  for (const name of ['localized', 'descriptionMarkup', 'videoMarkup', 'enterProjectView', 'sizeProjectVideos', 'openProject', 'closeProject']) {
     const source = html.split(/\r?\n/).find(line => line.includes(`function ${name}(`));
     assert.ok(source, name);
     vm.runInContext(source, context);
@@ -218,6 +218,9 @@ for (const lang of ['en', 'th']) {
       const remoteClips = Array.from(projects[key].clips).filter(clip => !clip.src);
       const localClips = Array.from(projects[key].clips).filter(clip => clip.src);
       assert.equal((markup.match(/<iframe /g) || []).length, remoteClips.length);
+      assert.equal((markup.match(/class="video-frame drive-video"/g) || []).length, remoteClips.length);
+      assert.ok(!markup.includes('target="_blank"'), 'Videos must stay on the portfolio page');
+      assert.ok(!/<a[^>]+href="https:\/\/drive\.google\.com/.test(markup), 'Keep Drive playback embedded, not external links');
       assert.equal((markup.match(/<video controls playsinline/g) || []).length, localClips.length);
       const ratios = [...markup.matchAll(/style="--video-ratio:([\d.]+)"/g)].map(match => Number(match[1]));
       assert.deepEqual(ratios, Array.from(projects[key].clips, (_, index) => {
@@ -271,21 +274,9 @@ assert.ok(html.includes('.project-page .modal.open{position:static;display:block
 assert.ok(html.includes('.project-page .modal-body{overflow:visible;'));
 assert.ok(html.includes('.project-page .video-frame{width:min(100%,calc(70svh * var(--video-ratio)))}'));
 assert.ok(html.includes('id="project-return"'));
-assert.ok(html.includes('.video-frame iframe{transform-origin:top left}'));
-const driveFrames = [[259,146],[329,185],[520,293],[329,585],[960,540]].map(([width,height]) => ({ parentElement: { clientWidth: width, clientHeight: height }, style: {} }));
-const driveFitContext = vm.createContext({ modalBody: { querySelectorAll() { return driveFrames; } } });
-vm.runInContext(html.split(/\r?\n/).find(line => line.includes('function fitDriveFrames(')), driveFitContext);
-vm.runInContext('fitDriveFrames()', driveFitContext);
-for (const iframe of driveFrames) {
-  const scale = Number(iframe.style.transform.match(/scale\((.*)\)/)[1]);
-  const width = parseFloat(iframe.style.width), height = parseFloat(iframe.style.height);
-  assert.ok(height >= 319.99, 'Drive must get at least its minimum internal player height');
-  assert.ok(Math.abs(width * scale - iframe.parentElement.clientWidth) < .01, 'Scaled player fits frame width');
-  assert.ok(Math.abs(height * scale - iframe.parentElement.clientHeight) < .01, 'Scaled player fits frame height');
-}
-driveFrames[0].parentElement = { clientWidth: 640, clientHeight: 360 };
-vm.runInContext('fitDriveFrames()', driveFitContext);
-assert.equal(driveFrames[0].style.transform, 'scale(1)', 'Restore natural scale on rotation to a larger frame');
+assert.ok(html.includes('.video-frame.drive-video{min-width:0;max-width:100%;min-height:320px}'), 'Provide real, unscaled room for Drive controls without horizontal overflow');
+assert.ok(html.includes('.video-frame iframe{transform:none}'));
+assert.ok(!html.includes('iframe.style.transform'), 'Do not scale native iPhone video controls');
 
 const noOpClasses = { add() {}, remove() {} };
 const cards = [...html.matchAll(/<article[^>]+data-category="([^"]+)"/g)].map(match => ({ dataset: { category: match[1] }, hidden: false }));
