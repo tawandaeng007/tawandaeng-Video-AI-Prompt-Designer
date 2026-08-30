@@ -168,24 +168,32 @@ for (const [key, ids] of Object.entries(expectedDriveIds)) {
   assert.deepEqual(Array.from(projects[key].clips, clip => clip.id), ids, `${key}: original Drive sources preserved`);
 }
 for (const lang of ['en', 'th']) {
+ for (const mobile of [false, true]) {
   const elements = new Map();
   const frameStyle = new Map();
+  const bodyClasses = new Set(), modalClasses = new Set();
+  const classes = set => ({ add(...names) { names.forEach(name => set.add(name)); }, remove(...names) { names.forEach(name => set.delete(name)); }, contains(name) { return set.has(name); } });
+  let scrollY = 1800, historyBacks = 0, historyPushes = 0, focusRestored = false;
   let preventScroll = false;
   const context = vm.createContext({
     projects, projectVideoSizes: videoSizes, currentLang: lang,
-    modalBody: { innerHTML: '', scrollTop: 600, clientHeight: 540, style: { setProperty(name, value) { frameStyle.set(name, value); } } },
-    modal: { scrollTop: 400, classList: { add() {}, remove() {} } }, lucide: { createIcons() {} },
+    modalBody: { innerHTML: '', scrollTop: 600, clientHeight: 540, querySelectorAll() { return []; }, style: { setProperty(name, value) { frameStyle.set(name, value); }, removeProperty(name) { frameStyle.delete(name); } } },
+    modal: { scrollTop: 400, classList: classes(modalClasses) }, lucide: { createIcons() {} },
+    window: { get scrollY() { return scrollY; }, matchMedia() { return { matches: mobile }; }, scrollTo({ top, behavior }) { assert.equal(behavior, 'instant'); scrollY = top; } },
+    history: { state: null, pushState(state) { this.state = state; historyPushes++; }, back() { this.state = null; historyBacks++; } },
     getComputedStyle: () => ({ paddingTop: '14px', paddingBottom: '14px' }),
     drivePreview: id => `https://drive.google.com/file/d/${id}/preview`,
     document: {
+      activeElement: { focus(options) { focusRestored = options.preventScroll; } },
       getElementById(id) {
         if (!elements.has(id)) elements.set(id, { textContent: '', focus(options) { preventScroll = options.preventScroll; } });
         return elements.get(id);
       },
-      body: { classList: { add() {}, remove() {} } }
+      body: { classList: classes(bodyClasses) }
     }
   });
-  for (const name of ['localized', 'descriptionMarkup', 'videoMarkup', 'sizeProjectVideos', 'openProject', 'closeProject']) {
+  vm.runInContext("let projectPageMode=false,projectReturnScroll=0,projectReturnFocus=null", context);
+  for (const name of ['localized', 'descriptionMarkup', 'videoMarkup', 'enterProjectView', 'fitDriveFrames', 'sizeProjectVideos', 'openProject', 'closeProject']) {
     const source = html.split(/\r?\n/).find(line => line.includes(`function ${name}(`));
     assert.ok(source, name);
     vm.runInContext(source, context);
@@ -197,7 +205,10 @@ for (const lang of ['en', 'th']) {
     assert.equal(context.modalBody.scrollTop, 0, 'Each project opens at its description, not a previous scroll position');
     assert.equal(context.modal.scrollTop, 0);
     assert.equal(preventScroll, true, 'Focusing close should not scroll the page');
-    assert.equal(frameStyle.get('--video-max-height'), '512px');
+    assert.equal(frameStyle.get('--video-max-height'), mobile ? undefined : '512px');
+    assert.equal(bodyClasses.has('project-page'), mobile);
+    assert.equal(bodyClasses.has('modal-open'), !mobile);
+    if (mobile) assert.equal(scrollY, 0, 'Mobile projects start at the top of the document');
     const title = lang === 'th' && projects[key].titleTh ? projects[key].titleTh : projects[key].title;
     assert.equal(elements.get('modal-title').textContent, title);
     if (projects[key].clips) {
@@ -229,13 +240,52 @@ for (const lang of ['en', 'th']) {
       assert.ok(context.modalBody.innerHTML.includes(`https://drive.google.com/file/d/${projects.awards.clips[0].id}/preview`));
       assert.ok(context.modalBody.innerHTML.includes(lang === 'th' ? 'วิดีโอพิธีมอบรางวัล' : 'Awards Ceremony Video'));
     }
+    vm.runInContext('closeProject()', context);
+    assert.equal(context.modalBody.innerHTML, '', 'Closing unloads the players');
+    assert.equal(bodyClasses.size, 0, 'Closing restores the homepage');
+    assert.equal(focusRestored, true);
+    assert.equal(scrollY, 1800, 'Return to the portfolio scroll position');
   }
+  assert.equal(historyPushes, mobile ? projectKeys.length : 0);
+  assert.equal(historyBacks, mobile ? projectKeys.length : 0);
+  vm.runInContext("openProject('bts')", context);
+  const pushesBeforeDuplicate = historyPushes;
+  vm.runInContext("openProject('bts')", context);
+  assert.equal(historyPushes, pushesBeforeDuplicate, 'Do not stack duplicate project history entries');
   context.modalBody.clientHeight = 280;
   vm.runInContext('sizeProjectVideos()', context);
-  assert.equal(frameStyle.get('--video-max-height'), '252px', 'Recalculate video size after device rotation');
-  vm.runInContext('closeProject()', context);
+  assert.equal(frameStyle.get('--video-max-height'), mobile ? undefined : '252px', 'Mobile frames do not resize with the browser toolbar');
+  const backsBeforePop = historyBacks;
+  vm.runInContext('closeProject(true)', context);
+  assert.equal(historyBacks, backsBeforePop, 'Browser Back must not trigger another Back');
   assert.equal(context.modalBody.innerHTML, '', 'Closing the project unloads its players');
+  const pushesBeforeForward = historyPushes;
+  vm.runInContext("openProject('bts',true)", context);
+  assert.equal(historyPushes, pushesBeforeForward, 'Forward restores the project without adding another history entry');
+  assert.equal(bodyClasses.has('project-page'), true);
+  vm.runInContext('closeProject(true)', context);
+ }
 }
+assert.ok(html.includes('body.project-page>header,body.project-page>main{display:none}'));
+assert.ok(html.includes('.project-page .modal.open{position:static;display:block;height:auto;'));
+assert.ok(html.includes('.project-page .modal-body{overflow:visible;'));
+assert.ok(html.includes('.project-page .video-frame{width:min(100%,calc(70svh * var(--video-ratio)))}'));
+assert.ok(html.includes('id="project-return"'));
+assert.ok(html.includes('.video-frame iframe{transform-origin:top left}'));
+const driveFrames = [[259,146],[329,185],[520,293],[329,585],[960,540]].map(([width,height]) => ({ parentElement: { clientWidth: width, clientHeight: height }, style: {} }));
+const driveFitContext = vm.createContext({ modalBody: { querySelectorAll() { return driveFrames; } } });
+vm.runInContext(html.split(/\r?\n/).find(line => line.includes('function fitDriveFrames(')), driveFitContext);
+vm.runInContext('fitDriveFrames()', driveFitContext);
+for (const iframe of driveFrames) {
+  const scale = Number(iframe.style.transform.match(/scale\((.*)\)/)[1]);
+  const width = parseFloat(iframe.style.width), height = parseFloat(iframe.style.height);
+  assert.ok(height >= 319.99, 'Drive must get at least its minimum internal player height');
+  assert.ok(Math.abs(width * scale - iframe.parentElement.clientWidth) < .01, 'Scaled player fits frame width');
+  assert.ok(Math.abs(height * scale - iframe.parentElement.clientHeight) < .01, 'Scaled player fits frame height');
+}
+driveFrames[0].parentElement = { clientWidth: 640, clientHeight: 360 };
+vm.runInContext('fitDriveFrames()', driveFitContext);
+assert.equal(driveFrames[0].style.transform, 'scale(1)', 'Restore natural scale on rotation to a larger frame');
 
 const noOpClasses = { add() {}, remove() {} };
 const cards = [...html.matchAll(/<article[^>]+data-category="([^"]+)"/g)].map(match => ({ dataset: { category: match[1] }, hidden: false }));
